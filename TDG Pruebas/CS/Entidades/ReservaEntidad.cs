@@ -28,15 +28,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ReservaEntidad class.
 		/// </summary>
-		public ReservaEntidad(int idReserva, int idPedido, int idPedidoDetalle, int idSucursal, bool activo, DateTime fecha)
-		{
-			this.idReserva = idReserva;
-			this.idPedido = idPedido;
-			this.idPedidoDetalle = idPedidoDetalle;
-			this.idSucursal = idSucursal;
-			this.activo = activo;
-			this.fecha = fecha;
-		}
+	
 
 		#endregion
 

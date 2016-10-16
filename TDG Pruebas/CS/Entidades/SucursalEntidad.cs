@@ -26,13 +26,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the SucursalEntidad class.
 		/// </summary>
-		public SucursalEntidad(int idSucursal, string descripSucursal, int direccionSucursal, int cUIT)
-		{
-			this.idSucursal = idSucursal;
-			this.descripSucursal = descripSucursal;
-			this.direccionSucursal = direccionSucursal;
-			this.cUIT = cUIT;
-		}
+		
 
 		#endregion
 

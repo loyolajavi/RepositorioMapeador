@@ -26,8 +26,8 @@ namespace TFI.DAL
 		/// </summary>
 		public IvaProductoEntidad(int idIvaProducto, int porcentajeIvaProd)
 		{
-			this.idIvaProducto = idIvaProducto;
-			this.porcentajeIvaProd = porcentajeIvaProd;
+			this.IdIvaProducto = idIvaProducto;
+			this.PorcentajeIvaProd = porcentajeIvaProd;
 		}
 
 		#endregion

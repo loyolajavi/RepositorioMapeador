@@ -27,9 +27,9 @@ namespace TFI.DAL
 		/// </summary>
 		public ListaDeseoEntidad(int idListaDeseos, int cUIT, string nombreUsuario)
 		{
-			this.idListaDeseos = idListaDeseos;
-			this.cUIT = cUIT;
-			this.nombreUsuario = nombreUsuario;
+			this.IdListaDeseos = idListaDeseos;
+			this.CUIT = cUIT;
+			this.NombreUsuario = nombreUsuario;
 		}
 
 		#endregion

@@ -16,19 +16,17 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the TipoTelEntidad class.
 		/// </summary>
-		public TipoTelEntidad(string descripcionTipoTel)
+		public TipoTelEntidad(string descripcionTipoTel, int tipo)
+            
 		{
+            this.IdTipoTel = tipo;
 			this.DescripcionTipoTel = descripcionTipoTel;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the TipoTelEntidad class.
 		/// </summary>
-		public TipoTelEntidad(int idTipoTel, string descripcionTipoTel)
-		{
-			this.idTipoTel = idTipoTel;
-			this.descripcionTipoTel = descripcionTipoTel;
-		}
+	
 
 		#endregion
 

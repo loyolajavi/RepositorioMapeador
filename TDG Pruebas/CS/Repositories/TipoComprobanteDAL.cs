@@ -2,10 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
-
+using TFI.HelperDAL;
 namespace TFI.DAL.DAL
 {
 	public class TipoComprobanteDAL
@@ -83,69 +80,36 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoComprobante", idTipoComprobante)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "TipoComprobanteSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "TipoComprobanteSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                TipoComprobanteEntidad entidad = new TipoComprobanteEntidad();
+                //       
+
+                entidad = Mapeador.MapearFirst<TipoComprobanteEntidad>(dt);
+
+
+
+                return entidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the TipoComprobante table.
-		/// </summary>
-		public string SelectJson(int idTipoComprobante)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdTipoComprobante", idTipoComprobante)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "TipoComprobanteSelect", parameters);
-		}
-
+		
 		/// <summary>
 		/// Selects all records from the TipoComprobante table.
 		/// </summary>
 		public List<TipoComprobanteEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "TipoComprobanteSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "TipoComprobanteSelectAll"))
 			{
-				List<TipoComprobanteEntidad> tipoComprobanteEntidadList = new List<TipoComprobanteEntidad>();
-				while (dataReader.Read())
-				{
-					TipoComprobanteEntidad tipoComprobanteEntidad = MapDataReader(dataReader);
-					tipoComprobanteEntidadList.Add(tipoComprobanteEntidad);
-				}
+                List<TipoComprobanteEntidad> lista = new List<TipoComprobanteEntidad>();
+                lista = Mapeador.Mapear<TipoComprobanteEntidad>(dt);
 
-				return tipoComprobanteEntidadList;
+                return lista;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the TipoComprobante table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "TipoComprobanteSelectAll");
-		}
-
-		/// <summary>
-		/// Creates a new instance of the TipoComprobanteEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private TipoComprobanteEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			TipoComprobanteEntidad tipoComprobanteEntidad = new TipoComprobanteEntidad();
-			tipoComprobanteEntidad.IdTipoComprobante = dataReader.GetInt32("IdTipoComprobante", 0);
-			tipoComprobanteEntidad.DescripTipoComprobante = dataReader.GetString("DescripTipoComprobante", null);
-
-			return tipoComprobanteEntidad;
-		}
+	
+	
 
 		#endregion
 	}

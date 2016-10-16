@@ -2,30 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
+
 
 namespace TFI.DAL.DAL
 {
 	public class LenguajeDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public LenguajeDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -41,7 +25,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripcionLenguaje", lenguaje.DescripcionLenguaje)
 			};
 
-			lenguaje.IdLenguaje = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "LenguajeInsert", parameters);
+            lenguaje.IdLenguaje = (int)SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "LenguajeInsert", parameters);
 		}
 
 		/// <summary>
@@ -57,7 +41,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripcionLenguaje", lenguaje.DescripcionLenguaje)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "LenguajeUpdate", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "LenguajeUpdate", parameters);
 		}
 
 		/// <summary>
@@ -70,7 +54,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdLenguaje", idLenguaje)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "LenguajeDelete", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "LenguajeDelete", parameters);
 		}
 
 		/// <summary>
@@ -83,69 +67,32 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdLenguaje", idLenguaje)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "LenguajeSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "LenguajeSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                LenguajeEntidad LenguajeEntidad = new LenguajeEntidad();
+
+                LenguajeEntidad = Mapeador.MapearFirst<LenguajeEntidad>(dt);
+
+                return LenguajeEntidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the Lenguaje table.
-		/// </summary>
-		public string SelectJson(int idLenguaje)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdLenguaje", idLenguaje)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "LenguajeSelect", parameters);
-		}
 
 		/// <summary>
 		/// Selects all records from the Lenguaje table.
 		/// </summary>
 		public List<LenguajeEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "LenguajeSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "LenguajeSelectAll"))
 			{
 				List<LenguajeEntidad> lenguajeEntidadList = new List<LenguajeEntidad>();
-				while (dataReader.Read())
-				{
-					LenguajeEntidad lenguajeEntidad = MapDataReader(dataReader);
-					lenguajeEntidadList.Add(lenguajeEntidad);
-				}
+
+                lenguajeEntidadList = Mapeador.Mapear<LenguajeEntidad>(dt);
 
 				return lenguajeEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the Lenguaje table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "LenguajeSelectAll");
-		}
-
-		/// <summary>
-		/// Creates a new instance of the LenguajeEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private LenguajeEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			LenguajeEntidad lenguajeEntidad = new LenguajeEntidad();
-			lenguajeEntidad.IdLenguaje = dataReader.GetInt32("IdLenguaje", 0);
-			lenguajeEntidad.DescripcionLenguaje = dataReader.GetString("DescripcionLenguaje", null);
-
-			return lenguajeEntidad;
-		}
 
 		#endregion
 	}

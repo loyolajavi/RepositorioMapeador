@@ -33,20 +33,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the UsuarioEntidad class.
 		/// </summary>
-		public UsuarioEntidad(int idUsuario, int idCondicionFiscal, int idUsuarioTipo, string nombre, string apellido, string dni, int cUIT, string email, string nombreUsuario, string clave, int cUITEmpresa)
-		{
-			this.idUsuario = idUsuario;
-			this.idCondicionFiscal = idCondicionFiscal;
-			this.idUsuarioTipo = idUsuarioTipo;
-			this.nombre = nombre;
-			this.apellido = apellido;
-			this.dni = dni;
-			this.cUIT = cUIT;
-			this.email = email;
-			this.nombreUsuario = nombreUsuario;
-			this.clave = clave;
-			this.cUITEmpresa = cUITEmpresa;
-		}
+		
 
 		#endregion
 

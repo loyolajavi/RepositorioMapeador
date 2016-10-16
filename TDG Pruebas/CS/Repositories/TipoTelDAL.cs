@@ -2,10 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
-
+using TFI.HelperDAL;
 namespace TFI.DAL.DAL
 {
 	public class TipoTelDAL
@@ -83,69 +80,38 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoTel", idTipoTel)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "TipoTelSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "TipoTelSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                TipoTelEntidad entidad = new TipoTelEntidad();
+                //       
+
+                entidad = Mapeador.MapearFirst<TipoTelEntidad>(dt);
+
+
+
+                return entidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the TipoTel table.
-		/// </summary>
-		public string SelectJson(int idTipoTel)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdTipoTel", idTipoTel)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "TipoTelSelect", parameters);
-		}
+		
 
 		/// <summary>
 		/// Selects all records from the TipoTel table.
 		/// </summary>
 		public List<TipoTelEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "TipoTelSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "TipoTelSelectAll"))
 			{
-				List<TipoTelEntidad> tipoTelEntidadList = new List<TipoTelEntidad>();
-				while (dataReader.Read())
-				{
-					TipoTelEntidad tipoTelEntidad = MapDataReader(dataReader);
-					tipoTelEntidadList.Add(tipoTelEntidad);
-				}
+                List<TipoTelEntidad> lista = new List<TipoTelEntidad>();
+                lista = Mapeador.Mapear<TipoTelEntidad>(dt);
 
-				return tipoTelEntidadList;
+                return lista;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the TipoTel table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "TipoTelSelectAll");
-		}
+	
 
-		/// <summary>
-		/// Creates a new instance of the TipoTelEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private TipoTelEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			TipoTelEntidad tipoTelEntidad = new TipoTelEntidad();
-			tipoTelEntidad.IdTipoTel = dataReader.GetInt32("IdTipoTel", 0);
-			tipoTelEntidad.DescripcionTipoTel = dataReader.GetString("DescripcionTipoTel", null);
-
-			return tipoTelEntidad;
-		}
+		
 
 		#endregion
 	}

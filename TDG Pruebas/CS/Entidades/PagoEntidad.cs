@@ -34,16 +34,16 @@ namespace TFI.DAL
 		/// </summary>
 		public PagoEntidad(int idPago, int idPedido, DateTime fechaPago, int idEstadoPago, int idFormaPago, decimal montoPago, int nroComprobante, int idSucursal, int idTipoComprobante, int cUIT)
 		{
-			this.idPago = idPago;
-			this.idPedido = idPedido;
-			this.fechaPago = fechaPago;
-			this.idEstadoPago = idEstadoPago;
-			this.idFormaPago = idFormaPago;
-			this.montoPago = montoPago;
-			this.nroComprobante = nroComprobante;
-			this.idSucursal = idSucursal;
-			this.idTipoComprobante = idTipoComprobante;
-			this.cUIT = cUIT;
+			this.IdPago = idPago;
+			this.IdPedido = idPedido;
+			this.FechaPago = fechaPago;
+			this.IdEstadoPago = idEstadoPago;
+			this.IdFormaPago = idFormaPago;
+			this.MontoPago = montoPago;
+			this.NroComprobante = nroComprobante;
+			this.IdSucursal = idSucursal;
+			this.IdTipoComprobante = idTipoComprobante;
+			this.CUIT = cUIT;
 		}
 
 		#endregion

@@ -2,30 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
 
 namespace TFI.DAL.DAL
 {
 	public class PatenteDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public PatenteDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -41,7 +24,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombrePatente", patente.NombrePatente)
 			};
 
-			patente.IdPatente = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "PatenteInsert", parameters);
+            patente.IdPatente = (int)SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PatenteInsert", parameters);
 		}
 
 		/// <summary>
@@ -57,7 +40,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombrePatente", patente.NombrePatente)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "PatenteUpdate", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PatenteUpdate", parameters);
 		}
 
 		/// <summary>
@@ -70,7 +53,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdPatente", idPatente)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "PatenteDelete", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PatenteDelete", parameters);
 		}
 
 		/// <summary>
@@ -83,69 +66,34 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdPatente", idPatente)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "PatenteSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PatenteSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                PatenteEntidad PatenteEntidad = new PatenteEntidad();
+
+                PatenteEntidad = Mapeador.MapearFirst<PatenteEntidad>(dt);
+
+                return PatenteEntidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the Patente table.
-		/// </summary>
-		public string SelectJson(int idPatente)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdPatente", idPatente)
-			};
 
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "PatenteSelect", parameters);
-		}
 
 		/// <summary>
 		/// Selects all records from the Patente table.
 		/// </summary>
 		public List<PatenteEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "PatenteSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PatenteSelectAll"))
 			{
 				List<PatenteEntidad> patenteEntidadList = new List<PatenteEntidad>();
-				while (dataReader.Read())
-				{
-					PatenteEntidad patenteEntidad = MapDataReader(dataReader);
-					patenteEntidadList.Add(patenteEntidad);
-				}
+
+                patenteEntidadList = Mapeador.Mapear<PatenteEntidad>(dt);
 
 				return patenteEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the Patente table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "PatenteSelectAll");
-		}
 
-		/// <summary>
-		/// Creates a new instance of the PatenteEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private PatenteEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			PatenteEntidad patenteEntidad = new PatenteEntidad();
-			patenteEntidad.IdPatente = dataReader.GetInt32("IdPatente", 0);
-			patenteEntidad.NombrePatente = dataReader.GetString("NombrePatente", null);
-
-			return patenteEntidad;
-		}
 
 		#endregion
 	}

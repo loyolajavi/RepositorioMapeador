@@ -14,11 +14,13 @@ namespace TFI.HelperDAL
     /// </summary>
     public static class SqlClientUtility
     {
+        public static string connectionStringName { get { return connectionStringName;} set { connectionStringName = ConfigurationManager.ConnectionStrings["DataContext"].ConnectionString; } }
+        
         //public static string connectionStringName = ConfigurationManager.ConnectionStrings["DataContext"].ConnectionString;
         private static SqlTransaction tr;
         private static SqlCommand command;
         private static SqlConnection connection;
-        private static DataTable datatable;
+        //private static DataTable datatable; EL COMPILADOR DECIA QUE NO SE USABA NUNCA; POR ESO LO DEJE COMENTADO
 
 
         /// <summary>

@@ -8,13 +8,13 @@ using System.Collections.Generic;
 using System.Linq;
 using TFI.HelperDAL;
 
+
 namespace TFI.DAL.DAL
 {
 	public class FormaPagoDAL
 	{
 
 
-        private string connectionStringName;
 		
 
 		#region Methods
@@ -22,7 +22,7 @@ namespace TFI.DAL.DAL
 		/// <summary>
 		/// Saves a record to the FormaPago table.
 		/// </summary>
-        public void Insert(FormaPagoEntidades formaPago)
+        public void Insert(FormaPagoEntidad formaPago)
         {
 
 
@@ -33,7 +33,7 @@ namespace TFI.DAL.DAL
                 new SqlParameter("@DescripFormaPago", formaPago.DescripFormaPago)
             };
 
-            formaPago.IdFormaPago = (int)SqlClientUtility.ExecuteScalar("asdf", CommandType.StoredProcedure, "FormaPagoInsert", parameters);
+            formaPago.IdFormaPago = (int)SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FormaPagoInsert", parameters);
             SqlClientUtility.ExecuteDataTable("asdf", CommandType.StoredProcedure, "FormaPagoInsert", parameters);
 
         }
@@ -43,7 +43,7 @@ namespace TFI.DAL.DAL
  		/// <summary>
 		/// Updates a record in the FormaPago table.
 		/// </summary>
-        public void Update(FormaPagoEntidades formaPago)
+        public void Update(FormaPagoEntidad formaPago)
         {
             ValidationUtility.ValidateArgument("formaPago", formaPago);
 
@@ -53,7 +53,7 @@ namespace TFI.DAL.DAL
                 new SqlParameter("@DescripFormaPago", formaPago.DescripFormaPago)
             };
 
-            SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "FormaPagoUpdate", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FormaPagoUpdate", parameters);
         }
 
 		/// <summary>
@@ -66,124 +66,51 @@ namespace TFI.DAL.DAL
                 new SqlParameter("@IdFormaPago", idFormaPago)
             };
 
-            SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "FormaPagoDelete", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FormaPagoDelete", parameters);
         }
 
 		/// <summary>
 		/// Selects a single record from the FormaPago table.
 		/// </summary>
-        //public FormaPagoEntidades Select(int idFormaPago)
-        //{
-        //    SqlParameter[] parameters = new SqlParameter[]
-        //    {
-        //        new SqlParameter("@IdFormaPago", idFormaPago)
-        //    };
+        public FormaPagoEntidad Select(int idFormaPago)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@IdFormaPago", idFormaPago)
+            };
 
-        //    using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "FormaPagoSelect", parameters))
-        //    {
-        //        if (dataReader.Read())
-        //        {
-        //            return MapDataReader(dataReader);
-        //        }
-        //        else
-        //        {
-        //            return null;
-        //        }
-        //    }
-        //}
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FormaPagoSelect", parameters))
+            {
+                FormaPagoEntidad FormaPagoEntidad = new FormaPagoEntidad();
 
-		/// <summary>
-		/// Selects a single record from the FormaPago table.
-		/// </summary>
-        //public string SelectJson(int idFormaPago)
-        //{
-        //    SqlParameter[] parameters = new SqlParameter[]
-        //    {
-        //        new SqlParameter("@IdFormaPago", idFormaPago)
-        //    };
+                FormaPagoEntidad = Mapeador.MapearFirst<FormaPagoEntidad>(dt);
 
-        //    return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "FormaPagoSelect", parameters);
-        //}
+                return FormaPagoEntidad;
+            }
+        }
 
+		
 		/// <summary>
 		/// Selects all records from the FormaPago table.
 		/// </summary>
-		public List<FormaPagoEntidades> SelectAll()
-		{
-            //Para el connection string en vez del string usar: string connectionString = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString; 
-            //Y tiene que estar la libreria: using System.Configuration;
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable("data source=JAVI-PC\\SQLEXPRESS;initial catalog=Ecommercetfiv12;integrated security=sspi", CommandType.StoredProcedure, "FormaPagoSelectAll"))
-			{
-				List<FormaPagoEntidades> formaPagoEntidadesList = new List<FormaPagoEntidades>();
-                //while (dt.Read())
-                //{
-                //    FormaPagoEntidades formaPagoEntidades = MapDataReader(dataReader);
-                //    formaPagoEntidadesList.Add(formaPagoEntidades);
-                //}
-
-                formaPagoEntidadesList = Mapeador.Mapear<FormaPagoEntidades>(dt);       
 
 
-
-				return formaPagoEntidadesList;
-			}
-		}
-
-
-        public List<FormaPagoEntidades> SelectAllk()
+        public List<FormaPagoEntidad> SelectAll()
         {
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "FormaPagoSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FormaPagoSelectAll"))
             {
-                List<FormaPagoEntidades> formaPagoEntidadesList2 = new List<FormaPagoEntidades>();
+                List<FormaPagoEntidad> formaPagoEntidadesList = new List<FormaPagoEntidad>();
 
-                formaPagoEntidadesList2 = Mapeador.Mapear<FormaPagoEntidades>(dt);
+                formaPagoEntidadesList = Mapeador.Mapear<FormaPagoEntidad>(dt);
 
-                return formaPagoEntidadesList2;
+                return formaPagoEntidadesList;
             }
         }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		/// <summary>
-		/// Selects all records from the FormaPago table.
-		/// </summary>
-        //public string SelectAllJson()
-        //{
-        //    return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "FormaPagoSelectAll");
-        //}
-
-		/// <summary>
-		/// Creates a new instance of the FormaPagoEntidades class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-        //private FormaPagoEntidades MapDataReader(SqlDataReader dataReader)
-        //{
-        //    FormaPagoEntidades formaPagoEntidade = new FormaPagoEntidades();
-        //    formaPagoEntidade.IdFormaPago = dataReader.GetInt32("IdFormaPago", 0);
-        //    formaPagoEntidade.DescripFormaPago = dataReader.GetString("DescripFormaPago", null);
-
-        //    return formaPagoEntidade;
-        //}
-
 		#endregion
-	}
+
+    }
 }

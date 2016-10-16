@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
 
 namespace TFI.DAL.DAL
 {
@@ -113,57 +111,36 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdSucursal", idSucursal)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "SucursalSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "SucursalSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                SucursalEntidad entidad = new SucursalEntidad();
+                //       
+
+                entidad = Mapeador.MapearFirst<SucursalEntidad>(dt);
+
+
+
+                return entidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the Sucursal table.
-		/// </summary>
-		public string SelectJson(int idSucursal)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdSucursal", idSucursal)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "SucursalSelect", parameters);
-		}
+	
 
 		/// <summary>
 		/// Selects all records from the Sucursal table.
 		/// </summary>
 		public List<SucursalEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "SucursalSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "SucursalSelectAll"))
 			{
-				List<SucursalEntidad> sucursalEntidadList = new List<SucursalEntidad>();
-				while (dataReader.Read())
-				{
-					SucursalEntidad sucursalEntidad = MapDataReader(dataReader);
-					sucursalEntidadList.Add(sucursalEntidad);
-				}
+                List<SucursalEntidad> lista = new List<SucursalEntidad>();
+                lista = Mapeador.Mapear<SucursalEntidad>(dt);
 
-				return sucursalEntidadList;
+                return lista;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the Sucursal table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "SucursalSelectAll");
-		}
+		
 
 		/// <summary>
 		/// Selects all records from the Sucursal table by a foreign key.
@@ -175,16 +152,14 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DireccionSucursal", direccionSucursal)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "SucursalSelectAllByDireccionSucursal", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "SucursalSelectAllByDireccionSucursal", parameters))
 			{
-				List<SucursalEntidad> sucursalEntidadList = new List<SucursalEntidad>();
-				while (dataReader.Read())
-				{
-					SucursalEntidad sucursalEntidad = MapDataReader(dataReader);
-					sucursalEntidadList.Add(sucursalEntidad);
-				}
+                List<SucursalEntidad> lista = new List<SucursalEntidad>();
+                lista = Mapeador.Mapear<SucursalEntidad>(dt);
 
-				return sucursalEntidadList;
+                return lista;
+
+				
 			}
 		}
 
@@ -198,59 +173,20 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", cUIT)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "SucursalSelectAllByCUIT", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "SucursalSelectAllByCUIT", parameters))
 			{
-				List<SucursalEntidad> sucursalEntidadList = new List<SucursalEntidad>();
-				while (dataReader.Read())
-				{
-					SucursalEntidad sucursalEntidad = MapDataReader(dataReader);
-					sucursalEntidadList.Add(sucursalEntidad);
-				}
+                List<SucursalEntidad> lista = new List<SucursalEntidad>();
+                lista = Mapeador.Mapear<SucursalEntidad>(dt);
 
-				return sucursalEntidadList;
+                return lista;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the Sucursal table by a foreign key.
-		/// </summary>
-		public string SelectAllByDireccionSucursalJson(int direccionSucursal)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@DireccionSucursal", direccionSucursal)
-			};
+	
 
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "SucursalSelectAllByDireccionSucursal", parameters);
-		}
+	
 
-		/// <summary>
-		/// Selects all records from the Sucursal table by a foreign key.
-		/// </summary>
-		public string SelectAllByCUITJson(int cUIT)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@CUIT", cUIT)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "SucursalSelectAllByCUIT", parameters);
-		}
-
-		/// <summary>
-		/// Creates a new instance of the SucursalEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private SucursalEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			SucursalEntidad sucursalEntidad = new SucursalEntidad();
-			sucursalEntidad.IdSucursal = dataReader.GetInt32("IdSucursal", 0);
-			sucursalEntidad.DescripSucursal = dataReader.GetString("DescripSucursal", null);
-			sucursalEntidad.DireccionSucursal = dataReader.GetInt32("DireccionSucursal", 0);
-			sucursalEntidad.CUIT = dataReader.GetInt32("CUIT", 0);
-
-			return sucursalEntidad;
-		}
-
+		
 		#endregion
 	}
 }

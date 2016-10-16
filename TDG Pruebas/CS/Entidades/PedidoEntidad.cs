@@ -34,16 +34,16 @@ namespace TFI.DAL
 		/// </summary>
 		public PedidoEntidad(int idPedido, DateTime fechaPedido, DateTime fechaFinPedido, string nombreUsuario, int plazoEntrega, int idEstadoPedido, int idFormaEntrega, int cUIT, string numeroTracking, int direccionEntrega)
 		{
-			this.idPedido = idPedido;
-			this.fechaPedido = fechaPedido;
-			this.fechaFinPedido = fechaFinPedido;
-			this.nombreUsuario = nombreUsuario;
-			this.plazoEntrega = plazoEntrega;
-			this.idEstadoPedido = idEstadoPedido;
-			this.idFormaEntrega = idFormaEntrega;
-			this.cUIT = cUIT;
-			this.numeroTracking = numeroTracking;
-			this.direccionEntrega = direccionEntrega;
+			this.IdPedido = idPedido;
+			this.FechaPedido = fechaPedido;
+			this.FechaFinPedido = fechaFinPedido;
+			this.NombreUsuario = nombreUsuario;
+			this.PlazoEntrega = plazoEntrega;
+			this.IdEstadoPedido = idEstadoPedido;
+			this.IdFormaEntrega = idFormaEntrega;
+			this.CUIT = cUIT;
+			this.NumeroTracking = numeroTracking;
+			this.DireccionEntrega = direccionEntrega;
 		}
 
 		#endregion

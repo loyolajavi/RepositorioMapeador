@@ -1,6 +1,6 @@
 using System;
 
-namespace TFI.DAL
+namespace TFI.DAL 
 {
 	public class ProductoEntidad
 	{
@@ -30,17 +30,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ProductoEntidad class.
 		/// </summary>
-		public ProductoEntidad(int idProducto, string codigoProducto, decimal precioUnitario, int idMarca, int cUIT, int idIvaProducto, string descripProducto, int idEstadoProducto)
-		{
-			this.idProducto = idProducto;
-			this.codigoProducto = codigoProducto;
-			this.precioUnitario = precioUnitario;
-			this.idMarca = idMarca;
-			this.cUIT = cUIT;
-			this.idIvaProducto = idIvaProducto;
-			this.descripProducto = descripProducto;
-			this.idEstadoProducto = idEstadoProducto;
-		}
+		
 
 		#endregion
 

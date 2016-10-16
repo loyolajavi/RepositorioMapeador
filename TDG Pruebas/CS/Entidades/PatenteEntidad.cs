@@ -26,8 +26,8 @@ namespace TFI.DAL
 		/// </summary>
 		public PatenteEntidad(int idPatente, string nombrePatente)
 		{
-			this.idPatente = idPatente;
-			this.nombrePatente = nombrePatente;
+			this.IdPatente = idPatente;
+			this.NombrePatente = nombrePatente;
 		}
 
 		#endregion

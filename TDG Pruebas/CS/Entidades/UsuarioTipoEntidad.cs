@@ -13,21 +13,15 @@ namespace TFI.DAL
 		{
 		}
 
-		/// <summary>
-		/// Initializes a new instance of the UsuarioTipoEntidad class.
-		/// </summary>
-		public UsuarioTipoEntidad(string descripcion)
-		{
-			this.Descripcion = descripcion;
-		}
+		
 
 		/// <summary>
 		/// Initializes a new instance of the UsuarioTipoEntidad class.
 		/// </summary>
 		public UsuarioTipoEntidad(int idUsuarioTipo, string descripcion)
 		{
-			this.idUsuarioTipo = idUsuarioTipo;
-			this.descripcion = descripcion;
+            this.IdUsuarioTipo = idUsuarioTipo;
+            this.Descripcion = descripcion;
 		}
 
 		#endregion

@@ -89,7 +89,6 @@
     <Compile Include="HelperDAL\SqlClientUtility.cs" />
     <Compile Include="HelperDAL\ValidationUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entidades\FormaPagoEntidades.cs" />
     <Compile Include="Repositories\BitacoraLogDAL.cs" />
     <Compile Include="Repositories\CategoriaDAL.cs" />
     <Compile Include="Repositories\ComprobanteDAL.cs" />

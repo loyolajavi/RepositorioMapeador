@@ -28,10 +28,10 @@ namespace TFI.DAL
 		/// </summary>
 		public ListaDeseosDetalleEntidad(int idListaDeseos, int idListaDeseosDetalle, int idProducto, DateTime fechaDeseoDetalle)
 		{
-			this.idListaDeseos = idListaDeseos;
-			this.idListaDeseosDetalle = idListaDeseosDetalle;
-			this.idProducto = idProducto;
-			this.fechaDeseoDetalle = fechaDeseoDetalle;
+			this.IdListaDeseos = idListaDeseos;
+			this.IdListaDeseosDetalle = idListaDeseosDetalle;
+			this.IdProducto = idProducto;
+			this.FechaDeseoDetalle = fechaDeseoDetalle;
 		}
 
 		#endregion

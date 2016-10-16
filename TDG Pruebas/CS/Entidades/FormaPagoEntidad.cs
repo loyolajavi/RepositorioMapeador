@@ -26,8 +26,8 @@ namespace TFI.DAL
 		/// </summary>
 		public FormaPagoEntidad(int idFormaPago, string descripFormaPago)
 		{
-			this.idFormaPago = idFormaPago;
-			this.descripFormaPago = descripFormaPago;
+			this.IdFormaPago = idFormaPago;
+			this.DescripFormaPago = descripFormaPago;
 		}
 
 		#endregion

@@ -2,30 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
 
 namespace TFI.DAL.DAL
 {
 	public class MonedaDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public MonedaDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -43,7 +26,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@Cotizacion", moneda.Cotizacion)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "MonedaInsert", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "MonedaInsert", parameters);
 		}
 
 		/// <summary>
@@ -60,7 +43,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@Cotizacion", moneda.Cotizacion)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "MonedaUpdate", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "MonedaUpdate", parameters);
 		}
 
 		/// <summary>
@@ -73,7 +56,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdMoneda", idMoneda)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "MonedaDelete", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "MonedaDelete", parameters);
 		}
 
 		/// <summary>
@@ -86,70 +69,34 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdMoneda", idMoneda)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "MonedaSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "MonedaSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                MonedaEntidad MonedaEntidad = new MonedaEntidad();
+
+                MonedaEntidad = Mapeador.MapearFirst<MonedaEntidad>(dt);
+
+                return MonedaEntidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the Moneda table.
-		/// </summary>
-		public string SelectJson(int idMoneda)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdMoneda", idMoneda)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "MonedaSelect", parameters);
-		}
+	
 
 		/// <summary>
 		/// Selects all records from the Moneda table.
 		/// </summary>
 		public List<MonedaEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "MonedaSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "MonedaSelectAll"))
 			{
 				List<MonedaEntidad> monedaEntidadList = new List<MonedaEntidad>();
-				while (dataReader.Read())
-				{
-					MonedaEntidad monedaEntidad = MapDataReader(dataReader);
-					monedaEntidadList.Add(monedaEntidad);
-				}
+
+                monedaEntidadList = Mapeador.Mapear<MonedaEntidad>(dt);
 
 				return monedaEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the Moneda table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "MonedaSelectAll");
-		}
-
-		/// <summary>
-		/// Creates a new instance of the MonedaEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private MonedaEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			MonedaEntidad monedaEntidad = new MonedaEntidad();
-			monedaEntidad.IdMoneda = dataReader.GetInt32("IdMoneda", 0);
-			monedaEntidad.Nombre = dataReader.GetString("Nombre", null);
-			monedaEntidad.Cotizacion = dataReader.GetDecimal("Cotizacion", Decimal.Zero);
-
-			return monedaEntidad;
-		}
+		
 
 		#endregion
 	}

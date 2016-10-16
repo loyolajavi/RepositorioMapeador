@@ -2,30 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
 
 namespace TFI.DAL.DAL
 {
 	public class ListaDeseosDetalleDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public ListaDeseosDetalleDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -43,7 +26,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@FechaDeseoDetalle", listaDeseosDetalle.FechaDeseoDetalle)
 			};
 
-			listaDeseosDetalle.IdListaDeseosDetalle = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleInsert", parameters);
+            listaDeseosDetalle.IdListaDeseosDetalle = (int)SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleInsert", parameters);
 		}
 
 		/// <summary>
@@ -61,7 +44,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@FechaDeseoDetalle", listaDeseosDetalle.FechaDeseoDetalle)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleUpdate", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleUpdate", parameters);
 		}
 
 		/// <summary>
@@ -75,7 +58,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdListaDeseosDetalle", idListaDeseosDetalle)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleDelete", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleDelete", parameters);
 		}
 
 		/// <summary>
@@ -88,7 +71,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdListaDeseos", idListaDeseos)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleDeleteAllByIdListaDeseos", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleDeleteAllByIdListaDeseos", parameters);
 		}
 
 		/// <summary>
@@ -101,7 +84,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdProducto", idProducto)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleDeleteAllByIdProducto", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleDeleteAllByIdProducto", parameters);
 		}
 
 		/// <summary>
@@ -115,58 +98,33 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdListaDeseosDetalle", idListaDeseosDetalle)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                ListaDeseosDetalleEntidad ListaDeseosDetalleEntidad = new ListaDeseosDetalleEntidad();
+
+                ListaDeseosDetalleEntidad = Mapeador.MapearFirst<ListaDeseosDetalleEntidad>(dt);
+
+                return ListaDeseosDetalleEntidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the ListaDeseosDetalle table.
-		/// </summary>
-		public string SelectJson(int idListaDeseos, int idListaDeseosDetalle)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdListaDeseos", idListaDeseos),
-				new SqlParameter("@IdListaDeseosDetalle", idListaDeseosDetalle)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleSelect", parameters);
-		}
 
 		/// <summary>
 		/// Selects all records from the ListaDeseosDetalle table.
 		/// </summary>
 		public List<ListaDeseosDetalleEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleSelectAll"))
 			{
 				List<ListaDeseosDetalleEntidad> listaDeseosDetalleEntidadList = new List<ListaDeseosDetalleEntidad>();
-				while (dataReader.Read())
-				{
-					ListaDeseosDetalleEntidad listaDeseosDetalleEntidad = MapDataReader(dataReader);
-					listaDeseosDetalleEntidadList.Add(listaDeseosDetalleEntidad);
-				}
+
+                listaDeseosDetalleEntidadList = Mapeador.Mapear<ListaDeseosDetalleEntidad>(dt);
 
 				return listaDeseosDetalleEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the ListaDeseosDetalle table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleSelectAll");
-		}
+	
 
 		/// <summary>
 		/// Selects all records from the ListaDeseosDetalle table by a foreign key.
@@ -178,14 +136,11 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdListaDeseos", idListaDeseos)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleSelectAllByIdListaDeseos", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleSelectAllByIdListaDeseos", parameters))
 			{
 				List<ListaDeseosDetalleEntidad> listaDeseosDetalleEntidadList = new List<ListaDeseosDetalleEntidad>();
-				while (dataReader.Read())
-				{
-					ListaDeseosDetalleEntidad listaDeseosDetalleEntidad = MapDataReader(dataReader);
-					listaDeseosDetalleEntidadList.Add(listaDeseosDetalleEntidad);
-				}
+
+                listaDeseosDetalleEntidadList = Mapeador.Mapear<ListaDeseosDetalleEntidad>(dt);
 
 				return listaDeseosDetalleEntidadList;
 			}
@@ -201,58 +156,16 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdProducto", idProducto)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleSelectAllByIdProducto", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleSelectAllByIdProducto", parameters))
 			{
 				List<ListaDeseosDetalleEntidad> listaDeseosDetalleEntidadList = new List<ListaDeseosDetalleEntidad>();
-				while (dataReader.Read())
-				{
-					ListaDeseosDetalleEntidad listaDeseosDetalleEntidad = MapDataReader(dataReader);
-					listaDeseosDetalleEntidadList.Add(listaDeseosDetalleEntidad);
-				}
+
+                listaDeseosDetalleEntidadList = Mapeador.Mapear<ListaDeseosDetalleEntidad>(dt);
 
 				return listaDeseosDetalleEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the ListaDeseosDetalle table by a foreign key.
-		/// </summary>
-		public string SelectAllByIdListaDeseosJson(int idListaDeseos)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdListaDeseos", idListaDeseos)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleSelectAllByIdListaDeseos", parameters);
-		}
-
-		/// <summary>
-		/// Selects all records from the ListaDeseosDetalle table by a foreign key.
-		/// </summary>
-		public string SelectAllByIdProductoJson(int idProducto)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdProducto", idProducto)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "ListaDeseosDetalleSelectAllByIdProducto", parameters);
-		}
-
-		/// <summary>
-		/// Creates a new instance of the ListaDeseosDetalleEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private ListaDeseosDetalleEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			ListaDeseosDetalleEntidad listaDeseosDetalleEntidad = new ListaDeseosDetalleEntidad();
-			listaDeseosDetalleEntidad.IdListaDeseos = dataReader.GetInt32("IdListaDeseos", 0);
-			listaDeseosDetalleEntidad.IdListaDeseosDetalle = dataReader.GetInt32("IdListaDeseosDetalle", 0);
-			listaDeseosDetalleEntidad.IdProducto = dataReader.GetInt32("IdProducto", 0);
-			listaDeseosDetalleEntidad.FechaDeseoDetalle = dataReader.GetDateTime("FechaDeseoDetalle", new DateTime(0));
-
-			return listaDeseosDetalleEntidad;
-		}
 
 		#endregion
 	}

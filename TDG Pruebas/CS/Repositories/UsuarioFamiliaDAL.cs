@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
 
 namespace TFI.DAL.DAL
 {
@@ -100,33 +98,20 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFamilia", idFamilia)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                UsuarioFamiliaEntidad entidad = new UsuarioFamiliaEntidad();
+                //       
+
+                entidad = Mapeador.MapearFirst<UsuarioFamiliaEntidad>(dt);
+
+
+
+                return entidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the UsuarioFamilia table.
-		/// </summary>
-		public string SelectJson(int cUIT, string nombreUsuario, int idFamilia)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@CUIT", cUIT),
-				new SqlParameter("@NombreUsuario", nombreUsuario),
-				new SqlParameter("@IdFamilia", idFamilia)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaSelect", parameters);
-		}
+		
 
 		/// <summary>
 		/// Selects all records from the UsuarioFamilia table by a foreign key.
@@ -138,16 +123,12 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFamilia", idFamilia)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaSelectAllByIdFamilia", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaSelectAllByIdFamilia", parameters))
 			{
-				List<UsuarioFamiliaEntidad> usuarioFamiliaEntidadList = new List<UsuarioFamiliaEntidad>();
-				while (dataReader.Read())
-				{
-					UsuarioFamiliaEntidad usuarioFamiliaEntidad = MapDataReader(dataReader);
-					usuarioFamiliaEntidadList.Add(usuarioFamiliaEntidad);
-				}
+                List<UsuarioFamiliaEntidad> lista = new List<UsuarioFamiliaEntidad>();
+                lista = Mapeador.Mapear<UsuarioFamiliaEntidad>(dt);
 
-				return usuarioFamiliaEntidadList;
+                return lista;
 			}
 		}
 
@@ -162,58 +143,20 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaSelectAllByCUIT_NombreUsuario", parameters))
-			{
-				List<UsuarioFamiliaEntidad> usuarioFamiliaEntidadList = new List<UsuarioFamiliaEntidad>();
-				while (dataReader.Read())
-				{
-					UsuarioFamiliaEntidad usuarioFamiliaEntidad = MapDataReader(dataReader);
-					usuarioFamiliaEntidadList.Add(usuarioFamiliaEntidad);
-				}
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaSelectAllByCUIT_NombreUsuario", parameters))
+            {
+                List<UsuarioFamiliaEntidad> lista = new List<UsuarioFamiliaEntidad>();
+                lista = Mapeador.Mapear<UsuarioFamiliaEntidad>(dt);
 
-				return usuarioFamiliaEntidadList;
-			}
+                return lista;
+            }
 		}
 
-		/// <summary>
-		/// Selects all records from the UsuarioFamilia table by a foreign key.
-		/// </summary>
-		public string SelectAllByIdFamiliaJson(int idFamilia)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdFamilia", idFamilia)
-			};
+	
 
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaSelectAllByIdFamilia", parameters);
-		}
+	
 
-		/// <summary>
-		/// Selects all records from the UsuarioFamilia table by a foreign key.
-		/// </summary>
-		public string SelectAllByCUIT_NombreUsuarioJson(int cUIT, string nombreUsuario)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@CUIT", cUIT),
-				new SqlParameter("@NombreUsuario", nombreUsuario)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaSelectAllByCUIT_NombreUsuario", parameters);
-		}
-
-		/// <summary>
-		/// Creates a new instance of the UsuarioFamiliaEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private UsuarioFamiliaEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			UsuarioFamiliaEntidad usuarioFamiliaEntidad = new UsuarioFamiliaEntidad();
-			usuarioFamiliaEntidad.CUIT = dataReader.GetInt32("CUIT", 0);
-			usuarioFamiliaEntidad.NombreUsuario = dataReader.GetString("NombreUsuario", null);
-			usuarioFamiliaEntidad.IdFamilia = dataReader.GetInt32("IdFamilia", 0);
-
-			return usuarioFamiliaEntidad;
-		}
+	
 
 		#endregion
 	}

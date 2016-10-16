@@ -2,30 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
 
 namespace TFI.DAL.DAL
 {
 	public class PedidoDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public PedidoDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -49,7 +32,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DireccionEntrega", pedido.DireccionEntrega)
 			};
 
-			pedido.IdPedido = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "PedidoInsert", parameters);
+            pedido.IdPedido = (int)SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoInsert", parameters);
 		}
 
 		/// <summary>
@@ -73,7 +56,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DireccionEntrega", pedido.DireccionEntrega)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "PedidoUpdate", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoUpdate", parameters);
 		}
 
 		/// <summary>
@@ -86,7 +69,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdPedido", idPedido)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "PedidoDelete", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoDelete", parameters);
 		}
 
 		/// <summary>
@@ -99,7 +82,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DireccionEntrega", direccionEntrega)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "PedidoDeleteAllByDireccionEntrega", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoDeleteAllByDireccionEntrega", parameters);
 		}
 
 		/// <summary>
@@ -112,7 +95,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", cUIT)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "PedidoDeleteAllByCUIT", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoDeleteAllByCUIT", parameters);
 		}
 
 		/// <summary>
@@ -125,7 +108,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdEstadoPedido", idEstadoPedido)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "PedidoDeleteAllByIdEstadoPedido", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoDeleteAllByIdEstadoPedido", parameters);
 		}
 
 		/// <summary>
@@ -138,7 +121,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFormaEntrega", idFormaEntrega)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "PedidoDeleteAllByIdFormaEntrega", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoDeleteAllByIdFormaEntrega", parameters);
 		}
 
 		/// <summary>
@@ -152,7 +135,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "PedidoDeleteAllByCUIT_NombreUsuario", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoDeleteAllByCUIT_NombreUsuario", parameters);
 		}
 
 		/// <summary>
@@ -165,57 +148,33 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdPedido", idPedido)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "PedidoSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                PedidoEntidad PedidoEntidad = new PedidoEntidad();
+
+                PedidoEntidad = Mapeador.MapearFirst<PedidoEntidad>(dt);
+
+                return PedidoEntidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the Pedido table.
-		/// </summary>
-		public string SelectJson(int idPedido)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdPedido", idPedido)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "PedidoSelect", parameters);
-		}
 
 		/// <summary>
 		/// Selects all records from the Pedido table.
 		/// </summary>
 		public List<PedidoEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "PedidoSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoSelectAll"))
 			{
 				List<PedidoEntidad> pedidoEntidadList = new List<PedidoEntidad>();
-				while (dataReader.Read())
-				{
-					PedidoEntidad pedidoEntidad = MapDataReader(dataReader);
-					pedidoEntidadList.Add(pedidoEntidad);
-				}
+
+                pedidoEntidadList = Mapeador.Mapear<PedidoEntidad>(dt);
 
 				return pedidoEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the Pedido table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "PedidoSelectAll");
-		}
+
 
 		/// <summary>
 		/// Selects all records from the Pedido table by a foreign key.
@@ -227,14 +186,11 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DireccionEntrega", direccionEntrega)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "PedidoSelectAllByDireccionEntrega", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoSelectAllByDireccionEntrega", parameters))
 			{
 				List<PedidoEntidad> pedidoEntidadList = new List<PedidoEntidad>();
-				while (dataReader.Read())
-				{
-					PedidoEntidad pedidoEntidad = MapDataReader(dataReader);
-					pedidoEntidadList.Add(pedidoEntidad);
-				}
+
+                pedidoEntidadList = Mapeador.Mapear<PedidoEntidad>(dt);
 
 				return pedidoEntidadList;
 			}
@@ -250,14 +206,11 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", cUIT)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "PedidoSelectAllByCUIT", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoSelectAllByCUIT", parameters))
 			{
 				List<PedidoEntidad> pedidoEntidadList = new List<PedidoEntidad>();
-				while (dataReader.Read())
-				{
-					PedidoEntidad pedidoEntidad = MapDataReader(dataReader);
-					pedidoEntidadList.Add(pedidoEntidad);
-				}
+
+                pedidoEntidadList = Mapeador.Mapear<PedidoEntidad>(dt);
 
 				return pedidoEntidadList;
 			}
@@ -273,14 +226,11 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdEstadoPedido", idEstadoPedido)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "PedidoSelectAllByIdEstadoPedido", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoSelectAllByIdEstadoPedido", parameters))
 			{
 				List<PedidoEntidad> pedidoEntidadList = new List<PedidoEntidad>();
-				while (dataReader.Read())
-				{
-					PedidoEntidad pedidoEntidad = MapDataReader(dataReader);
-					pedidoEntidadList.Add(pedidoEntidad);
-				}
+
+                pedidoEntidadList = Mapeador.Mapear<PedidoEntidad>(dt);
 
 				return pedidoEntidadList;
 			}
@@ -296,14 +246,11 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFormaEntrega", idFormaEntrega)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "PedidoSelectAllByIdFormaEntrega", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoSelectAllByIdFormaEntrega", parameters))
 			{
 				List<PedidoEntidad> pedidoEntidadList = new List<PedidoEntidad>();
-				while (dataReader.Read())
-				{
-					PedidoEntidad pedidoEntidad = MapDataReader(dataReader);
-					pedidoEntidadList.Add(pedidoEntidad);
-				}
+
+                pedidoEntidadList = Mapeador.Mapear<PedidoEntidad>(dt);
 
 				return pedidoEntidadList;
 			}
@@ -320,105 +267,17 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "PedidoSelectAllByCUIT_NombreUsuario", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoSelectAllByCUIT_NombreUsuario", parameters))
 			{
 				List<PedidoEntidad> pedidoEntidadList = new List<PedidoEntidad>();
-				while (dataReader.Read())
-				{
-					PedidoEntidad pedidoEntidad = MapDataReader(dataReader);
-					pedidoEntidadList.Add(pedidoEntidad);
-				}
+
+                pedidoEntidadList = Mapeador.Mapear<PedidoEntidad>(dt);
 
 				return pedidoEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the Pedido table by a foreign key.
-		/// </summary>
-		public string SelectAllByDireccionEntregaJson(int direccionEntrega)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@DireccionEntrega", direccionEntrega)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "PedidoSelectAllByDireccionEntrega", parameters);
-		}
-
-		/// <summary>
-		/// Selects all records from the Pedido table by a foreign key.
-		/// </summary>
-		public string SelectAllByCUITJson(int cUIT)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@CUIT", cUIT)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "PedidoSelectAllByCUIT", parameters);
-		}
-
-		/// <summary>
-		/// Selects all records from the Pedido table by a foreign key.
-		/// </summary>
-		public string SelectAllByIdEstadoPedidoJson(int idEstadoPedido)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdEstadoPedido", idEstadoPedido)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "PedidoSelectAllByIdEstadoPedido", parameters);
-		}
-
-		/// <summary>
-		/// Selects all records from the Pedido table by a foreign key.
-		/// </summary>
-		public string SelectAllByIdFormaEntregaJson(int idFormaEntrega)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdFormaEntrega", idFormaEntrega)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "PedidoSelectAllByIdFormaEntrega", parameters);
-		}
-
-		/// <summary>
-		/// Selects all records from the Pedido table by a foreign key.
-		/// </summary>
-		public string SelectAllByCUIT_NombreUsuarioJson(int cUIT, string nombreUsuario)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@CUIT", cUIT),
-				new SqlParameter("@NombreUsuario", nombreUsuario)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "PedidoSelectAllByCUIT_NombreUsuario", parameters);
-		}
-
-		/// <summary>
-		/// Creates a new instance of the PedidoEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private PedidoEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			PedidoEntidad pedidoEntidad = new PedidoEntidad();
-			pedidoEntidad.IdPedido = dataReader.GetInt32("IdPedido", 0);
-			pedidoEntidad.FechaPedido = dataReader.GetDateTime("FechaPedido", new DateTime(0));
-			pedidoEntidad.FechaFinPedido = dataReader.GetDateTime("FechaFinPedido", new DateTime(0));
-			pedidoEntidad.NombreUsuario = dataReader.GetString("NombreUsuario", null);
-			pedidoEntidad.PlazoEntrega = dataReader.GetInt32("PlazoEntrega", 0);
-			pedidoEntidad.IdEstadoPedido = dataReader.GetInt32("IdEstadoPedido", 0);
-			pedidoEntidad.IdFormaEntrega = dataReader.GetInt32("IdFormaEntrega", 0);
-			pedidoEntidad.CUIT = dataReader.GetInt32("CUIT", 0);
-			pedidoEntidad.NumeroTracking = dataReader.GetString("NumeroTracking", null);
-			pedidoEntidad.DireccionEntrega = dataReader.GetInt32("DireccionEntrega", 0);
-
-			return pedidoEntidad;
-		}
-
+	
 		#endregion
 	}
 }

@@ -26,8 +26,8 @@ namespace TFI.DAL
 		/// </summary>
 		public LenguajeEntidad(int idLenguaje, string descripcionLenguaje)
 		{
-			this.idLenguaje = idLenguaje;
-			this.descripcionLenguaje = descripcionLenguaje;
+			this.IdLenguaje = idLenguaje;
+			this.DescripcionLenguaje = descripcionLenguaje;
 		}
 
 		#endregion

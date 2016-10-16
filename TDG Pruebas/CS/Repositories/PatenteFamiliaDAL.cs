@@ -2,30 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
 
 namespace TFI.DAL.DAL
 {
 	public class PatenteFamiliaDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public PatenteFamiliaDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -42,7 +25,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFamilia", patenteFamilia.IdFamilia)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "PatenteFamiliaInsert", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PatenteFamiliaInsert", parameters);
 		}
 
 		/// <summary>
@@ -56,7 +39,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFamilia", idFamilia)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "PatenteFamiliaDelete", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PatenteFamiliaDelete", parameters);
 		}
 
 		/// <summary>
@@ -69,7 +52,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFamilia", idFamilia)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "PatenteFamiliaDeleteAllByIdFamilia", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PatenteFamiliaDeleteAllByIdFamilia", parameters);
 		}
 
 		/// <summary>
@@ -82,7 +65,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdPatente", idPatente)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "PatenteFamiliaDeleteAllByIdPatente", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PatenteFamiliaDeleteAllByIdPatente", parameters);
 		}
 
 		/// <summary>
@@ -95,14 +78,11 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFamilia", idFamilia)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "PatenteFamiliaSelectAllByIdFamilia", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PatenteFamiliaSelectAllByIdFamilia", parameters))
 			{
 				List<PatenteFamiliaEntidad> patenteFamiliaEntidadList = new List<PatenteFamiliaEntidad>();
-				while (dataReader.Read())
-				{
-					PatenteFamiliaEntidad patenteFamiliaEntidad = MapDataReader(dataReader);
-					patenteFamiliaEntidadList.Add(patenteFamiliaEntidad);
-				}
+
+                patenteFamiliaEntidadList = Mapeador.Mapear<PatenteFamiliaEntidad>(dt);
 
 				return patenteFamiliaEntidadList;
 			}
@@ -118,56 +98,17 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdPatente", idPatente)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "PatenteFamiliaSelectAllByIdPatente", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PatenteFamiliaSelectAllByIdPatente", parameters))
 			{
 				List<PatenteFamiliaEntidad> patenteFamiliaEntidadList = new List<PatenteFamiliaEntidad>();
-				while (dataReader.Read())
-				{
-					PatenteFamiliaEntidad patenteFamiliaEntidad = MapDataReader(dataReader);
-					patenteFamiliaEntidadList.Add(patenteFamiliaEntidad);
-				}
+
+                patenteFamiliaEntidadList = Mapeador.Mapear<PatenteFamiliaEntidad>(dt);
 
 				return patenteFamiliaEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the PatenteFamilia table by a foreign key.
-		/// </summary>
-		public string SelectAllByIdFamiliaJson(int idFamilia)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdFamilia", idFamilia)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "PatenteFamiliaSelectAllByIdFamilia", parameters);
-		}
-
-		/// <summary>
-		/// Selects all records from the PatenteFamilia table by a foreign key.
-		/// </summary>
-		public string SelectAllByIdPatenteJson(int idPatente)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdPatente", idPatente)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "PatenteFamiliaSelectAllByIdPatente", parameters);
-		}
-
-		/// <summary>
-		/// Creates a new instance of the PatenteFamiliaEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private PatenteFamiliaEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			PatenteFamiliaEntidad patenteFamiliaEntidad = new PatenteFamiliaEntidad();
-			patenteFamiliaEntidad.IdPatente = dataReader.GetInt32("IdPatente", 0);
-			patenteFamiliaEntidad.IdFamilia = dataReader.GetInt32("IdFamilia", 0);
-
-			return patenteFamiliaEntidad;
-		}
+		
 
 		#endregion
 	}

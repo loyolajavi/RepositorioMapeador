@@ -19,7 +19,7 @@ namespace WindowsFormsApplication3
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            List<TFI.DAL.FormaPagoEntidades> unaFormaPago = new List<TFI.DAL.FormaPagoEntidades>();
+            List<TFI.DAL.FormaPagoEntidad> unaFormaPago = new List<TFI.DAL.FormaPagoEntidad>();
             TFI.DAL.DAL.FormaPagoDAL GestorFormaPago = new TFI.DAL.DAL.FormaPagoDAL();
 
             unaFormaPago = GestorFormaPago.SelectAll();

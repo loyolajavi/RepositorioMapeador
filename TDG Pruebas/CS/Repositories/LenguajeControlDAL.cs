@@ -2,31 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
 
 namespace TFI.DAL.DAL
 {
 	public class LenguajeControlDAL
 	{
-		#region Fields
-
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public LenguajeControlDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
-
+		
 		#region Methods
 
 		/// <summary>
@@ -43,7 +25,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@Valor", lenguajeControl.Valor)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "LenguajeControlInsert", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "LenguajeControlInsert", parameters);
 		}
 
 		/// <summary>
@@ -60,7 +42,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@Valor", lenguajeControl.Valor)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "LenguajeControlUpdate", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "LenguajeControlUpdate", parameters);
 		}
 
 		/// <summary>
@@ -74,21 +56,9 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdLenguaje", idLenguaje)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "LenguajeControlDelete", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "LenguajeControlDelete", parameters);
 		}
 
-		/// <summary>
-		/// Deletes a record from the LenguajeControl table by a foreign key.
-		/// </summary>
-		public void DeleteAllByIdLenguaje(int idLenguaje)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdLenguaje", idLenguaje)
-			};
-
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "LenguajeControlDeleteAllByIdLenguaje", parameters);
-		}
 
 		/// <summary>
 		/// Selects a single record from the LenguajeControl table.
@@ -101,108 +71,33 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdLenguaje", idLenguaje)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "LenguajeControlSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "LenguajeControlSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                LenguajeControlEntidad LenguajeControlEntidad = new LenguajeControlEntidad();
+
+                LenguajeControlEntidad = Mapeador.MapearFirst<LenguajeControlEntidad>(dt);
+
+                return LenguajeControlEntidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the LenguajeControl table.
-		/// </summary>
-		public string SelectJson(string texto, int idLenguaje)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@Texto", texto),
-				new SqlParameter("@IdLenguaje", idLenguaje)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "LenguajeControlSelect", parameters);
-		}
-
+		
 		/// <summary>
 		/// Selects all records from the LenguajeControl table.
 		/// </summary>
 		public List<LenguajeControlEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "LenguajeControlSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "LenguajeControlSelectAll"))
 			{
 				List<LenguajeControlEntidad> lenguajeControlEntidadList = new List<LenguajeControlEntidad>();
-				while (dataReader.Read())
-				{
-					LenguajeControlEntidad lenguajeControlEntidad = MapDataReader(dataReader);
-					lenguajeControlEntidadList.Add(lenguajeControlEntidad);
-				}
+
+                lenguajeControlEntidadList = Mapeador.Mapear<LenguajeControlEntidad>(dt);
 
 				return lenguajeControlEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the LenguajeControl table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "LenguajeControlSelectAll");
-		}
-
-		/// <summary>
-		/// Selects all records from the LenguajeControl table by a foreign key.
-		/// </summary>
-		public List<LenguajeControlEntidad> SelectAllByIdLenguaje(int idLenguaje)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdLenguaje", idLenguaje)
-			};
-
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "LenguajeControlSelectAllByIdLenguaje", parameters))
-			{
-				List<LenguajeControlEntidad> lenguajeControlEntidadList = new List<LenguajeControlEntidad>();
-				while (dataReader.Read())
-				{
-					LenguajeControlEntidad lenguajeControlEntidad = MapDataReader(dataReader);
-					lenguajeControlEntidadList.Add(lenguajeControlEntidad);
-				}
-
-				return lenguajeControlEntidadList;
-			}
-		}
-
-		/// <summary>
-		/// Selects all records from the LenguajeControl table by a foreign key.
-		/// </summary>
-		public string SelectAllByIdLenguajeJson(int idLenguaje)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdLenguaje", idLenguaje)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "LenguajeControlSelectAllByIdLenguaje", parameters);
-		}
-
-		/// <summary>
-		/// Creates a new instance of the LenguajeControlEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private LenguajeControlEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			LenguajeControlEntidad lenguajeControlEntidad = new LenguajeControlEntidad();
-			lenguajeControlEntidad.Texto = dataReader.GetString("Texto", null);
-			lenguajeControlEntidad.IdLenguaje = dataReader.GetInt32("IdLenguaje", 0);
-			lenguajeControlEntidad.Valor = dataReader.GetString("Valor", null);
-
-			return lenguajeControlEntidad;
-		}
-
+		
 		#endregion
 	}
 }

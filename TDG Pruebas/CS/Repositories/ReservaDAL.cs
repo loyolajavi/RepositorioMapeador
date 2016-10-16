@@ -2,10 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
-
+using TFI.HelperDAL;
 namespace TFI.DAL.DAL
 {
 	public class ReservaDAL
@@ -118,58 +115,36 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdReserva", idReserva)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "ReservaSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ReservaSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                ReservaEntidad ReservaEntidad = new ReservaEntidad();
+                //       
+
+                ReservaEntidad = Mapeador.MapearFirst<ReservaEntidad>(dt);
+
+
+
+                return ReservaEntidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the Reserva table.
-		/// </summary>
-		public string SelectJson(int idReserva)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdReserva", idReserva)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "ReservaSelect", parameters);
-		}
+		
 
 		/// <summary>
 		/// Selects all records from the Reserva table.
 		/// </summary>
 		public List<ReservaEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "ReservaSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ReservaSelectAll"))
 			{
-				List<ReservaEntidad> reservaEntidadList = new List<ReservaEntidad>();
-				while (dataReader.Read())
-				{
-					ReservaEntidad reservaEntidad = MapDataReader(dataReader);
-					reservaEntidadList.Add(reservaEntidad);
-				}
+                List<ReservaEntidad> reservas = new List<ReservaEntidad>();
+                reservas = Mapeador.Mapear<ReservaEntidad>(dt);
 
-				return reservaEntidadList;
+                return reservas;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the Reserva table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "ReservaSelectAll");
-		}
-
+	
 		/// <summary>
 		/// Selects all records from the Reserva table by a foreign key.
 		/// </summary>
@@ -181,16 +156,12 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdPedidoDetalle", idPedidoDetalle)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "ReservaSelectAllByIdPedido_IdPedidoDetalle", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ReservaSelectAllByIdPedido_IdPedidoDetalle", parameters))
 			{
-				List<ReservaEntidad> reservaEntidadList = new List<ReservaEntidad>();
-				while (dataReader.Read())
-				{
-					ReservaEntidad reservaEntidad = MapDataReader(dataReader);
-					reservaEntidadList.Add(reservaEntidad);
-				}
+                List<ReservaEntidad> reservas = new List<ReservaEntidad>();
+                reservas = Mapeador.Mapear<ReservaEntidad>(dt);
 
-				return reservaEntidadList;
+                return reservas;
 			}
 		}
 
@@ -204,61 +175,19 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdSucursal", idSucursal)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "ReservaSelectAllByIdSucursal", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ReservaSelectAllByIdSucursal", parameters))
 			{
-				List<ReservaEntidad> reservaEntidadList = new List<ReservaEntidad>();
-				while (dataReader.Read())
-				{
-					ReservaEntidad reservaEntidad = MapDataReader(dataReader);
-					reservaEntidadList.Add(reservaEntidad);
-				}
+                List<ReservaEntidad> reservas = new List<ReservaEntidad>();
+                reservas = Mapeador.Mapear<ReservaEntidad>(dt);
 
-				return reservaEntidadList;
+                return reservas;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the Reserva table by a foreign key.
-		/// </summary>
-		public string SelectAllByIdPedido_IdPedidoDetalleJson(int idPedido, int idPedidoDetalle)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdPedido", idPedido),
-				new SqlParameter("@IdPedidoDetalle", idPedidoDetalle)
-			};
+	
 
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "ReservaSelectAllByIdPedido_IdPedidoDetalle", parameters);
-		}
+	
 
-		/// <summary>
-		/// Selects all records from the Reserva table by a foreign key.
-		/// </summary>
-		public string SelectAllByIdSucursalJson(int idSucursal)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdSucursal", idSucursal)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "ReservaSelectAllByIdSucursal", parameters);
-		}
-
-		/// <summary>
-		/// Creates a new instance of the ReservaEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private ReservaEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			ReservaEntidad reservaEntidad = new ReservaEntidad();
-			reservaEntidad.IdReserva = dataReader.GetInt32("IdReserva", 0);
-			reservaEntidad.IdPedido = dataReader.GetInt32("IdPedido", 0);
-			reservaEntidad.IdPedidoDetalle = dataReader.GetInt32("IdPedidoDetalle", 0);
-			reservaEntidad.IdSucursal = dataReader.GetInt32("IdSucursal", 0);
-			reservaEntidad.Activo = dataReader.GetBoolean("Activo", false);
-			reservaEntidad.Fecha = dataReader.GetDateTime("Fecha", new DateTime(0));
-
-			return reservaEntidad;
-		}
 
 		#endregion
 	}

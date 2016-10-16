@@ -2,10 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
-
+using TFI.HelperDAL;
 namespace TFI.DAL.DAL
 {
 	public class UsuarioDAL
@@ -142,58 +139,36 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "UsuarioSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                UsuarioEntidad entidad = new UsuarioEntidad();
+                //       
+
+                entidad = Mapeador.MapearFirst<UsuarioEntidad>(dt);
+
+
+
+                return entidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the Usuario table.
-		/// </summary>
-		public string SelectJson(int cUIT, string nombreUsuario)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@CUIT", cUIT),
-				new SqlParameter("@NombreUsuario", nombreUsuario)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "UsuarioSelect", parameters);
-		}
+		
 
 		/// <summary>
 		/// Selects all records from the Usuario table.
 		/// </summary>
 		public List<UsuarioEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAll"))
 			{
-				List<UsuarioEntidad> usuarioEntidadList = new List<UsuarioEntidad>();
-				while (dataReader.Read())
-				{
-					UsuarioEntidad usuarioEntidad = MapDataReader(dataReader);
-					usuarioEntidadList.Add(usuarioEntidad);
-				}
+                List<UsuarioEntidad> lista = new List<UsuarioEntidad>();
+                lista = Mapeador.Mapear<UsuarioEntidad>(dt);
 
-				return usuarioEntidadList;
+                return lista;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the Usuario table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAll");
-		}
+	
 
 		/// <summary>
 		/// Selects all records from the Usuario table by a foreign key.
@@ -205,16 +180,12 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdCondicionFiscal", idCondicionFiscal)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAllByIdCondicionFiscal", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAllByIdCondicionFiscal", parameters))
 			{
-				List<UsuarioEntidad> usuarioEntidadList = new List<UsuarioEntidad>();
-				while (dataReader.Read())
-				{
-					UsuarioEntidad usuarioEntidad = MapDataReader(dataReader);
-					usuarioEntidadList.Add(usuarioEntidad);
-				}
+                List<UsuarioEntidad> lista = new List<UsuarioEntidad>();
+                lista = Mapeador.Mapear<UsuarioEntidad>(dt);
 
-				return usuarioEntidadList;
+                return lista;
 			}
 		}
 
@@ -228,16 +199,12 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUITEmpresa", cUITEmpresa)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAllByCUITEmpresa", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAllByCUITEmpresa", parameters))
 			{
-				List<UsuarioEntidad> usuarioEntidadList = new List<UsuarioEntidad>();
-				while (dataReader.Read())
-				{
-					UsuarioEntidad usuarioEntidad = MapDataReader(dataReader);
-					usuarioEntidadList.Add(usuarioEntidad);
-				}
+                List<UsuarioEntidad> lista = new List<UsuarioEntidad>();
+                lista = Mapeador.Mapear<UsuarioEntidad>(dt);
 
-				return usuarioEntidadList;
+                return lista;
 			}
 		}
 
@@ -251,79 +218,20 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdUsuarioTipo", idUsuarioTipo)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAllByIdUsuarioTipo", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAllByIdUsuarioTipo", parameters))
 			{
-				List<UsuarioEntidad> usuarioEntidadList = new List<UsuarioEntidad>();
-				while (dataReader.Read())
-				{
-					UsuarioEntidad usuarioEntidad = MapDataReader(dataReader);
-					usuarioEntidadList.Add(usuarioEntidad);
-				}
+                List<UsuarioEntidad> lista = new List<UsuarioEntidad>();
+                lista = Mapeador.Mapear<UsuarioEntidad>(dt);
 
-				return usuarioEntidadList;
+                return lista;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the Usuario table by a foreign key.
-		/// </summary>
-		public string SelectAllByIdCondicionFiscalJson(int idCondicionFiscal)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdCondicionFiscal", idCondicionFiscal)
-			};
+	
 
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAllByIdCondicionFiscal", parameters);
-		}
+	
 
-		/// <summary>
-		/// Selects all records from the Usuario table by a foreign key.
-		/// </summary>
-		public string SelectAllByCUITEmpresaJson(int cUITEmpresa)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@CUITEmpresa", cUITEmpresa)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAllByCUITEmpresa", parameters);
-		}
-
-		/// <summary>
-		/// Selects all records from the Usuario table by a foreign key.
-		/// </summary>
-		public string SelectAllByIdUsuarioTipoJson(int idUsuarioTipo)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdUsuarioTipo", idUsuarioTipo)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAllByIdUsuarioTipo", parameters);
-		}
-
-		/// <summary>
-		/// Creates a new instance of the UsuarioEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private UsuarioEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			UsuarioEntidad usuarioEntidad = new UsuarioEntidad();
-			usuarioEntidad.IdUsuario = dataReader.GetInt32("IdUsuario", 0);
-			usuarioEntidad.IdCondicionFiscal = dataReader.GetInt32("IdCondicionFiscal", 0);
-			usuarioEntidad.IdUsuarioTipo = dataReader.GetInt32("IdUsuarioTipo", 0);
-			usuarioEntidad.Nombre = dataReader.GetString("Nombre", null);
-			usuarioEntidad.Apellido = dataReader.GetString("Apellido", null);
-			usuarioEntidad.Dni = dataReader.GetString("Dni", null);
-			usuarioEntidad.CUIT = dataReader.GetInt32("CUIT", 0);
-			usuarioEntidad.Email = dataReader.GetString("Email", null);
-			usuarioEntidad.NombreUsuario = dataReader.GetString("NombreUsuario", null);
-			usuarioEntidad.Clave = dataReader.GetString("Clave", null);
-			usuarioEntidad.CUITEmpresa = dataReader.GetInt32("CUITEmpresa", 0);
-
-			return usuarioEntidad;
-		}
-
+	
 		#endregion
 	}
 }

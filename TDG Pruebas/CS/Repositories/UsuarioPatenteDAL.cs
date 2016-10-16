@@ -2,10 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
-
+using TFI.HelperDAL;
 namespace TFI.DAL.DAL
 {
 	public class UsuarioPatenteDAL
@@ -100,33 +97,20 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdPatente", idPatente)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                UsuarioPatenteEntidad entidad = new UsuarioPatenteEntidad();
+                //       
+
+                entidad = Mapeador.MapearFirst<UsuarioPatenteEntidad>(dt);
+
+
+
+                return entidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the UsuarioPatente table.
-		/// </summary>
-		public string SelectJson(int cUIT, string nombreUsuario, int idPatente)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@CUIT", cUIT),
-				new SqlParameter("@NombreUsuario", nombreUsuario),
-				new SqlParameter("@IdPatente", idPatente)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteSelect", parameters);
-		}
+		
 
 		/// <summary>
 		/// Selects all records from the UsuarioPatente table by a foreign key.
@@ -138,16 +122,12 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdPatente", idPatente)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteSelectAllByIdPatente", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteSelectAllByIdPatente", parameters))
 			{
-				List<UsuarioPatenteEntidad> usuarioPatenteEntidadList = new List<UsuarioPatenteEntidad>();
-				while (dataReader.Read())
-				{
-					UsuarioPatenteEntidad usuarioPatenteEntidad = MapDataReader(dataReader);
-					usuarioPatenteEntidadList.Add(usuarioPatenteEntidad);
-				}
+                List<UsuarioPatenteEntidad> lista = new List<UsuarioPatenteEntidad>();
+                lista = Mapeador.Mapear<UsuarioPatenteEntidad>(dt);
 
-				return usuarioPatenteEntidadList;
+                return lista;
 			}
 		}
 
@@ -162,59 +142,18 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteSelectAllByCUIT_NombreUsuario", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteSelectAllByCUIT_NombreUsuario", parameters))
 			{
-				List<UsuarioPatenteEntidad> usuarioPatenteEntidadList = new List<UsuarioPatenteEntidad>();
-				while (dataReader.Read())
-				{
-					UsuarioPatenteEntidad usuarioPatenteEntidad = MapDataReader(dataReader);
-					usuarioPatenteEntidadList.Add(usuarioPatenteEntidad);
-				}
+                List<UsuarioPatenteEntidad> lista = new List<UsuarioPatenteEntidad>();
+                lista = Mapeador.Mapear<UsuarioPatenteEntidad>(dt);
 
-				return usuarioPatenteEntidadList;
+                return lista;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the UsuarioPatente table by a foreign key.
-		/// </summary>
-		public string SelectAllByIdPatenteJson(int idPatente)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdPatente", idPatente)
-			};
 
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteSelectAllByIdPatente", parameters);
-		}
-
-		/// <summary>
-		/// Selects all records from the UsuarioPatente table by a foreign key.
-		/// </summary>
-		public string SelectAllByCUIT_NombreUsuarioJson(int cUIT, string nombreUsuario)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@CUIT", cUIT),
-				new SqlParameter("@NombreUsuario", nombreUsuario)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteSelectAllByCUIT_NombreUsuario", parameters);
-		}
-
-		/// <summary>
-		/// Creates a new instance of the UsuarioPatenteEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private UsuarioPatenteEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			UsuarioPatenteEntidad usuarioPatenteEntidad = new UsuarioPatenteEntidad();
-			usuarioPatenteEntidad.CUIT = dataReader.GetInt32("CUIT", 0);
-			usuarioPatenteEntidad.NombreUsuario = dataReader.GetString("NombreUsuario", null);
-			usuarioPatenteEntidad.IdPatente = dataReader.GetInt32("IdPatente", 0);
-
-			return usuarioPatenteEntidad;
-		}
-
+	
+	
 		#endregion
 	}
 }

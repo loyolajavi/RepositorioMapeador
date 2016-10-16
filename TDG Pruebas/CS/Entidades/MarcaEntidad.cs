@@ -26,8 +26,8 @@ namespace TFI.DAL
 		/// </summary>
 		public MarcaEntidad(int idMarca, string descripcionMarca)
 		{
-			this.idMarca = idMarca;
-			this.descripcionMarca = descripcionMarca;
+			this.IdMarca = idMarca;
+			this.DescripcionMarca = descripcionMarca;
 		}
 
 		#endregion

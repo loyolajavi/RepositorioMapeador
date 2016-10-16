@@ -24,11 +24,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the TipoComprobanteEntidad class.
 		/// </summary>
-		public TipoComprobanteEntidad(int idTipoComprobante, string descripTipoComprobante)
-		{
-			this.idTipoComprobante = idTipoComprobante;
-			this.descripTipoComprobante = descripTipoComprobante;
-		}
+		
 
 		#endregion
 

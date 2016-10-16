@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
 
 namespace TFI.DAL.DAL
 {
@@ -83,69 +81,35 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdUsuarioTipo", idUsuarioTipo)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "UsuarioTipoSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioTipoSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                UsuarioTipoEntidad entidad = new UsuarioTipoEntidad();
+                //       
+
+                entidad = Mapeador.MapearFirst<UsuarioTipoEntidad>(dt);
+
+
+
+                return entidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the UsuarioTipo table.
-		/// </summary>
-		public string SelectJson(int idUsuarioTipo)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdUsuarioTipo", idUsuarioTipo)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "UsuarioTipoSelect", parameters);
-		}
+		
 
 		/// <summary>
 		/// Selects all records from the UsuarioTipo table.
 		/// </summary>
 		public List<UsuarioTipoEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "UsuarioTipoSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioTipoSelectAll"))
 			{
-				List<UsuarioTipoEntidad> usuarioTipoEntidadList = new List<UsuarioTipoEntidad>();
-				while (dataReader.Read())
-				{
-					UsuarioTipoEntidad usuarioTipoEntidad = MapDataReader(dataReader);
-					usuarioTipoEntidadList.Add(usuarioTipoEntidad);
-				}
+                List<UsuarioTipoEntidad> lista = new List<UsuarioTipoEntidad>();
+                lista = Mapeador.Mapear<UsuarioTipoEntidad>(dt);
 
-				return usuarioTipoEntidadList;
+                return lista;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the UsuarioTipo table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "UsuarioTipoSelectAll");
-		}
-
-		/// <summary>
-		/// Creates a new instance of the UsuarioTipoEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private UsuarioTipoEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			UsuarioTipoEntidad usuarioTipoEntidad = new UsuarioTipoEntidad();
-			usuarioTipoEntidad.IdUsuarioTipo = dataReader.GetInt32("IdUsuarioTipo", 0);
-			usuarioTipoEntidad.Descripcion = dataReader.GetString("Descripcion", null);
-
-			return usuarioTipoEntidad;
-		}
 
 		#endregion
 	}
