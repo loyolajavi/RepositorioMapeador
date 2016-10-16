@@ -160,5 +160,41 @@ namespace TFI.HelperDAL
 
 
 
+
+       public static DataTable ExecuteScalar(string connectionStringName, CommandType commandType, string commandText, params SqlParameter[] parameters)
+       {
+          
+           DataTable result;
+          
+           try
+           {
+
+               connection = new SqlConnection(connectionStringName);
+
+               connection.Open();
+
+               tr = connection.BeginTransaction();
+
+               using (command = CreateCommand(connection, commandType, commandText, parameters))
+               {
+                   result = command.ExecuteScalar();
+                   return result;
+               }
+
+           }
+           catch (Exception)
+           {
+               tr.Rollback();
+               throw;
+           }
+           finally
+           {
+               connection.Close();
+           }
+
+       }
+
+
+
     }
 }
