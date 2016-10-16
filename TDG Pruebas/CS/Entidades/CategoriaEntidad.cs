@@ -26,8 +26,8 @@ namespace TFI.DAL
 		/// </summary>
 		public CategoriaEntidad(int idCategoria, string descripCategoria)
 		{
-			this.idCategoria = idCategoria;
-			this.descripCategoria = descripCategoria;
+			this.IdCategoria = idCategoria;
+			this.DescripCategoria = descripCategoria;
 		}
 
 		#endregion

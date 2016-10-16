@@ -32,14 +32,14 @@ namespace TFI.DAL
 		/// </summary>
 		public DireccionEntidad(int idDireccion, string calle, int numero, int piso, string departamento, string localidad, int idProvincia, int idTipoDireccion)
 		{
-			this.idDireccion = idDireccion;
-			this.calle = calle;
-			this.numero = numero;
-			this.piso = piso;
-			this.departamento = departamento;
-			this.localidad = localidad;
-			this.idProvincia = idProvincia;
-			this.idTipoDireccion = idTipoDireccion;
+			this.IdDireccion = idDireccion;
+			this.Calle = calle;
+			this.Numero = numero;
+			this.Piso = piso;
+			this.Departamento = departamento;
+			this.Localidad = localidad;
+			this.IdProvincia = idProvincia;
+			this.IdTipoDireccion = idTipoDireccion;
 		}
 
 		#endregion

@@ -26,8 +26,8 @@ namespace TFI.DAL
 		/// </summary>
 		public FamiliaEntidad(int idFamilia, string nombreFamilia)
 		{
-			this.idFamilia = idFamilia;
-			this.nombreFamilia = nombreFamilia;
+			this.IdFamilia = idFamilia;
+			this.NombreFamilia = nombreFamilia;
 		}
 
 		#endregion

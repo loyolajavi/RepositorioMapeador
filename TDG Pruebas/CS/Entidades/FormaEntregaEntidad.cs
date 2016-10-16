@@ -26,8 +26,8 @@ namespace TFI.DAL
 		/// </summary>
 		public FormaEntregaEntidad(int idFormaEntrega, string descripcionFormaEntrega)
 		{
-			this.idFormaEntrega = idFormaEntrega;
-			this.descripcionFormaEntrega = descripcionFormaEntrega;
+			this.IdFormaEntrega = idFormaEntrega;
+			this.DescripcionFormaEntrega = descripcionFormaEntrega;
 		}
 
 		#endregion

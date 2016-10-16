@@ -26,8 +26,8 @@ namespace TFI.DAL
 		/// </summary>
 		public CondicionFiscalEntidad(int idCondicionFiscal, string descripcion)
 		{
-			this.idCondicionFiscal = idCondicionFiscal;
-			this.descripcion = descripcion;
+			this.IdCondicionFiscal = idCondicionFiscal;
+			this.Descripcion = descripcion;
 		}
 
 		#endregion

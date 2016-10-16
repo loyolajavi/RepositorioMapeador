@@ -26,8 +26,8 @@ namespace TFI.DAL
 		/// </summary>
 		public EstadoPedidoEntidad(int idEstadoPedido, string descripcionEstadoPedido)
 		{
-			this.idEstadoPedido = idEstadoPedido;
-			this.descripcionEstadoPedido = descripcionEstadoPedido;
+			this.IdEstadoPedido = idEstadoPedido;
+			this.DescripcionEstadoPedido = descripcionEstadoPedido;
 		}
 
 		#endregion
