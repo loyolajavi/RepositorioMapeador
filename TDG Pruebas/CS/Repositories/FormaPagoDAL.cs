@@ -22,21 +22,21 @@ namespace TFI.DAL.DAL
 		/// <summary>
 		/// Saves a record to the FormaPago table.
 		/// </summary>
-        //public void Insert(FormaPagoEntidades formaPago)
-        //{
+        public void Insert(FormaPagoEntidades formaPago)
+        {
 
-        
-        //    ValidationUtility.ValidateArgument("formaPago", formaPago);
 
-        //    SqlParameter[] parameters = new SqlParameter[]
-        //    {
-        //        new SqlParameter("@DescripFormaPago", formaPago.DescripFormaPago)
-        //    };
+            ValidationUtility.ValidateArgument("formaPago", formaPago);
 
-        //    formaPago.IdFormaPago = (int) SqlClientUtility.ExecuteScalar("asdf", CommandType.StoredProcedure, "FormaPagoInsert", parameters);
-        //    SqlClientUtility.ExecuteDataTable("asdf", CommandType.StoredProcedure, "FormaPagoInsert", parameters);
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@DescripFormaPago", formaPago.DescripFormaPago)
+            };
 
-        //}
+            formaPago.IdFormaPago = (int)SqlClientUtility.ExecuteScalar("asdf", CommandType.StoredProcedure, "FormaPagoInsert", parameters);
+            SqlClientUtility.ExecuteDataTable("asdf", CommandType.StoredProcedure, "FormaPagoInsert", parameters);
+
+        }
 
 
 

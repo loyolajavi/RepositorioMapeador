@@ -27,6 +27,23 @@ namespace TFI.HelperDAL
             return result;
         }
 
+
+
+        public static T MapearFirst<T>(DataTable table) where T : new()
+        {
+            IList<PropertyInfo> properties = typeof(T).GetProperties().ToList();
+            T result = new T();
+
+            foreach (var row in table.Rows)
+            {
+                var item = CreateItemFromRow<T>((DataRow)row, properties);
+            }
+
+            return result;
+        }
+
+
+
         private static T CreateItemFromRow<T>(DataRow row, IList<PropertyInfo> properties) where T : new()
         {
             T item = new T();

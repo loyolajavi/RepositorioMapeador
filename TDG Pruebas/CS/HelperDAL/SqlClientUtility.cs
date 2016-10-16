@@ -161,10 +161,10 @@ namespace TFI.HelperDAL
 
 
 
-       public static DataTable ExecuteScalar(string connectionStringName, CommandType commandType, string commandText, params SqlParameter[] parameters)
+       public static object ExecuteScalar(string connectionStringName, CommandType commandType, string commandText, params SqlParameter[] parameters)
        {
           
-           DataTable result;
+           object result;
           
            try
            {
