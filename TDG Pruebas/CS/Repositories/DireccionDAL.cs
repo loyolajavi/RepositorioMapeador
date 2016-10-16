@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
+
 
 namespace TFI.DAL.DAL
 {
@@ -121,57 +120,33 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdDireccion", idDireccion)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "DireccionSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "DireccionSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                DireccionEntidad DireccionEntidad = new DireccionEntidad();
+
+                DireccionEntidad = Mapeador.MapearFirst<DireccionEntidad>(dt);
+
+                return DireccionEntidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the Direccion table.
-		/// </summary>
-		public string SelectJson(int idDireccion)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdDireccion", idDireccion)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "DireccionSelect", parameters);
-		}
+		
 
 		/// <summary>
 		/// Selects all records from the Direccion table.
 		/// </summary>
 		public List<DireccionEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "DireccionSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "DireccionSelectAll"))
 			{
 				List<DireccionEntidad> direccionEntidadList = new List<DireccionEntidad>();
-				while (dataReader.Read())
-				{
-					DireccionEntidad direccionEntidad = MapDataReader(dataReader);
-					direccionEntidadList.Add(direccionEntidad);
-				}
+
+                direccionEntidadList = Mapeador.Mapear<DireccionEntidad>(dt);
 
 				return direccionEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the Direccion table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "DireccionSelectAll");
-		}
 
 		/// <summary>
 		/// Selects all records from the Direccion table by a foreign key.
@@ -183,14 +158,11 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdProvincia", idProvincia)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "DireccionSelectAllByIdProvincia", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "DireccionSelectAllByIdProvincia", parameters))
 			{
 				List<DireccionEntidad> direccionEntidadList = new List<DireccionEntidad>();
-				while (dataReader.Read())
-				{
-					DireccionEntidad direccionEntidad = MapDataReader(dataReader);
-					direccionEntidadList.Add(direccionEntidad);
-				}
+
+                direccionEntidadList = Mapeador.Mapear<DireccionEntidad>(dt);
 
 				return direccionEntidadList;
 			}
@@ -206,62 +178,16 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoDireccion", idTipoDireccion)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "DireccionSelectAllByIdTipoDireccion", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "DireccionSelectAllByIdTipoDireccion", parameters))
 			{
 				List<DireccionEntidad> direccionEntidadList = new List<DireccionEntidad>();
-				while (dataReader.Read())
-				{
-					DireccionEntidad direccionEntidad = MapDataReader(dataReader);
-					direccionEntidadList.Add(direccionEntidad);
-				}
+
+                direccionEntidadList = Mapeador.Mapear<DireccionEntidad>(dt);
 
 				return direccionEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the Direccion table by a foreign key.
-		/// </summary>
-		public string SelectAllByIdProvinciaJson(int idProvincia)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdProvincia", idProvincia)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "DireccionSelectAllByIdProvincia", parameters);
-		}
-
-		/// <summary>
-		/// Selects all records from the Direccion table by a foreign key.
-		/// </summary>
-		public string SelectAllByIdTipoDireccionJson(int idTipoDireccion)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdTipoDireccion", idTipoDireccion)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "DireccionSelectAllByIdTipoDireccion", parameters);
-		}
-
-		/// <summary>
-		/// Creates a new instance of the DireccionEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private DireccionEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			DireccionEntidad direccionEntidad = new DireccionEntidad();
-			direccionEntidad.IdDireccion = dataReader.GetInt32("IdDireccion", 0);
-			direccionEntidad.Calle = dataReader.GetString("Calle", null);
-			direccionEntidad.Numero = dataReader.GetInt32("Numero", 0);
-			direccionEntidad.Piso = dataReader.GetInt32("Piso", 0);
-			direccionEntidad.Departamento = dataReader.GetString("Departamento", null);
-			direccionEntidad.Localidad = dataReader.GetString("Localidad", null);
-			direccionEntidad.IdProvincia = dataReader.GetInt32("IdProvincia", 0);
-			direccionEntidad.IdTipoDireccion = dataReader.GetInt32("IdTipoDireccion", 0);
-
-			return direccionEntidad;
-		}
 
 		#endregion
 	}

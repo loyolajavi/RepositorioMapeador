@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
+
 
 namespace TFI.DAL.DAL
 {
@@ -83,68 +82,30 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdCondicionFiscal", idCondicionFiscal)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "CondicionFiscalSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "CondicionFiscalSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                CondicionFiscalEntidad CondicionFiscalEntidad = new CondicionFiscalEntidad();
+
+                CondicionFiscalEntidad = Mapeador.MapearFirst<CondicionFiscalEntidad>(dt);
+
+                return CondicionFiscalEntidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the CondicionFiscal table.
-		/// </summary>
-		public string SelectJson(int idCondicionFiscal)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdCondicionFiscal", idCondicionFiscal)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "CondicionFiscalSelect", parameters);
-		}
 
 		/// <summary>
 		/// Selects all records from the CondicionFiscal table.
 		/// </summary>
 		public List<CondicionFiscalEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "CondicionFiscalSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "CondicionFiscalSelectAll"))
 			{
 				List<CondicionFiscalEntidad> condicionFiscalEntidadList = new List<CondicionFiscalEntidad>();
-				while (dataReader.Read())
-				{
-					CondicionFiscalEntidad condicionFiscalEntidad = MapDataReader(dataReader);
-					condicionFiscalEntidadList.Add(condicionFiscalEntidad);
-				}
+
+                condicionFiscalEntidadList = Mapeador.Mapear<CondicionFiscalEntidad>(dt);
 
 				return condicionFiscalEntidadList;
 			}
-		}
-
-		/// <summary>
-		/// Selects all records from the CondicionFiscal table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "CondicionFiscalSelectAll");
-		}
-
-		/// <summary>
-		/// Creates a new instance of the CondicionFiscalEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private CondicionFiscalEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			CondicionFiscalEntidad condicionFiscalEntidad = new CondicionFiscalEntidad();
-			condicionFiscalEntidad.IdCondicionFiscal = dataReader.GetInt32("IdCondicionFiscal", 0);
-			condicionFiscalEntidad.Descripcion = dataReader.GetString("Descripcion", null);
-
-			return condicionFiscalEntidad;
 		}
 
 		#endregion

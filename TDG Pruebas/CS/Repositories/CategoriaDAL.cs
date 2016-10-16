@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
+
 
 namespace TFI.DAL.DAL
 {
@@ -83,69 +82,32 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdCategoria", idCategoria)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "CategoriaSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "CategoriaSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                CategoriaEntidad CategoriaEntidad = new CategoriaEntidad();
+
+                CategoriaEntidad = Mapeador.MapearFirst<CategoriaEntidad>(dt);
+
+                return CategoriaEntidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the Categoria table.
-		/// </summary>
-		public string SelectJson(int idCategoria)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdCategoria", idCategoria)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "CategoriaSelect", parameters);
-		}
 
 		/// <summary>
 		/// Selects all records from the Categoria table.
 		/// </summary>
 		public List<CategoriaEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "CategoriaSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "CategoriaSelectAll"))
 			{
 				List<CategoriaEntidad> categoriaEntidadList = new List<CategoriaEntidad>();
-				while (dataReader.Read())
-				{
-					CategoriaEntidad categoriaEntidad = MapDataReader(dataReader);
-					categoriaEntidadList.Add(categoriaEntidad);
-				}
+
+                categoriaEntidadList = Mapeador.Mapear<CategoriaEntidad>(dt);
 
 				return categoriaEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the Categoria table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "CategoriaSelectAll");
-		}
-
-		/// <summary>
-		/// Creates a new instance of the CategoriaEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private CategoriaEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			CategoriaEntidad categoriaEntidad = new CategoriaEntidad();
-			categoriaEntidad.IdCategoria = dataReader.GetInt32("IdCategoria", 0);
-			categoriaEntidad.DescripCategoria = dataReader.GetString("DescripCategoria", null);
-
-			return categoriaEntidad;
-		}
 
 		#endregion
 	}

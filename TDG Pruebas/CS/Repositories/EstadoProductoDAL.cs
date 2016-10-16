@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
+
 
 namespace TFI.DAL.DAL
 {
@@ -83,69 +82,32 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdEstadoProducto", idEstadoProducto)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "EstadoProductoSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "EstadoProductoSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                EstadoProductoEntidad EstadoProductoEntidad = new EstadoProductoEntidad();
+
+                EstadoProductoEntidad = Mapeador.MapearFirst<EstadoProductoEntidad>(dt);
+
+                return EstadoProductoEntidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the EstadoProducto table.
-		/// </summary>
-		public string SelectJson(int idEstadoProducto)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdEstadoProducto", idEstadoProducto)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "EstadoProductoSelect", parameters);
-		}
 
 		/// <summary>
 		/// Selects all records from the EstadoProducto table.
 		/// </summary>
 		public List<EstadoProductoEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "EstadoProductoSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "EstadoProductoSelectAll"))
 			{
 				List<EstadoProductoEntidad> estadoProductoEntidadList = new List<EstadoProductoEntidad>();
-				while (dataReader.Read())
-				{
-					EstadoProductoEntidad estadoProductoEntidad = MapDataReader(dataReader);
-					estadoProductoEntidadList.Add(estadoProductoEntidad);
-				}
+
+                estadoProductoEntidadList = Mapeador.Mapear<EstadoProductoEntidad>(dt);
 
 				return estadoProductoEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the EstadoProducto table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "EstadoProductoSelectAll");
-		}
-
-		/// <summary>
-		/// Creates a new instance of the EstadoProductoEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private EstadoProductoEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			EstadoProductoEntidad estadoProductoEntidad = new EstadoProductoEntidad();
-			estadoProductoEntidad.IdEstadoProducto = dataReader.GetInt32("IdEstadoProducto", 0);
-			estadoProductoEntidad.DescripEstadoProducto = dataReader.GetString("DescripEstadoProducto", null);
-
-			return estadoProductoEntidad;
-		}
 
 		#endregion
 	}

@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
+
 
 namespace TFI.DAL.DAL
 {
@@ -133,61 +132,33 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", cUIT)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+
+                ComprobanteDetalleEntidad ComprobanteDetalleEntidad = new ComprobanteDetalleEntidad();
+
+                ComprobanteDetalleEntidad = Mapeador.MapearFirst<ComprobanteDetalleEntidad>(dt);
+
+                return ComprobanteDetalleEntidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the ComprobanteDetalle table.
-		/// </summary>
-		public string SelectJson(int idComprobanteDetalle, int nroComprobante, int idSucursal, int idTipoComprobante, int cUIT)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdComprobanteDetalle", idComprobanteDetalle),
-				new SqlParameter("@NroComprobante", nroComprobante),
-				new SqlParameter("@IdSucursal", idSucursal),
-				new SqlParameter("@IdTipoComprobante", idTipoComprobante),
-				new SqlParameter("@CUIT", cUIT)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelect", parameters);
-		}
 
 		/// <summary>
 		/// Selects all records from the ComprobanteDetalle table.
 		/// </summary>
 		public List<ComprobanteDetalleEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelectAll"))
 			{
 				List<ComprobanteDetalleEntidad> comprobanteDetalleEntidadList = new List<ComprobanteDetalleEntidad>();
-				while (dataReader.Read())
-				{
-					ComprobanteDetalleEntidad comprobanteDetalleEntidad = MapDataReader(dataReader);
-					comprobanteDetalleEntidadList.Add(comprobanteDetalleEntidad);
-				}
+
+                comprobanteDetalleEntidadList = Mapeador.Mapear<ComprobanteDetalleEntidad>(dt);
 
 				return comprobanteDetalleEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the ComprobanteDetalle table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelectAll");
-		}
 
 		/// <summary>
 		/// Selects all records from the ComprobanteDetalle table by a foreign key.
@@ -202,15 +173,11 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", cUIT)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelectAllByNroComprobante_IdSucursal_IdTipoComprobante_CUIT", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelectAllByNroComprobante_IdSucursal_IdTipoComprobante_CUIT", parameters))
 			{
 				List<ComprobanteDetalleEntidad> comprobanteDetalleEntidadList = new List<ComprobanteDetalleEntidad>();
-				while (dataReader.Read())
-				{
-					ComprobanteDetalleEntidad comprobanteDetalleEntidad = MapDataReader(dataReader);
-					comprobanteDetalleEntidadList.Add(comprobanteDetalleEntidad);
-				}
 
+                comprobanteDetalleEntidadList = Mapeador.Mapear<ComprobanteDetalleEntidad>(dt);
 				return comprobanteDetalleEntidadList;
 			}
 		}
@@ -225,65 +192,17 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdProducto", idProducto)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelectAllByIdProducto", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelectAllByIdProducto", parameters))
 			{
 				List<ComprobanteDetalleEntidad> comprobanteDetalleEntidadList = new List<ComprobanteDetalleEntidad>();
-				while (dataReader.Read())
-				{
-					ComprobanteDetalleEntidad comprobanteDetalleEntidad = MapDataReader(dataReader);
-					comprobanteDetalleEntidadList.Add(comprobanteDetalleEntidad);
-				}
+
+                comprobanteDetalleEntidadList = Mapeador.Mapear<ComprobanteDetalleEntidad>(dt);
 
 				return comprobanteDetalleEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the ComprobanteDetalle table by a foreign key.
-		/// </summary>
-		public string SelectAllByNroComprobante_IdSucursal_IdTipoComprobante_CUITJson(int nroComprobante, int idSucursal, int idTipoComprobante, int cUIT)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@NroComprobante", nroComprobante),
-				new SqlParameter("@IdSucursal", idSucursal),
-				new SqlParameter("@IdTipoComprobante", idTipoComprobante),
-				new SqlParameter("@CUIT", cUIT)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelectAllByNroComprobante_IdSucursal_IdTipoComprobante_CUIT", parameters);
-		}
-
-		/// <summary>
-		/// Selects all records from the ComprobanteDetalle table by a foreign key.
-		/// </summary>
-		public string SelectAllByIdProductoJson(int idProducto)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdProducto", idProducto)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelectAllByIdProducto", parameters);
-		}
-
-		/// <summary>
-		/// Creates a new instance of the ComprobanteDetalleEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private ComprobanteDetalleEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			ComprobanteDetalleEntidad comprobanteDetalleEntidad = new ComprobanteDetalleEntidad();
-			comprobanteDetalleEntidad.IdComprobanteDetalle = dataReader.GetInt32("IdComprobanteDetalle", 0);
-			comprobanteDetalleEntidad.NroComprobante = dataReader.GetInt32("NroComprobante", 0);
-			comprobanteDetalleEntidad.IdSucursal = dataReader.GetInt32("IdSucursal", 0);
-			comprobanteDetalleEntidad.IdTipoComprobante = dataReader.GetInt32("IdTipoComprobante", 0);
-			comprobanteDetalleEntidad.CUIT = dataReader.GetInt32("CUIT", 0);
-			comprobanteDetalleEntidad.IdProducto = dataReader.GetInt32("IdProducto", 0);
-			comprobanteDetalleEntidad.CantidadProducto = dataReader.GetInt32("CantidadProducto", 0);
-			comprobanteDetalleEntidad.PrecioUnitarioFact = dataReader.GetDecimal("PrecioUnitarioFact", Decimal.Zero);
-
-			return comprobanteDetalleEntidad;
-		}
+		
 
 		#endregion
 	}

@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
+
 
 namespace TFI.DAL.DAL
 {
@@ -83,70 +82,34 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdEstadoPago", idEstadoPago)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "EstadoPagoSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "EstadoPagoSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                EstadoPagoEntidad EstadoPagoEntidad = new EstadoPagoEntidad();
+
+                EstadoPagoEntidad = Mapeador.MapearFirst<EstadoPagoEntidad>(dt);
+
+                return EstadoPagoEntidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the EstadoPago table.
-		/// </summary>
-		public string SelectJson(int idEstadoPago)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdEstadoPago", idEstadoPago)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "EstadoPagoSelect", parameters);
-		}
 
 		/// <summary>
 		/// Selects all records from the EstadoPago table.
 		/// </summary>
 		public List<EstadoPagoEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "EstadoPagoSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "EstadoPagoSelectAll"))
 			{
 				List<EstadoPagoEntidad> estadoPagoEntidadList = new List<EstadoPagoEntidad>();
-				while (dataReader.Read())
-				{
-					EstadoPagoEntidad estadoPagoEntidad = MapDataReader(dataReader);
-					estadoPagoEntidadList.Add(estadoPagoEntidad);
-				}
+
+                estadoPagoEntidadList = Mapeador.Mapear<EstadoPagoEntidad>(dt);
+
 
 				return estadoPagoEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the EstadoPago table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "EstadoPagoSelectAll");
-		}
-
-		/// <summary>
-		/// Creates a new instance of the EstadoPagoEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private EstadoPagoEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			EstadoPagoEntidad estadoPagoEntidad = new EstadoPagoEntidad();
-			estadoPagoEntidad.IdEstadoPago = dataReader.GetInt32("IdEstadoPago", 0);
-			estadoPagoEntidad.DescripEstadoPago = dataReader.GetString("DescripEstadoPago", null);
-
-			return estadoPagoEntidad;
-		}
-
+	
 		#endregion
 	}
 }

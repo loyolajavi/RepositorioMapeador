@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
+
 
 namespace TFI.DAL.DAL
 {
@@ -83,68 +82,31 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFamilia", idFamilia)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "FamiliaSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "FamiliaSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                FamiliaEntidad FamiliaEntidad = new FamiliaEntidad();
+
+                FamiliaEntidad = Mapeador.MapearFirst<FamiliaEntidad>(dt);
+
+                return FamiliaEntidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the Familia table.
-		/// </summary>
-		public string SelectJson(int idFamilia)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdFamilia", idFamilia)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "FamiliaSelect", parameters);
-		}
+		
 
 		/// <summary>
 		/// Selects all records from the Familia table.
 		/// </summary>
 		public List<FamiliaEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "FamiliaSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "FamiliaSelectAll"))
 			{
 				List<FamiliaEntidad> familiaEntidadList = new List<FamiliaEntidad>();
-				while (dataReader.Read())
-				{
-					FamiliaEntidad familiaEntidad = MapDataReader(dataReader);
-					familiaEntidadList.Add(familiaEntidad);
-				}
+
+                familiaEntidadList = Mapeador.Mapear<FamiliaEntidad>(dt);
 
 				return familiaEntidadList;
 			}
-		}
-
-		/// <summary>
-		/// Selects all records from the Familia table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "FamiliaSelectAll");
-		}
-
-		/// <summary>
-		/// Creates a new instance of the FamiliaEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private FamiliaEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			FamiliaEntidad familiaEntidad = new FamiliaEntidad();
-			familiaEntidad.IdFamilia = dataReader.GetInt32("IdFamilia", 0);
-			familiaEntidad.NombreFamilia = dataReader.GetString("NombreFamilia", null);
-
-			return familiaEntidad;
 		}
 
 		#endregion

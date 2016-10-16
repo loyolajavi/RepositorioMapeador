@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+using TFI.HelperDAL;
+
 
 namespace TFI.DAL.DAL
 {
@@ -83,70 +82,33 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFormaEntrega", idFormaEntrega)
 			};
 
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "FormaEntregaSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "FormaEntregaSelect", parameters))
 			{
-				if (dataReader.Read())
-				{
-					return MapDataReader(dataReader);
-				}
-				else
-				{
-					return null;
-				}
+                FormaEntregaEntidad FormaEntregaEntidad = new FormaEntregaEntidad();
+
+                FormaEntregaEntidad = Mapeador.MapearFirst<FormaEntregaEntidad>(dt);
+
+                return FormaEntregaEntidad;
 			}
 		}
 
-		/// <summary>
-		/// Selects a single record from the FormaEntrega table.
-		/// </summary>
-		public string SelectJson(int idFormaEntrega)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdFormaEntrega", idFormaEntrega)
-			};
-
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "FormaEntregaSelect", parameters);
-		}
 
 		/// <summary>
 		/// Selects all records from the FormaEntrega table.
 		/// </summary>
 		public List<FormaEntregaEntidad> SelectAll()
 		{
-			using (SqlDataReader dataReader = SqlClientUtility.ExecuteReader(connectionStringName, CommandType.StoredProcedure, "FormaEntregaSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "FormaEntregaSelectAll"))
 			{
 				List<FormaEntregaEntidad> formaEntregaEntidadList = new List<FormaEntregaEntidad>();
-				while (dataReader.Read())
-				{
-					FormaEntregaEntidad formaEntregaEntidad = MapDataReader(dataReader);
-					formaEntregaEntidadList.Add(formaEntregaEntidad);
-				}
+
+                formaEntregaEntidadList = Mapeador.Mapear<FormaEntregaEntidad>(dt);
 
 				return formaEntregaEntidadList;
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the FormaEntrega table.
-		/// </summary>
-		public string SelectAllJson()
-		{
-			return SqlClientUtility.ExecuteJson(connectionStringName, CommandType.StoredProcedure, "FormaEntregaSelectAll");
-		}
-
-		/// <summary>
-		/// Creates a new instance of the FormaEntregaEntidad class and populates it with data from the specified SqlDataReader.
-		/// </summary>
-		private FormaEntregaEntidad MapDataReader(SqlDataReader dataReader)
-		{
-			FormaEntregaEntidad formaEntregaEntidad = new FormaEntregaEntidad();
-			formaEntregaEntidad.IdFormaEntrega = dataReader.GetInt32("IdFormaEntrega", 0);
-			formaEntregaEntidad.DescripcionFormaEntrega = dataReader.GetString("DescripcionFormaEntrega", null);
-
-			return formaEntregaEntidad;
-		}
-
+	
 		#endregion
 	}
 }
