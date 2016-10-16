@@ -9,7 +9,7 @@ namespace TFI.DAL.DAL
 	public class EmpresaDAL
 	{
 
-        //COMENTARIO
+        //A VER SI FUNCAAAA
 		#region Fields
 
 		private string connectionStringName;
