@@ -49,6 +49,7 @@
     <Compile Include="HelperDAL\ValidationUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entidades\FormaPagoEntidades.cs" />
+    <Compile Include="Repositories\EmpresaDAL.cs" />
     <Compile Include="Repositories\FormaPagoDAL.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

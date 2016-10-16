@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SharpCore.Data;
-using SharpCore.Extensions;
-using SharpCore.Utilities;
+
 
 namespace TFI.DAL.DAL
 {
 	public class EmpresaDAL
 	{
+
+        //COMENTARIO
 		#region Fields
 
 		private string connectionStringName;
