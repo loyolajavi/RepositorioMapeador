@@ -1,0 +1,46 @@
+using System;
+
+namespace TFI.DAL
+{
+	public class UsuarioPatenteEntidad
+	{
+		#region Constructors
+
+		/// <summary>
+		/// Initializes a new instance of the UsuarioPatenteEntidad class.
+		/// </summary>
+		public UsuarioPatenteEntidad()
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the UsuarioPatenteEntidad class.
+		/// </summary>
+		public UsuarioPatenteEntidad(int cUIT, string nombreUsuario, int idPatente)
+		{
+			this.CUIT = cUIT;
+			this.NombreUsuario = nombreUsuario;
+			this.IdPatente = idPatente;
+		}
+
+		#endregion
+
+		#region Properties
+		/// <summary>
+		/// Gets or sets the CUIT value.
+		/// </summary>
+		public int CUIT { get; set; }
+
+		/// <summary>
+		/// Gets or sets the NombreUsuario value.
+		/// </summary>
+		public string NombreUsuario { get; set; }
+
+		/// <summary>
+		/// Gets or sets the IdPatente value.
+		/// </summary>
+		public int IdPatente { get; set; }
+
+		#endregion
+	}
+}
