@@ -8,22 +8,7 @@ namespace TFI.DAL.DAL
 {
 	public class TelefonoDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public TelefonoDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -43,7 +28,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoTel", telefono.IdTipoTel)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "TelefonoInsert", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TelefonoInsert", parameters);
 		}
 
 		/// <summary>
@@ -60,7 +45,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoTel", idTipoTel)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "TelefonoDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TelefonoDelete", parameters);
 		}
 
 		/// <summary>
@@ -73,7 +58,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoTel", idTipoTel)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "TelefonoDeleteAllByIdTipoTel", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TelefonoDeleteAllByIdTipoTel", parameters);
 		}
 
 		/// <summary>
@@ -87,7 +72,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "TelefonoDeleteAllByCUIT_NombreUsuario", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TelefonoDeleteAllByCUIT_NombreUsuario", parameters);
 		}
 
 		/// <summary>
@@ -104,7 +89,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoTel", idTipoTel)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "TelefonoSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TelefonoSelect", parameters))
 			{
                 TelefonoEntidad entidad = new TelefonoEntidad();
                 //       
@@ -129,7 +114,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoTel", idTipoTel)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "TelefonoSelectAllByIdTipoTel", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TelefonoSelectAllByIdTipoTel", parameters))
 			{
                 List<TelefonoEntidad> lista = new List<TelefonoEntidad>();
                 lista = Mapeador.Mapear<TelefonoEntidad>(dt);
@@ -149,7 +134,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "TelefonoSelectAllByCUIT_NombreUsuario", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TelefonoSelectAllByCUIT_NombreUsuario", parameters))
 			{
                 List<TelefonoEntidad> lista = new List<TelefonoEntidad>();
                 lista = Mapeador.Mapear<TelefonoEntidad>(dt);

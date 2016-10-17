@@ -9,22 +9,7 @@ namespace TFI.DAL.DAL
 {
 	public class DireccionUsuarioDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public DireccionUsuarioDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -42,7 +27,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", direccionUsuario.NombreUsuario)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "DireccionUsuarioInsert", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "DireccionUsuarioInsert", parameters);
 		}
 
 		/// <summary>
@@ -57,7 +42,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "DireccionUsuarioDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "DireccionUsuarioDelete", parameters);
 		}
 
 		/// <summary>
@@ -70,7 +55,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdDireccion", idDireccion)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "DireccionUsuarioDeleteAllByIdDireccion", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "DireccionUsuarioDeleteAllByIdDireccion", parameters);
 		}
 
 		/// <summary>
@@ -84,7 +69,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "DireccionUsuarioDeleteAllByCUIT_NombreUsuario", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "DireccionUsuarioDeleteAllByCUIT_NombreUsuario", parameters);
 		}
 
 		/// <summary>
@@ -99,7 +84,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "DireccionUsuarioSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "DireccionUsuarioSelect", parameters))
 			{
                 DireccionUsuarioEntidad DireccionUsuarioEntidad = new DireccionUsuarioEntidad();
 
@@ -122,7 +107,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdDireccion", idDireccion)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "DireccionUsuarioSelectAllByIdDireccion", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "DireccionUsuarioSelectAllByIdDireccion", parameters))
 			{
 				List<DireccionUsuarioEntidad> direccionUsuarioEntidadList = new List<DireccionUsuarioEntidad>();
 
@@ -143,7 +128,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "DireccionUsuarioSelectAllByCUIT_NombreUsuario", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "DireccionUsuarioSelectAllByCUIT_NombreUsuario", parameters))
 			{
 				List<DireccionUsuarioEntidad> direccionUsuarioEntidadList = new List<DireccionUsuarioEntidad>();
 

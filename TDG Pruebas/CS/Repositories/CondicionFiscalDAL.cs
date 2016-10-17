@@ -9,22 +9,6 @@ namespace TFI.DAL.DAL
 {
 	public class CondicionFiscalDAL
 	{
-		#region Fields
-
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public CondicionFiscalDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -40,7 +24,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@Descripcion", condicionFiscal.Descripcion)
 			};
 
-			condicionFiscal.IdCondicionFiscal = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "CondicionFiscalInsert", parameters);
+			condicionFiscal.IdCondicionFiscal = (int) SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "CondicionFiscalInsert", parameters);
 		}
 
 		/// <summary>
@@ -56,7 +40,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@Descripcion", condicionFiscal.Descripcion)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "CondicionFiscalUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "CondicionFiscalUpdate", parameters);
 		}
 
 		/// <summary>
@@ -69,7 +53,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdCondicionFiscal", idCondicionFiscal)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "CondicionFiscalDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "CondicionFiscalDelete", parameters);
 		}
 
 		/// <summary>
@@ -82,7 +66,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdCondicionFiscal", idCondicionFiscal)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "CondicionFiscalSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "CondicionFiscalSelect", parameters))
 			{
                 CondicionFiscalEntidad CondicionFiscalEntidad = new CondicionFiscalEntidad();
 
@@ -98,7 +82,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<CondicionFiscalEntidad> SelectAll()
 		{
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "CondicionFiscalSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "CondicionFiscalSelectAll"))
 			{
 				List<CondicionFiscalEntidad> condicionFiscalEntidadList = new List<CondicionFiscalEntidad>();
 

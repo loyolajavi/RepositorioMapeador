@@ -9,22 +9,6 @@ namespace TFI.DAL.DAL
 {
 	public class CategoriaDAL
 	{
-		#region Fields
-
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public CategoriaDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -40,7 +24,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripCategoria", categoria.DescripCategoria)
 			};
 
-			categoria.IdCategoria = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "CategoriaInsert", parameters);
+			categoria.IdCategoria = (int) SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "CategoriaInsert", parameters);
 		}
 
 		/// <summary>
@@ -56,7 +40,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripCategoria", categoria.DescripCategoria)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "CategoriaUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "CategoriaUpdate", parameters);
 		}
 
 		/// <summary>
@@ -69,7 +53,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdCategoria", idCategoria)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "CategoriaDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "CategoriaDelete", parameters);
 		}
 
 		/// <summary>
@@ -82,7 +66,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdCategoria", idCategoria)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "CategoriaSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "CategoriaSelect", parameters))
 			{
                 CategoriaEntidad CategoriaEntidad = new CategoriaEntidad();
 
@@ -98,7 +82,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<CategoriaEntidad> SelectAll()
 		{
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "CategoriaSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "CategoriaSelectAll"))
 			{
 				List<CategoriaEntidad> categoriaEntidadList = new List<CategoriaEntidad>();
 

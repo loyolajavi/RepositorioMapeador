@@ -7,22 +7,6 @@ namespace TFI.DAL.DAL
 {
 	public class UsuarioDAL
 	{
-		#region Fields
-
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public UsuarioDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -47,7 +31,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUITEmpresa", usuario.CUITEmpresa)
 			};
 
-			usuario.IdUsuario = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "UsuarioInsert", parameters);
+			usuario.IdUsuario = (int) SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioInsert", parameters);
 		}
 
 		/// <summary>
@@ -72,7 +56,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUITEmpresa", usuario.CUITEmpresa)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "UsuarioUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioUpdate", parameters);
 		}
 
 		/// <summary>
@@ -86,7 +70,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "UsuarioDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioDelete", parameters);
 		}
 
 		/// <summary>
@@ -99,7 +83,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdCondicionFiscal", idCondicionFiscal)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "UsuarioDeleteAllByIdCondicionFiscal", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioDeleteAllByIdCondicionFiscal", parameters);
 		}
 
 		/// <summary>
@@ -112,7 +96,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUITEmpresa", cUITEmpresa)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "UsuarioDeleteAllByCUITEmpresa", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioDeleteAllByCUITEmpresa", parameters);
 		}
 
 		/// <summary>
@@ -125,7 +109,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdUsuarioTipo", idUsuarioTipo)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "UsuarioDeleteAllByIdUsuarioTipo", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioDeleteAllByIdUsuarioTipo", parameters);
 		}
 
 		/// <summary>
@@ -139,7 +123,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioSelect", parameters))
 			{
                 UsuarioEntidad entidad = new UsuarioEntidad();
                 //       
@@ -159,7 +143,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<UsuarioEntidad> SelectAll()
 		{
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAll"))
 			{
                 List<UsuarioEntidad> lista = new List<UsuarioEntidad>();
                 lista = Mapeador.Mapear<UsuarioEntidad>(dt);
@@ -180,7 +164,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdCondicionFiscal", idCondicionFiscal)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAllByIdCondicionFiscal", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAllByIdCondicionFiscal", parameters))
 			{
                 List<UsuarioEntidad> lista = new List<UsuarioEntidad>();
                 lista = Mapeador.Mapear<UsuarioEntidad>(dt);
@@ -199,7 +183,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUITEmpresa", cUITEmpresa)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAllByCUITEmpresa", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAllByCUITEmpresa", parameters))
 			{
                 List<UsuarioEntidad> lista = new List<UsuarioEntidad>();
                 lista = Mapeador.Mapear<UsuarioEntidad>(dt);
@@ -218,7 +202,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdUsuarioTipo", idUsuarioTipo)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAllByIdUsuarioTipo", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioSelectAllByIdUsuarioTipo", parameters))
 			{
                 List<UsuarioEntidad> lista = new List<UsuarioEntidad>();
                 lista = Mapeador.Mapear<UsuarioEntidad>(dt);

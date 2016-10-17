@@ -9,22 +9,7 @@ namespace TFI.DAL.DAL
 {
 	public class ProvinciaDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public ProvinciaDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -41,7 +26,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripcionProvincia", provincia.DescripcionProvincia)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ProvinciaInsert", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProvinciaInsert", parameters);
 		}
 
 		/// <summary>
@@ -57,7 +42,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripcionProvincia", provincia.DescripcionProvincia)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ProvinciaUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProvinciaUpdate", parameters);
 		}
 
 		/// <summary>
@@ -70,7 +55,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdProvincia", idProvincia)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ProvinciaDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProvinciaDelete", parameters);
 		}
 
 		/// <summary>
@@ -83,7 +68,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdProvincia", idProvincia)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ProvinciaSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProvinciaSelect", parameters))
 			{
                 ProvinciaEntidad provincia = new ProvinciaEntidad();
                 //       
@@ -102,7 +87,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<ProvinciaEntidad> SelectAll()
 		{
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ProvinciaSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProvinciaSelectAll"))
 			{
                 List<ProvinciaEntidad> provincias = new List<ProvinciaEntidad>();
                 provincias = Mapeador.Mapear<ProvinciaEntidad>(dt);

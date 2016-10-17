@@ -9,22 +9,7 @@ namespace TFI.DAL.DAL
 {
 	public class FormaEntregaDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public FormaEntregaDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -40,7 +25,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripcionFormaEntrega", formaEntrega.DescripcionFormaEntrega)
 			};
 
-			formaEntrega.IdFormaEntrega = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "FormaEntregaInsert", parameters);
+			formaEntrega.IdFormaEntrega = (int) SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FormaEntregaInsert", parameters);
 		}
 
 		/// <summary>
@@ -56,7 +41,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripcionFormaEntrega", formaEntrega.DescripcionFormaEntrega)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "FormaEntregaUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FormaEntregaUpdate", parameters);
 		}
 
 		/// <summary>
@@ -69,7 +54,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFormaEntrega", idFormaEntrega)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "FormaEntregaDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FormaEntregaDelete", parameters);
 		}
 
 		/// <summary>
@@ -82,7 +67,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFormaEntrega", idFormaEntrega)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "FormaEntregaSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FormaEntregaSelect", parameters))
 			{
                 FormaEntregaEntidad FormaEntregaEntidad = new FormaEntregaEntidad();
 
@@ -98,7 +83,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<FormaEntregaEntidad> SelectAll()
 		{
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "FormaEntregaSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FormaEntregaSelectAll"))
 			{
 				List<FormaEntregaEntidad> formaEntregaEntidadList = new List<FormaEntregaEntidad>();
 

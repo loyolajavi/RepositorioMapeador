@@ -10,23 +10,6 @@ namespace TFI.DAL.DAL
 	public class EmpresaDAL
 	{
 
-       
-		#region Fields
-
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public EmpresaDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -43,7 +26,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreEmpresa", empresa.NombreEmpresa)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "EmpresaInsert", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "EmpresaInsert", parameters);
 		}
 
 		/// <summary>
@@ -59,7 +42,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreEmpresa", empresa.NombreEmpresa)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "EmpresaUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "EmpresaUpdate", parameters);
 		}
 
 		/// <summary>
@@ -72,7 +55,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", cUIT)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "EmpresaDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "EmpresaDelete", parameters);
 		}
 
 		/// <summary>
@@ -85,7 +68,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", cUIT)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "EmpresaSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "EmpresaSelect", parameters))
 			{
                 EmpresaEntidad EmpresaEntidad = new EmpresaEntidad();
 
@@ -102,7 +85,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<EmpresaEntidad> SelectAll()
 		{
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "EmpresaSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "EmpresaSelectAll"))
 			{
 				List<EmpresaEntidad> empresaEntidadList = new List<EmpresaEntidad>();
 

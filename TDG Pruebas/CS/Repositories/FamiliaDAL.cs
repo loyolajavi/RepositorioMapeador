@@ -9,22 +9,6 @@ namespace TFI.DAL.DAL
 {
 	public class FamiliaDAL
 	{
-		#region Fields
-
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public FamiliaDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -40,7 +24,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreFamilia", familia.NombreFamilia)
 			};
 
-			familia.IdFamilia = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "FamiliaInsert", parameters);
+			familia.IdFamilia = (int) SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FamiliaInsert", parameters);
 		}
 
 		/// <summary>
@@ -56,7 +40,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreFamilia", familia.NombreFamilia)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "FamiliaUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FamiliaUpdate", parameters);
 		}
 
 		/// <summary>
@@ -69,7 +53,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFamilia", idFamilia)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "FamiliaDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FamiliaDelete", parameters);
 		}
 
 		/// <summary>
@@ -82,7 +66,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFamilia", idFamilia)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "FamiliaSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FamiliaSelect", parameters))
 			{
                 FamiliaEntidad FamiliaEntidad = new FamiliaEntidad();
 
@@ -99,7 +83,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<FamiliaEntidad> SelectAll()
 		{
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "FamiliaSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FamiliaSelectAll"))
 			{
 				List<FamiliaEntidad> familiaEntidadList = new List<FamiliaEntidad>();
 

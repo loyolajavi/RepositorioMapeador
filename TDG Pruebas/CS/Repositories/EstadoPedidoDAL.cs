@@ -9,22 +9,6 @@ namespace TFI.DAL.DAL
 {
 	public class EstadoPedidoDAL
 	{
-		#region Fields
-
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public EstadoPedidoDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -40,7 +24,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripcionEstadoPedido", estadoPedido.DescripcionEstadoPedido)
 			};
 
-			estadoPedido.IdEstadoPedido = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "EstadoPedidoInsert", parameters);
+			estadoPedido.IdEstadoPedido = (int) SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "EstadoPedidoInsert", parameters);
 		}
 
 		/// <summary>
@@ -56,7 +40,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripcionEstadoPedido", estadoPedido.DescripcionEstadoPedido)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "EstadoPedidoUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "EstadoPedidoUpdate", parameters);
 		}
 
 		/// <summary>
@@ -69,7 +53,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdEstadoPedido", idEstadoPedido)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "EstadoPedidoDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "EstadoPedidoDelete", parameters);
 		}
 
 		/// <summary>
@@ -82,7 +66,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdEstadoPedido", idEstadoPedido)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "EstadoPedidoSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "EstadoPedidoSelect", parameters))
 			{
                 EstadoPedidoEntidad EstadoPedidoEntidad = new EstadoPedidoEntidad();
 
@@ -98,7 +82,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<EstadoPedidoEntidad> SelectAll()
 		{
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "EstadoPedidoSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "EstadoPedidoSelectAll"))
 			{
 				List<EstadoPedidoEntidad> estadoPedidoEntidadList = new List<EstadoPedidoEntidad>();
 

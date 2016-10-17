@@ -9,22 +9,6 @@ namespace TFI.DAL.DAL
 {
 	public class ComprobanteDetalleDAL
 	{
-		#region Fields
-
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public ComprobanteDetalleDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -47,7 +31,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@PrecioUnitarioFact", comprobanteDetalle.PrecioUnitarioFact)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleInsert", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleInsert", parameters);
 		}
 
 		/// <summary>
@@ -69,7 +53,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@PrecioUnitarioFact", comprobanteDetalle.PrecioUnitarioFact)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleUpdate", parameters);
 		}
 
 		/// <summary>
@@ -86,7 +70,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", cUIT)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleDelete", parameters);
 		}
 
 		/// <summary>
@@ -102,7 +86,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", cUIT)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleDeleteAllByNroComprobante_IdSucursal_IdTipoComprobante_CUIT", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleDeleteAllByNroComprobante_IdSucursal_IdTipoComprobante_CUIT", parameters);
 		}
 
 		/// <summary>
@@ -115,7 +99,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdProducto", idProducto)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleDeleteAllByIdProducto", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleDeleteAllByIdProducto", parameters);
 		}
 
 		/// <summary>
@@ -132,7 +116,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", cUIT)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelect", parameters))
 			{
 
                 ComprobanteDetalleEntidad ComprobanteDetalleEntidad = new ComprobanteDetalleEntidad();
@@ -149,7 +133,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<ComprobanteDetalleEntidad> SelectAll()
 		{
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelectAll"))
 			{
 				List<ComprobanteDetalleEntidad> comprobanteDetalleEntidadList = new List<ComprobanteDetalleEntidad>();
 
@@ -173,7 +157,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", cUIT)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelectAllByNroComprobante_IdSucursal_IdTipoComprobante_CUIT", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelectAllByNroComprobante_IdSucursal_IdTipoComprobante_CUIT", parameters))
 			{
 				List<ComprobanteDetalleEntidad> comprobanteDetalleEntidadList = new List<ComprobanteDetalleEntidad>();
 
@@ -192,7 +176,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdProducto", idProducto)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelectAllByIdProducto", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ComprobanteDetalleSelectAllByIdProducto", parameters))
 			{
 				List<ComprobanteDetalleEntidad> comprobanteDetalleEntidadList = new List<ComprobanteDetalleEntidad>();
 

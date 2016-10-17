@@ -8,22 +8,7 @@ namespace TFI.DAL.DAL
 {
 	public class TipoDireccionDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public TipoDireccionDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -40,7 +25,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripcionDireccion", tipoDireccion.DescripcionDireccion)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "TipoDireccionInsert", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TipoDireccionInsert", parameters);
 		}
 
 		/// <summary>
@@ -56,7 +41,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripcionDireccion", tipoDireccion.DescripcionDireccion)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "TipoDireccionUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TipoDireccionUpdate", parameters);
 		}
 
 		/// <summary>
@@ -69,7 +54,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoDireccion", idTipoDireccion)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "TipoDireccionDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TipoDireccionDelete", parameters);
 		}
 
 		/// <summary>
@@ -82,7 +67,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoDireccion", idTipoDireccion)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "TipoDireccionSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TipoDireccionSelect", parameters))
 			{
                 TipoDireccionEntidad entidad = new TipoDireccionEntidad();
                 //       
@@ -102,7 +87,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<TipoDireccionEntidad> SelectAll()
 		{
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "TipoDireccionSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TipoDireccionSelectAll"))
 			{
                 List<TipoDireccionEntidad> lista = new List<TipoDireccionEntidad>();
                 lista = Mapeador.Mapear<TipoDireccionEntidad>(dt);

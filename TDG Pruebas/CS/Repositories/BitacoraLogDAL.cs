@@ -9,22 +9,6 @@ namespace TFI.DAL.DAL
 {
 	public class BitacoraLogDAL
 	{
-		#region Fields
-
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public BitacoraLogDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -44,7 +28,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@FechaEvento", bitacoraLog.FechaEvento)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "BitacoraLogInsert", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "BitacoraLogInsert", parameters);
 		}
 
 		/// <summary>
@@ -63,7 +47,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@FechaEvento", bitacoraLog.FechaEvento)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "BitacoraLogUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "BitacoraLogUpdate", parameters);
 		}
 
 		/// <summary>
@@ -76,7 +60,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdBitacoraLog", idBitacoraLog)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "BitacoraLogDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "BitacoraLogDelete", parameters);
 		}
 
 		/// <summary>
@@ -90,7 +74,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "BitacoraLogDeleteAllByCUIT_NombreUsuario", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "BitacoraLogDeleteAllByCUIT_NombreUsuario", parameters);
 		}
 
 		/// <summary>
@@ -103,7 +87,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdBitacoraLog", idBitacoraLog)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "BitacoraLogSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "BitacoraLogSelect", parameters))
 			{
                 BitacoraLogEntidad BitacoraLogEntidad = new BitacoraLogEntidad();
 
@@ -118,7 +102,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<BitacoraLogEntidad> SelectAll()
 		{
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "BitacoraLogSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "BitacoraLogSelectAll"))
 			{
 				List<BitacoraLogEntidad> bitacoraLogEntidadList = new List<BitacoraLogEntidad>();
 
@@ -140,7 +124,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "BitacoraLogSelectAllByCUIT_NombreUsuario", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "BitacoraLogSelectAllByCUIT_NombreUsuario", parameters))
 			{
 				List<BitacoraLogEntidad> bitacoraLogEntidadList = new List<BitacoraLogEntidad>();
 

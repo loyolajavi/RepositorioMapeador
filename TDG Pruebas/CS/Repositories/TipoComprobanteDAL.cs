@@ -7,22 +7,7 @@ namespace TFI.DAL.DAL
 {
 	public class TipoComprobanteDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public TipoComprobanteDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -38,7 +23,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripTipoComprobante", tipoComprobante.DescripTipoComprobante)
 			};
 
-			tipoComprobante.IdTipoComprobante = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "TipoComprobanteInsert", parameters);
+			tipoComprobante.IdTipoComprobante = (int) SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TipoComprobanteInsert", parameters);
 		}
 
 		/// <summary>
@@ -54,7 +39,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripTipoComprobante", tipoComprobante.DescripTipoComprobante)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "TipoComprobanteUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TipoComprobanteUpdate", parameters);
 		}
 
 		/// <summary>
@@ -67,7 +52,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoComprobante", idTipoComprobante)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "TipoComprobanteDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TipoComprobanteDelete", parameters);
 		}
 
 		/// <summary>
@@ -80,7 +65,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoComprobante", idTipoComprobante)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "TipoComprobanteSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TipoComprobanteSelect", parameters))
 			{
                 TipoComprobanteEntidad entidad = new TipoComprobanteEntidad();
                 //       
@@ -99,7 +84,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<TipoComprobanteEntidad> SelectAll()
 		{
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "TipoComprobanteSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TipoComprobanteSelectAll"))
 			{
                 List<TipoComprobanteEntidad> lista = new List<TipoComprobanteEntidad>();
                 lista = Mapeador.Mapear<TipoComprobanteEntidad>(dt);

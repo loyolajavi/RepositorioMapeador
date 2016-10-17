@@ -7,22 +7,7 @@ namespace TFI.DAL.DAL
 {
 	public class TipoTelDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public TipoTelDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -38,7 +23,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripcionTipoTel", tipoTel.DescripcionTipoTel)
 			};
 
-			tipoTel.IdTipoTel = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "TipoTelInsert", parameters);
+			tipoTel.IdTipoTel = (int) SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TipoTelInsert", parameters);
 		}
 
 		/// <summary>
@@ -54,7 +39,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripcionTipoTel", tipoTel.DescripcionTipoTel)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "TipoTelUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TipoTelUpdate", parameters);
 		}
 
 		/// <summary>
@@ -67,7 +52,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoTel", idTipoTel)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "TipoTelDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TipoTelDelete", parameters);
 		}
 
 		/// <summary>
@@ -80,7 +65,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoTel", idTipoTel)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "TipoTelSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TipoTelSelect", parameters))
 			{
                 TipoTelEntidad entidad = new TipoTelEntidad();
                 //       
@@ -100,7 +85,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<TipoTelEntidad> SelectAll()
 		{
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "TipoTelSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "TipoTelSelectAll"))
 			{
                 List<TipoTelEntidad> lista = new List<TipoTelEntidad>();
                 lista = Mapeador.Mapear<TipoTelEntidad>(dt);

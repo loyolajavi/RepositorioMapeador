@@ -9,22 +9,6 @@ namespace TFI.DAL.DAL
 {
 	public class DireccionDAL
 	{
-		#region Fields
-
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public DireccionDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -46,7 +30,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoDireccion", direccion.IdTipoDireccion)
 			};
 
-			direccion.IdDireccion = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "DireccionInsert", parameters);
+			direccion.IdDireccion = (int) SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "DireccionInsert", parameters);
 		}
 
 		/// <summary>
@@ -68,7 +52,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoDireccion", direccion.IdTipoDireccion)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "DireccionUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "DireccionUpdate", parameters);
 		}
 
 		/// <summary>
@@ -81,7 +65,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdDireccion", idDireccion)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "DireccionDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "DireccionDelete", parameters);
 		}
 
 		/// <summary>
@@ -94,7 +78,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdProvincia", idProvincia)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "DireccionDeleteAllByIdProvincia", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "DireccionDeleteAllByIdProvincia", parameters);
 		}
 
 		/// <summary>
@@ -107,7 +91,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoDireccion", idTipoDireccion)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "DireccionDeleteAllByIdTipoDireccion", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "DireccionDeleteAllByIdTipoDireccion", parameters);
 		}
 
 		/// <summary>
@@ -120,7 +104,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdDireccion", idDireccion)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "DireccionSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "DireccionSelect", parameters))
 			{
                 DireccionEntidad DireccionEntidad = new DireccionEntidad();
 
@@ -137,7 +121,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<DireccionEntidad> SelectAll()
 		{
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "DireccionSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "DireccionSelectAll"))
 			{
 				List<DireccionEntidad> direccionEntidadList = new List<DireccionEntidad>();
 
@@ -158,7 +142,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdProvincia", idProvincia)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "DireccionSelectAllByIdProvincia", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "DireccionSelectAllByIdProvincia", parameters))
 			{
 				List<DireccionEntidad> direccionEntidadList = new List<DireccionEntidad>();
 
@@ -178,7 +162,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdTipoDireccion", idTipoDireccion)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "DireccionSelectAllByIdTipoDireccion", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "DireccionSelectAllByIdTipoDireccion", parameters))
 			{
 				List<DireccionEntidad> direccionEntidadList = new List<DireccionEntidad>();
 

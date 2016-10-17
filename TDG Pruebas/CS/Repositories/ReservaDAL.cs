@@ -7,22 +7,7 @@ namespace TFI.DAL.DAL
 {
 	public class ReservaDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public ReservaDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -42,7 +27,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@Fecha", reserva.Fecha)
 			};
 
-			reserva.IdReserva = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "ReservaInsert", parameters);
+			reserva.IdReserva = (int) SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ReservaInsert", parameters);
 		}
 
 		/// <summary>
@@ -62,7 +47,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@Fecha", reserva.Fecha)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ReservaUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ReservaUpdate", parameters);
 		}
 
 		/// <summary>
@@ -75,7 +60,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdReserva", idReserva)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ReservaDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ReservaDelete", parameters);
 		}
 
 		/// <summary>
@@ -89,7 +74,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdPedidoDetalle", idPedidoDetalle)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ReservaDeleteAllByIdPedido_IdPedidoDetalle", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ReservaDeleteAllByIdPedido_IdPedidoDetalle", parameters);
 		}
 
 		/// <summary>
@@ -102,7 +87,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdSucursal", idSucursal)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ReservaDeleteAllByIdSucursal", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ReservaDeleteAllByIdSucursal", parameters);
 		}
 
 		/// <summary>
@@ -115,7 +100,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdReserva", idReserva)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ReservaSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ReservaSelect", parameters))
 			{
                 ReservaEntidad ReservaEntidad = new ReservaEntidad();
                 //       
@@ -135,7 +120,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<ReservaEntidad> SelectAll()
 		{
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ReservaSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ReservaSelectAll"))
 			{
                 List<ReservaEntidad> reservas = new List<ReservaEntidad>();
                 reservas = Mapeador.Mapear<ReservaEntidad>(dt);
@@ -156,7 +141,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdPedidoDetalle", idPedidoDetalle)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ReservaSelectAllByIdPedido_IdPedidoDetalle", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ReservaSelectAllByIdPedido_IdPedidoDetalle", parameters))
 			{
                 List<ReservaEntidad> reservas = new List<ReservaEntidad>();
                 reservas = Mapeador.Mapear<ReservaEntidad>(dt);
@@ -175,7 +160,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdSucursal", idSucursal)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ReservaSelectAllByIdSucursal", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ReservaSelectAllByIdSucursal", parameters))
 			{
                 List<ReservaEntidad> reservas = new List<ReservaEntidad>();
                 reservas = Mapeador.Mapear<ReservaEntidad>(dt);

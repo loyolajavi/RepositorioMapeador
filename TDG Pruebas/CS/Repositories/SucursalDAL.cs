@@ -8,22 +8,7 @@ namespace TFI.DAL.DAL
 {
 	public class SucursalDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public SucursalDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -41,7 +26,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", sucursal.CUIT)
 			};
 
-			sucursal.IdSucursal = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "SucursalInsert", parameters);
+			sucursal.IdSucursal = (int) SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "SucursalInsert", parameters);
 		}
 
 		/// <summary>
@@ -59,7 +44,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", sucursal.CUIT)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "SucursalUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "SucursalUpdate", parameters);
 		}
 
 		/// <summary>
@@ -72,7 +57,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdSucursal", idSucursal)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "SucursalDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "SucursalDelete", parameters);
 		}
 
 		/// <summary>
@@ -85,7 +70,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DireccionSucursal", direccionSucursal)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "SucursalDeleteAllByDireccionSucursal", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "SucursalDeleteAllByDireccionSucursal", parameters);
 		}
 
 		/// <summary>
@@ -98,7 +83,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", cUIT)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "SucursalDeleteAllByCUIT", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "SucursalDeleteAllByCUIT", parameters);
 		}
 
 		/// <summary>
@@ -111,7 +96,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdSucursal", idSucursal)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "SucursalSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "SucursalSelect", parameters))
 			{
                 SucursalEntidad entidad = new SucursalEntidad();
                 //       
@@ -131,7 +116,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<SucursalEntidad> SelectAll()
 		{
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "SucursalSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "SucursalSelectAll"))
 			{
                 List<SucursalEntidad> lista = new List<SucursalEntidad>();
                 lista = Mapeador.Mapear<SucursalEntidad>(dt);
@@ -152,7 +137,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DireccionSucursal", direccionSucursal)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "SucursalSelectAllByDireccionSucursal", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "SucursalSelectAllByDireccionSucursal", parameters))
 			{
                 List<SucursalEntidad> lista = new List<SucursalEntidad>();
                 lista = Mapeador.Mapear<SucursalEntidad>(dt);
@@ -173,7 +158,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", cUIT)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "SucursalSelectAllByCUIT", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "SucursalSelectAllByCUIT", parameters))
 			{
                 List<SucursalEntidad> lista = new List<SucursalEntidad>();
                 lista = Mapeador.Mapear<SucursalEntidad>(dt);

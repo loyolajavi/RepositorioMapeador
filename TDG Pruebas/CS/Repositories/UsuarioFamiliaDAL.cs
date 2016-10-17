@@ -8,22 +8,7 @@ namespace TFI.DAL.DAL
 {
 	public class UsuarioFamiliaDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public UsuarioFamiliaDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -41,7 +26,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFamilia", usuarioFamilia.IdFamilia)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaInsert", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaInsert", parameters);
 		}
 
 		/// <summary>
@@ -56,7 +41,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFamilia", idFamilia)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaDelete", parameters);
 		}
 
 		/// <summary>
@@ -69,7 +54,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFamilia", idFamilia)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaDeleteAllByIdFamilia", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaDeleteAllByIdFamilia", parameters);
 		}
 
 		/// <summary>
@@ -83,7 +68,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaDeleteAllByCUIT_NombreUsuario", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaDeleteAllByCUIT_NombreUsuario", parameters);
 		}
 
 		/// <summary>
@@ -98,7 +83,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFamilia", idFamilia)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaSelect", parameters))
 			{
                 UsuarioFamiliaEntidad entidad = new UsuarioFamiliaEntidad();
                 //       
@@ -123,7 +108,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdFamilia", idFamilia)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaSelectAllByIdFamilia", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaSelectAllByIdFamilia", parameters))
 			{
                 List<UsuarioFamiliaEntidad> lista = new List<UsuarioFamiliaEntidad>();
                 lista = Mapeador.Mapear<UsuarioFamiliaEntidad>(dt);
@@ -143,7 +128,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaSelectAllByCUIT_NombreUsuario", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioFamiliaSelectAllByCUIT_NombreUsuario", parameters))
             {
                 List<UsuarioFamiliaEntidad> lista = new List<UsuarioFamiliaEntidad>();
                 lista = Mapeador.Mapear<UsuarioFamiliaEntidad>(dt);

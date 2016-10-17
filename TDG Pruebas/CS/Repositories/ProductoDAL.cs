@@ -9,22 +9,7 @@ namespace TFI.DAL.DAL
 {
     public class ProductoDAL
     {
-        #region Fields
 
-        private string connectionStringName;
-
-        #endregion
-
-        #region Constructors
-
-        public ProductoDAL(string connectionStringName)
-        {
-            ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-            this.connectionStringName = connectionStringName;
-        }
-
-        #endregion
 
         #region Methods
 
@@ -46,7 +31,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdEstadoProducto", producto.IdEstadoProducto)
 			};
 
-            producto.IdProducto = (int)SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "ProductoInsert", parameters);
+            producto.IdProducto = (int)SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoInsert", parameters);
         }
 
         /// <summary>
@@ -68,7 +53,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdEstadoProducto", producto.IdEstadoProducto)
 			};
 
-            SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ProductoUpdate", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoUpdate", parameters);
         }
 
         /// <summary>
@@ -81,7 +66,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdProducto", idProducto)
 			};
 
-            SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ProductoDelete", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoDelete", parameters);
         }
 
         /// <summary>
@@ -94,7 +79,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", cUIT)
 			};
 
-            SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ProductoDeleteAllByCUIT", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoDeleteAllByCUIT", parameters);
         }
 
         /// <summary>
@@ -107,7 +92,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdEstadoProducto", idEstadoProducto)
 			};
 
-            SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ProductoDeleteAllByIdEstadoProducto", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoDeleteAllByIdEstadoProducto", parameters);
         }
 
         /// <summary>
@@ -120,7 +105,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdIvaProducto", idIvaProducto)
 			};
 
-            SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ProductoDeleteAllByIdIvaProducto", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoDeleteAllByIdIvaProducto", parameters);
         }
 
         /// <summary>
@@ -133,7 +118,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdMarca", idMarca)
 			};
 
-            SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "ProductoDeleteAllByIdMarca", parameters);
+            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoDeleteAllByIdMarca", parameters);
         }
 
 
@@ -149,7 +134,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdProducto", idProducto)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ProductoSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoSelect", parameters))
             {
 
                 ProductoEntidad Producto = new ProductoEntidad();
@@ -169,7 +154,7 @@ namespace TFI.DAL.DAL
         /// </summary>
         public List<ProductoEntidad> SelectAll()
         {
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ProductoSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoSelectAll"))
             {
                 List<ProductoEntidad> productoEntidadList = new List<ProductoEntidad>();
                 productoEntidadList = Mapeador.Mapear<ProductoEntidad>(dt);
@@ -189,7 +174,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", cUIT)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ProductoSelectAllByCUIT", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoSelectAllByCUIT", parameters))
             {
                 List<ProductoEntidad> productoEntidadList = new List<ProductoEntidad>();
 
@@ -208,7 +193,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdEstadoProducto", idEstadoProducto)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ProductoSelectAllByIdEstadoProducto", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoSelectAllByIdEstadoProducto", parameters))
             {
                 List<ProductoEntidad> productoEntidadList = new List<ProductoEntidad>();
 
@@ -227,7 +212,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdIvaProducto", idIvaProducto)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ProductoSelectAllByIdIvaProducto", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoSelectAllByIdIvaProducto", parameters))
             {
                 List<ProductoEntidad> productoEntidadList = new List<ProductoEntidad>();
 
@@ -246,7 +231,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdMarca", idMarca)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "ProductoSelectAllByIdMarca", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoSelectAllByIdMarca", parameters))
             {
 
 

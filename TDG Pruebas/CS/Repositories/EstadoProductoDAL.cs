@@ -9,22 +9,7 @@ namespace TFI.DAL.DAL
 {
 	public class EstadoProductoDAL
 	{
-		#region Fields
-
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public EstadoProductoDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
+		
 
 		#region Methods
 
@@ -40,7 +25,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripEstadoProducto", estadoProducto.DescripEstadoProducto)
 			};
 
-			estadoProducto.IdEstadoProducto = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "EstadoProductoInsert", parameters);
+			estadoProducto.IdEstadoProducto = (int) SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "EstadoProductoInsert", parameters);
 		}
 
 		/// <summary>
@@ -56,7 +41,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@DescripEstadoProducto", estadoProducto.DescripEstadoProducto)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "EstadoProductoUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "EstadoProductoUpdate", parameters);
 		}
 
 		/// <summary>
@@ -69,7 +54,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdEstadoProducto", idEstadoProducto)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "EstadoProductoDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "EstadoProductoDelete", parameters);
 		}
 
 		/// <summary>
@@ -82,7 +67,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdEstadoProducto", idEstadoProducto)
 			};
 
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "EstadoProductoSelect", parameters))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "EstadoProductoSelect", parameters))
 			{
                 EstadoProductoEntidad EstadoProductoEntidad = new EstadoProductoEntidad();
 
@@ -98,7 +83,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<EstadoProductoEntidad> SelectAll()
 		{
-			using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "EstadoProductoSelectAll"))
+			using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "EstadoProductoSelectAll"))
 			{
 				List<EstadoProductoEntidad> estadoProductoEntidadList = new List<EstadoProductoEntidad>();
 

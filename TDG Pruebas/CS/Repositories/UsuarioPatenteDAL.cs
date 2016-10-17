@@ -7,22 +7,6 @@ namespace TFI.DAL.DAL
 {
 	public class UsuarioPatenteDAL
 	{
-		#region Fields
-
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public UsuarioPatenteDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -40,7 +24,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdPatente", usuarioPatente.IdPatente)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteInsert", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteInsert", parameters);
 		}
 
 		/// <summary>
@@ -55,7 +39,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdPatente", idPatente)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteDelete", parameters);
 		}
 
 		/// <summary>
@@ -68,7 +52,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdPatente", idPatente)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteDeleteAllByIdPatente", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteDeleteAllByIdPatente", parameters);
 		}
 
 		/// <summary>
@@ -82,7 +66,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteDeleteAllByCUIT_NombreUsuario", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteDeleteAllByCUIT_NombreUsuario", parameters);
 		}
 
 		/// <summary>
@@ -97,7 +81,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdPatente", idPatente)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteSelect", parameters))
 			{
                 UsuarioPatenteEntidad entidad = new UsuarioPatenteEntidad();
                 //       
@@ -122,7 +106,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdPatente", idPatente)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteSelectAllByIdPatente", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteSelectAllByIdPatente", parameters))
 			{
                 List<UsuarioPatenteEntidad> lista = new List<UsuarioPatenteEntidad>();
                 lista = Mapeador.Mapear<UsuarioPatenteEntidad>(dt);
@@ -142,7 +126,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@NombreUsuario", nombreUsuario)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteSelectAllByCUIT_NombreUsuario", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioPatenteSelectAllByCUIT_NombreUsuario", parameters))
 			{
                 List<UsuarioPatenteEntidad> lista = new List<UsuarioPatenteEntidad>();
                 lista = Mapeador.Mapear<UsuarioPatenteEntidad>(dt);

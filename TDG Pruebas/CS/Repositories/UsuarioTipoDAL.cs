@@ -8,22 +8,7 @@ namespace TFI.DAL.DAL
 {
 	public class UsuarioTipoDAL
 	{
-		#region Fields
 
-		private string connectionStringName;
-
-		#endregion
-
-		#region Constructors
-
-		public UsuarioTipoDAL(string connectionStringName)
-		{
-			ValidationUtility.ValidateArgument("connectionStringName", connectionStringName);
-
-			this.connectionStringName = connectionStringName;
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -39,7 +24,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@Descripcion", usuarioTipo.Descripcion)
 			};
 
-			usuarioTipo.IdUsuarioTipo = (int) SqlClientUtility.ExecuteScalar(connectionStringName, CommandType.StoredProcedure, "UsuarioTipoInsert", parameters);
+			usuarioTipo.IdUsuarioTipo = (int) SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioTipoInsert", parameters);
 		}
 
 		/// <summary>
@@ -55,7 +40,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@Descripcion", usuarioTipo.Descripcion)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "UsuarioTipoUpdate", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioTipoUpdate", parameters);
 		}
 
 		/// <summary>
@@ -68,7 +53,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdUsuarioTipo", idUsuarioTipo)
 			};
 
-			SqlClientUtility.ExecuteNonQuery(connectionStringName, CommandType.StoredProcedure, "UsuarioTipoDelete", parameters);
+			SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioTipoDelete", parameters);
 		}
 
 		/// <summary>
@@ -81,7 +66,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@IdUsuarioTipo", idUsuarioTipo)
 			};
 
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioTipoSelect", parameters))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioTipoSelect", parameters))
 			{
                 UsuarioTipoEntidad entidad = new UsuarioTipoEntidad();
                 //       
@@ -101,7 +86,7 @@ namespace TFI.DAL.DAL
 		/// </summary>
 		public List<UsuarioTipoEntidad> SelectAll()
 		{
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(connectionStringName, CommandType.StoredProcedure, "UsuarioTipoSelectAll"))
+            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "UsuarioTipoSelectAll"))
 			{
                 List<UsuarioTipoEntidad> lista = new List<UsuarioTipoEntidad>();
                 lista = Mapeador.Mapear<UsuarioTipoEntidad>(dt);
