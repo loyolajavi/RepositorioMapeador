@@ -36,8 +36,7 @@ namespace TFI.HelperDAL
 
                 using (command = CreateCommand(connection, commandType, commandText, parameters))
                 {
-                    //SE HACEN SIEMPRE TRANSACCIONES, HACEMOS ALGO PARA QUE AL CONSULTAR NO HAGA TRANSACCIONES ??????????????????????????????????????????????????????????????????????????
-                    //El chiste era que por parametros se podia pasar que no hagi una transaccion, pero es lo mismo por ahora.
+                    //TRANSACCIONES
                     result = CreateDataTable(command);
                     tr.Commit();
                     return result;
@@ -113,6 +112,7 @@ namespace TFI.HelperDAL
                 using (command = CreateCommand(connection, commandType, commandText, parameters))
                 {
                     command.ExecuteNonQuery();
+                    tr.Commit();
                 }
             }
             catch (Exception)
@@ -141,6 +141,7 @@ namespace TFI.HelperDAL
                 using (command = CreateCommand(connection, commandType, commandText, parameters))
                 {
                     result = command.ExecuteScalar();
+                    tr.Commit();
                     return result;
                 }
             }
