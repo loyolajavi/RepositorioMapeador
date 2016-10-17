@@ -10,17 +10,27 @@ using System.Configuration;
 namespace TFI.HelperDAL
 {
     /// <summary>
-    /// INTERNAL??????????????????????
+    /// La clase esta la dejamos como publica o internal ?????????????????????????????????????????????????????????????????????
     /// </summary>
     public static class SqlClientUtility
     {
-        public static string connectionStringName { get { return connectionStringName;} set { connectionStringName = ConfigurationManager.ConnectionStrings["DataContext"].ConnectionString; } }
+        public static string connectionStringName 
+        {
+            get 
+            { 
+                return _connectionStringName;
+            } 
+            set 
+            { 
+                //_connectionStringName = ConfigurationManager.ConnectionStrings["DataContext"].ConnectionString; EL SET LO DEJAMOS VACIO ???????????????????????????????????????????????????????????
+            } 
+        }
         
-        //public static string connectionStringName = ConfigurationManager.ConnectionStrings["DataContext"].ConnectionString;
+        private static string _connectionStringName = ConfigurationManager.ConnectionStrings["DataContext"].ConnectionString;
         private static SqlTransaction tr;
         private static SqlCommand command;
         private static SqlConnection connection;
-        //private static DataTable datatable; EL COMPILADOR DECIA QUE NO SE USABA NUNCA; POR ESO LO DEJE COMENTADO
+        //private static DataTable datatable; EL COMPILADOR DECIA QUE NO SE USABA NUNCA; POR ESO LO DEJE COMENTADO - LO SACAMOS ??????????????????????????????????????????
 
 
         /// <summary>
@@ -39,19 +49,20 @@ namespace TFI.HelperDAL
             try
             {
                 
-                //string connectionString = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
                 connection = new SqlConnection(connectionStringName);
 
+                //if (connection != null && connection.State == ConnectionState.Closed)   ESTE CODIGO LO AGREGAMOS ??????????????????????????????????????????????????????????
+                //{
                 connection.Open();
+                //}
                 
                 tr = connection.BeginTransaction();
 
                 using (command = CreateCommand(connection, commandType, commandText, parameters))
                 {
-
-                    //command.ExecuteNonQuery();
+                    //SE HACEN SIEMPRE TRANSACCIONES, HACEMOS ALGO PARA QUE AL CONSULTAR NO HAGA TRANSACCIONES ??????????????????????????????????????????????????????????????????????????
                     result = CreateDataTable(command);
-                    //tr.Commit();
+                    tr.Commit();
                     return result;
                 }
                 
@@ -80,10 +91,7 @@ namespace TFI.HelperDAL
         /// <returns></returns>
        private static SqlCommand CreateCommand(SqlConnection connection, CommandType commandType, string commandText, params SqlParameter[] parameters)
         {
-            //if (connection != null && connection.State == ConnectionState.Closed)
-            //{
-            //    connection.Open();
-            //}
+
             SqlCommand command = new SqlCommand();
             command.Connection = connection;
             command.CommandText = commandText;
