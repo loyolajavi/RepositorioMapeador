@@ -111,7 +111,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Gets or sets the FecBaja value.
 		/// </summary>
-		public DateTime FecBaja { get; set; }
+		public DateTime? FecBaja { get; set; }
 
 		#endregion
 	}
