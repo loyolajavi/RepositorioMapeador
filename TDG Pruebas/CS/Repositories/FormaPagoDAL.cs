@@ -56,7 +56,7 @@ namespace TFI.DAL.DAL
             SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FormaPagoUpdate", parameters);
         }
 
-		/// <summary> MODIFICARLA |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+		/// <summary> 
 		/// Deletes a record from the FormaPago table by its primary key.
 		/// </summary>
         public void Delete(int idFormaPago)
