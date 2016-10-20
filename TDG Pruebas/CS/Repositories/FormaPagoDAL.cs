@@ -63,7 +63,8 @@ namespace TFI.DAL.DAL
         {
             SqlParameter[] parameters = new SqlParameter[]
             {
-                new SqlParameter("@IdFormaPago", idFormaPago)
+                new SqlParameter("@IdFormaPago", idFormaPago),
+
             };
 
             SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FormaPagoDelete", parameters);

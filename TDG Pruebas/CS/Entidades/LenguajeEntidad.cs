@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the LenguajeEntidad class.
 		/// </summary>
-		public LenguajeEntidad(string descripcionLenguaje, DateTime fecBaja)
+		public LenguajeEntidad(string descripcionLenguaje, DateTime? fecBaja)
 		{
 			this.DescripcionLenguaje = descripcionLenguaje;
 			this.FecBaja = fecBaja;
@@ -25,7 +25,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the LenguajeEntidad class.
 		/// </summary>
-		public LenguajeEntidad(int idLenguaje, string descripcionLenguaje, DateTime fecBaja)
+		public LenguajeEntidad(int idLenguaje, string descripcionLenguaje, DateTime? fecBaja)
 		{
 			this.IdLenguaje = idLenguaje;
 			this.DescripcionLenguaje = descripcionLenguaje;

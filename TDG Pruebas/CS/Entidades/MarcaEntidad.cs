@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the MarcaEntidad class.
 		/// </summary>
-		public MarcaEntidad(string descripcionMarca, DateTime fecBaja)
+		public MarcaEntidad(string descripcionMarca, DateTime? fecBaja)
 		{
 			this.DescripcionMarca = descripcionMarca;
 			this.FecBaja = fecBaja;
@@ -25,7 +25,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the MarcaEntidad class.
 		/// </summary>
-		public MarcaEntidad(int idMarca, string descripcionMarca, DateTime fecBaja)
+		public MarcaEntidad(int idMarca, string descripcionMarca, DateTime? fecBaja)
 		{
 			this.IdMarca = idMarca;
 			this.DescripcionMarca = descripcionMarca;

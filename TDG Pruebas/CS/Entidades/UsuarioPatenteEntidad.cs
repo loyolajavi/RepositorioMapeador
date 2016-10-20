@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the UsuarioPatenteEntidad class.
 		/// </summary>
-		public UsuarioPatenteEntidad(int cUIT, string nombreUsuario, int idPatente, DateTime fecBaja)
+		public UsuarioPatenteEntidad(int cUIT, string nombreUsuario, int idPatente, DateTime? fecBaja)
 		{
 			this.CUIT = cUIT;
 			this.NombreUsuario = nombreUsuario;

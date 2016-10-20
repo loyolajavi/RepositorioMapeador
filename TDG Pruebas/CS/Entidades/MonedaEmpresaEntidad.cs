@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the MonedaEmpresaEntidad class.
 		/// </summary>
-		public MonedaEmpresaEntidad(int idMoneda, int cUITEmpresa, DateTime fecBaja)
+		public MonedaEmpresaEntidad(int idMoneda, int cUITEmpresa, DateTime? fecBaja)
 		{
 			this.IdMoneda = idMoneda;
 			this.CUITEmpresa = cUITEmpresa;

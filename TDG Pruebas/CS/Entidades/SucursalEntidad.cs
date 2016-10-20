@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the SucursalEntidad class.
 		/// </summary>
-		public SucursalEntidad(string descripSucursal, int direccionSucursal, int cUIT, DateTime fecBaja)
+		public SucursalEntidad(string descripSucursal, int direccionSucursal, int cUIT, DateTime? fecBaja)
 		{
 			this.DescripSucursal = descripSucursal;
 			this.DireccionSucursal = direccionSucursal;
@@ -27,7 +27,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the SucursalEntidad class.
 		/// </summary>
-		public SucursalEntidad(int idSucursal, string descripSucursal, int direccionSucursal, int cUIT, DateTime fecBaja)
+		public SucursalEntidad(int idSucursal, string descripSucursal, int direccionSucursal, int cUIT, DateTime? fecBaja)
 		{
 			this.IdSucursal = idSucursal;
 			this.DescripSucursal = descripSucursal;

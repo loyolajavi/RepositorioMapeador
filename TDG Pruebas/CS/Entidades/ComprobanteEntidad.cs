@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ComprobanteEntidad class.
 		/// </summary>
-		public ComprobanteEntidad(int nroComprobante, int idSucursal, int cUIT, int idTipoComprobante, int idComprobante, DateTime fechaComprobante, int idPedido, DateTime fecBaja)
+		public ComprobanteEntidad(int nroComprobante, int idSucursal, int cUIT, int idTipoComprobante, int idComprobante, DateTime fechaComprobante, int idPedido, DateTime? fecBaja)
 		{
 			this.NroComprobante = nroComprobante;
 			this.IdSucursal = idSucursal;

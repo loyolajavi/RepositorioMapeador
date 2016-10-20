@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the FormaEntregaEntidad class.
 		/// </summary>
-		public FormaEntregaEntidad(string descripcionFormaEntrega, DateTime fecBaja)
+		public FormaEntregaEntidad(string descripcionFormaEntrega, DateTime? fecBaja)
 		{
 			this.DescripcionFormaEntrega = descripcionFormaEntrega;
 			this.FecBaja = fecBaja;
@@ -25,7 +25,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the FormaEntregaEntidad class.
 		/// </summary>
-		public FormaEntregaEntidad(int idFormaEntrega, string descripcionFormaEntrega, DateTime fecBaja)
+		public FormaEntregaEntidad(int idFormaEntrega, string descripcionFormaEntrega, DateTime? fecBaja)
 		{
 			this.IdFormaEntrega = idFormaEntrega;
 			this.DescripcionFormaEntrega = descripcionFormaEntrega;

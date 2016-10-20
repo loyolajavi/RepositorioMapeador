@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ListaDeseoEntidad class.
 		/// </summary>
-		public ListaDeseoEntidad(int cUIT, string nombreUsuario, DateTime fecBaja)
+		public ListaDeseoEntidad(int cUIT, string nombreUsuario, DateTime? fecBaja)
 		{
 			this.CUIT = cUIT;
 			this.NombreUsuario = nombreUsuario;
@@ -26,7 +26,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ListaDeseoEntidad class.
 		/// </summary>
-		public ListaDeseoEntidad(int idListaDeseos, int cUIT, string nombreUsuario, DateTime fecBaja)
+		public ListaDeseoEntidad(int idListaDeseos, int cUIT, string nombreUsuario, DateTime? fecBaja)
 		{
 			this.IdListaDeseos = idListaDeseos;
 			this.CUIT = cUIT;

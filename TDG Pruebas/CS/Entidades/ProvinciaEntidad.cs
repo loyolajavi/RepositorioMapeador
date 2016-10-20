@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ProvinciaEntidad class.
 		/// </summary>
-		public ProvinciaEntidad(int idProvincia, string descripcionProvincia, DateTime fecBaja)
+		public ProvinciaEntidad(int idProvincia, string descripcionProvincia, DateTime? fecBaja)
 		{
 			this.IdProvincia = idProvincia;
 			this.DescripcionProvincia = descripcionProvincia;

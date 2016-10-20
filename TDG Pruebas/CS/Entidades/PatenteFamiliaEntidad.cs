@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the PatenteFamiliaEntidad class.
 		/// </summary>
-		public PatenteFamiliaEntidad(int idPatente, int idFamilia, DateTime fecBaja)
+		public PatenteFamiliaEntidad(int idPatente, int idFamilia, DateTime? fecBaja)
 		{
 			this.IdPatente = idPatente;
 			this.IdFamilia = idFamilia;

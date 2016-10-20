@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the PedidoEntidad class.
 		/// </summary>
-		public PedidoEntidad(DateTime fechaPedido, DateTime fechaFinPedido, string nombreUsuario, int plazoEntrega, int idFormaEntrega, int cUIT, string numeroTracking, int direccionEntrega, DateTime fecBaja)
+		public PedidoEntidad(DateTime fechaPedido, DateTime fechaFinPedido, string nombreUsuario, int plazoEntrega, int idFormaEntrega, int cUIT, string numeroTracking, int direccionEntrega, DateTime? fecBaja)
 		{
 			this.FechaPedido = fechaPedido;
 			this.FechaFinPedido = fechaFinPedido;
@@ -32,7 +32,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the PedidoEntidad class.
 		/// </summary>
-		public PedidoEntidad(int idPedido, DateTime fechaPedido, DateTime fechaFinPedido, string nombreUsuario, int plazoEntrega, int idFormaEntrega, int cUIT, string numeroTracking, int direccionEntrega, DateTime fecBaja)
+		public PedidoEntidad(int idPedido, DateTime fechaPedido, DateTime fechaFinPedido, string nombreUsuario, int plazoEntrega, int idFormaEntrega, int cUIT, string numeroTracking, int direccionEntrega, DateTime? fecBaja)
 		{
 			this.IdPedido = idPedido;
 			this.FechaPedido = fechaPedido;

@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the FamiliaEntidad class.
 		/// </summary>
-		public FamiliaEntidad(string nombreFamilia, DateTime fecBaja)
+		public FamiliaEntidad(string nombreFamilia, DateTime? fecBaja)
 		{
 			this.NombreFamilia = nombreFamilia;
 			this.FecBaja = fecBaja;
@@ -25,7 +25,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the FamiliaEntidad class.
 		/// </summary>
-		public FamiliaEntidad(int idFamilia, string nombreFamilia, DateTime fecBaja)
+		public FamiliaEntidad(int idFamilia, string nombreFamilia, DateTime? fecBaja)
 		{
 			this.IdFamilia = idFamilia;
 			this.NombreFamilia = nombreFamilia;

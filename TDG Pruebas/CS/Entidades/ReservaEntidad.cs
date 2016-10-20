@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ReservaEntidad class.
 		/// </summary>
-		public ReservaEntidad(int idPedido, int idPedidoDetalle, int idSucursal, bool activo, DateTime fecha, DateTime fecBaja)
+		public ReservaEntidad(int idPedido, int idPedidoDetalle, int idSucursal, bool activo, DateTime fecha, DateTime? fecBaja)
 		{
 			this.IdPedido = idPedido;
 			this.IdPedidoDetalle = idPedidoDetalle;
@@ -29,7 +29,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ReservaEntidad class.
 		/// </summary>
-		public ReservaEntidad(int idReserva, int idPedido, int idPedidoDetalle, int idSucursal, bool activo, DateTime fecha, DateTime fecBaja)
+		public ReservaEntidad(int idReserva, int idPedido, int idPedidoDetalle, int idSucursal, bool activo, DateTime fecha, DateTime? fecBaja)
 		{
 			this.IdReserva = idReserva;
 			this.IdPedido = idPedido;

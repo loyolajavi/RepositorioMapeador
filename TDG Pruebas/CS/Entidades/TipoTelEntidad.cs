@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the TipoTelEntidad class.
 		/// </summary>
-		public TipoTelEntidad(string descripcionTipoTel, DateTime fecBaja)
+		public TipoTelEntidad(string descripcionTipoTel, DateTime? fecBaja)
 		{
 			this.DescripcionTipoTel = descripcionTipoTel;
 			this.FecBaja = fecBaja;
@@ -25,7 +25,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the TipoTelEntidad class.
 		/// </summary>
-		public TipoTelEntidad(int idTipoTel, string descripcionTipoTel, DateTime fecBaja)
+		public TipoTelEntidad(int idTipoTel, string descripcionTipoTel, DateTime? fecBaja)
 		{
 			this.IdTipoTel = idTipoTel;
 			this.DescripcionTipoTel = descripcionTipoTel;

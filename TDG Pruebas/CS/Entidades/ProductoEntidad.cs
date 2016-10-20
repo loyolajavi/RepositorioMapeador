@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ProductoEntidad class.
 		/// </summary>
-		public ProductoEntidad(string codigoProducto, decimal precioUnitario, int idMarca, int cUIT, int idIvaProducto, string descripProducto, string uRL, DateTime fecBaja)
+		public ProductoEntidad(string codigoProducto, decimal precioUnitario, int idMarca, int cUIT, int idIvaProducto, string descripProducto, string uRL, DateTime? fecBaja)
 		{
 			this.CodigoProducto = codigoProducto;
 			this.PrecioUnitario = precioUnitario;
@@ -31,7 +31,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ProductoEntidad class.
 		/// </summary>
-		public ProductoEntidad(int idProducto, string codigoProducto, decimal precioUnitario, int idMarca, int cUIT, int idIvaProducto, string descripProducto, string uRL, DateTime fecBaja)
+		public ProductoEntidad(int idProducto, string codigoProducto, decimal precioUnitario, int idMarca, int cUIT, int idIvaProducto, string descripProducto, string uRL, DateTime? fecBaja)
 		{
 			this.IdProducto = idProducto;
 			this.CodigoProducto = codigoProducto;

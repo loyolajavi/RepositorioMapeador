@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the PagoEntidad class.
 		/// </summary>
-		public PagoEntidad(int idPedido, DateTime fechaPago, int idFormaPago, decimal montoPago, int nroComprobante, int idSucursal, int idTipoComprobante, int cUIT, DateTime fecBaja, int idTarjeta)
+		public PagoEntidad(int idPedido, DateTime fechaPago, int idFormaPago, decimal montoPago, int nroComprobante, int idSucursal, int idTipoComprobante, int cUIT, DateTime? fecBaja, int idTarjeta)
 		{
 			this.IdPedido = idPedido;
 			this.FechaPago = fechaPago;
@@ -33,7 +33,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the PagoEntidad class.
 		/// </summary>
-		public PagoEntidad(int idPago, int idPedido, DateTime fechaPago, int idFormaPago, decimal montoPago, int nroComprobante, int idSucursal, int idTipoComprobante, int cUIT, DateTime fecBaja, int idTarjeta)
+		public PagoEntidad(int idPago, int idPedido, DateTime fechaPago, int idFormaPago, decimal montoPago, int nroComprobante, int idSucursal, int idTipoComprobante, int cUIT, DateTime? fecBaja, int idTarjeta)
 		{
 			this.IdPago = idPago;
 			this.IdPedido = idPedido;

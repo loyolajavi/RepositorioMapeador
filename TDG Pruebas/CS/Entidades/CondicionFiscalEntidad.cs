@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the CondicionFiscalEntidad class.
 		/// </summary>
-		public CondicionFiscalEntidad(string descripcion, DateTime fecBaja)
+		public CondicionFiscalEntidad(string descripcion, DateTime? fecBaja)
 		{
 			this.Descripcion = descripcion;
 			this.FecBaja = fecBaja;
@@ -25,7 +25,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the CondicionFiscalEntidad class.
 		/// </summary>
-		public CondicionFiscalEntidad(int idCondicionFiscal, string descripcion, DateTime fecBaja)
+		public CondicionFiscalEntidad(int idCondicionFiscal, string descripcion, DateTime? fecBaja)
 		{
 			this.IdCondicionFiscal = idCondicionFiscal;
 			this.Descripcion = descripcion;

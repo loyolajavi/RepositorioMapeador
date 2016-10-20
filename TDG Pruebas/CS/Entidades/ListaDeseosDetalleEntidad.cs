@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ListaDeseosDetalleEntidad class.
 		/// </summary>
-		public ListaDeseosDetalleEntidad(int idListaDeseos, int idProducto, DateTime fechaDeseoDetalle, DateTime fecBaja)
+		public ListaDeseosDetalleEntidad(int idListaDeseos, int idProducto, DateTime fechaDeseoDetalle, DateTime? fecBaja)
 		{
 			this.IdListaDeseos = idListaDeseos;
 			this.IdProducto = idProducto;
@@ -27,7 +27,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ListaDeseosDetalleEntidad class.
 		/// </summary>
-		public ListaDeseosDetalleEntidad(int idListaDeseos, int idListaDeseosDetalle, int idProducto, DateTime fechaDeseoDetalle, DateTime fecBaja)
+		public ListaDeseosDetalleEntidad(int idListaDeseos, int idListaDeseosDetalle, int idProducto, DateTime fechaDeseoDetalle, DateTime? fecBaja)
 		{
 			this.IdListaDeseos = idListaDeseos;
 			this.IdListaDeseosDetalle = idListaDeseosDetalle;

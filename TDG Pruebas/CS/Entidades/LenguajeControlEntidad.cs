@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the LenguajeControlEntidad class.
 		/// </summary>
-		public LenguajeControlEntidad(string texto, int idLenguaje, string valor, DateTime fecBaja)
+		public LenguajeControlEntidad(string texto, int idLenguaje, string valor, DateTime? fecBaja)
 		{
 			this.Texto = texto;
 			this.IdLenguaje = idLenguaje;

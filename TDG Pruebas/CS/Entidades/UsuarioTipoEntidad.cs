@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the UsuarioTipoEntidad class.
 		/// </summary>
-		public UsuarioTipoEntidad(string descripcion, DateTime fecBaja)
+		public UsuarioTipoEntidad(string descripcion, DateTime? fecBaja)
 		{
 			this.Descripcion = descripcion;
 			this.FecBaja = fecBaja;
@@ -25,7 +25,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the UsuarioTipoEntidad class.
 		/// </summary>
-		public UsuarioTipoEntidad(int idUsuarioTipo, string descripcion, DateTime fecBaja)
+		public UsuarioTipoEntidad(int idUsuarioTipo, string descripcion, DateTime? fecBaja)
 		{
 			this.IdUsuarioTipo = idUsuarioTipo;
 			this.Descripcion = descripcion;

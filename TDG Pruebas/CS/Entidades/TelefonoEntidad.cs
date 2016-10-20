@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the TelefonoEntidad class.
 		/// </summary>
-		public TelefonoEntidad(int cUIT, string nombreUsuario, string nroTelefono, string codArea, int idTipoTel, DateTime fecBaja)
+		public TelefonoEntidad(int cUIT, string nombreUsuario, string nroTelefono, string codArea, int idTipoTel, DateTime? fecBaja)
 		{
 			this.CUIT = cUIT;
 			this.NombreUsuario = nombreUsuario;

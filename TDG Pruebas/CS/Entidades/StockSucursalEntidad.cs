@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the StockSucursalEntidad class.
 		/// </summary>
-		public StockSucursalEntidad(int idProducto, int idSucursal, int cantidadProducto, DateTime fecBaja)
+		public StockSucursalEntidad(int idProducto, int idSucursal, int cantidadProducto, DateTime? fecBaja)
 		{
 			this.IdProducto = idProducto;
 			this.IdSucursal = idSucursal;

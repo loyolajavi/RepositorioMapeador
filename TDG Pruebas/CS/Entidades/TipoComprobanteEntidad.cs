@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the TipoComprobanteEntidad class.
 		/// </summary>
-		public TipoComprobanteEntidad(string descripTipoComprobante, DateTime fecBaja)
+		public TipoComprobanteEntidad(string descripTipoComprobante, DateTime? fecBaja)
 		{
 			this.DescripTipoComprobante = descripTipoComprobante;
 			this.FecBaja = fecBaja;
@@ -25,7 +25,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the TipoComprobanteEntidad class.
 		/// </summary>
-		public TipoComprobanteEntidad(int idTipoComprobante, string descripTipoComprobante, DateTime fecBaja)
+		public TipoComprobanteEntidad(int idTipoComprobante, string descripTipoComprobante, DateTime? fecBaja)
 		{
 			this.IdTipoComprobante = idTipoComprobante;
 			this.DescripTipoComprobante = descripTipoComprobante;

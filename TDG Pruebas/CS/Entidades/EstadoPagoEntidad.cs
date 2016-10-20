@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the EstadoPagoEntidad class.
 		/// </summary>
-		public EstadoPagoEntidad(string descripEstadoPago, DateTime fecBaja)
+		public EstadoPagoEntidad(string descripEstadoPago, DateTime? fecBaja)
 		{
 			this.DescripEstadoPago = descripEstadoPago;
 			this.FecBaja = fecBaja;
@@ -25,7 +25,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the EstadoPagoEntidad class.
 		/// </summary>
-		public EstadoPagoEntidad(int idEstadoPago, string descripEstadoPago, DateTime fecBaja)
+		public EstadoPagoEntidad(int idEstadoPago, string descripEstadoPago, DateTime? fecBaja)
 		{
 			this.IdEstadoPago = idEstadoPago;
 			this.DescripEstadoPago = descripEstadoPago;

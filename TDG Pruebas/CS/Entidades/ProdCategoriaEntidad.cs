@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ProdCategoriaEntidad class.
 		/// </summary>
-		public ProdCategoriaEntidad(int idProducto, int idCategoria, DateTime fecBaja)
+		public ProdCategoriaEntidad(int idProducto, int idCategoria, DateTime? fecBaja)
 		{
 			this.IdProducto = idProducto;
 			this.IdCategoria = idCategoria;

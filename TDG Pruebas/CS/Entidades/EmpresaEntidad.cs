@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the EmpresaEntidad class.
 		/// </summary>
-		public EmpresaEntidad(int cUIT, string nombreEmpresa, DateTime fecBaja)
+		public EmpresaEntidad(int cUIT, string nombreEmpresa, DateTime? fecBaja)
 		{
 			this.CUIT = cUIT;
 			this.NombreEmpresa = nombreEmpresa;

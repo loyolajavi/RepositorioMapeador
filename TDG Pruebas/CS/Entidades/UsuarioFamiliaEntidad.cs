@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the UsuarioFamiliaEntidad class.
 		/// </summary>
-		public UsuarioFamiliaEntidad(int cUIT, string nombreUsuario, int idFamilia, DateTime fecBaja)
+		public UsuarioFamiliaEntidad(int cUIT, string nombreUsuario, int idFamilia, DateTime? fecBaja)
 		{
 			this.CUIT = cUIT;
 			this.NombreUsuario = nombreUsuario;

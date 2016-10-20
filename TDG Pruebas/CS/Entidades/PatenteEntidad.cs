@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the PatenteEntidad class.
 		/// </summary>
-		public PatenteEntidad(string nombrePatente, DateTime fecBaja)
+		public PatenteEntidad(string nombrePatente, DateTime? fecBaja)
 		{
 			this.NombrePatente = nombrePatente;
 			this.FecBaja = fecBaja;
@@ -25,7 +25,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the PatenteEntidad class.
 		/// </summary>
-		public PatenteEntidad(int idPatente, string nombrePatente, DateTime fecBaja)
+		public PatenteEntidad(int idPatente, string nombrePatente, DateTime? fecBaja)
 		{
 			this.IdPatente = idPatente;
 			this.NombrePatente = nombrePatente;
