@@ -16,18 +16,20 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the FormaEntregaEntidad class.
 		/// </summary>
-		public FormaEntregaEntidad(string descripcionFormaEntrega)
+		public FormaEntregaEntidad(string descripcionFormaEntrega, DateTime fecBaja)
 		{
 			this.DescripcionFormaEntrega = descripcionFormaEntrega;
+			this.FecBaja = fecBaja;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the FormaEntregaEntidad class.
 		/// </summary>
-		public FormaEntregaEntidad(int idFormaEntrega, string descripcionFormaEntrega)
+		public FormaEntregaEntidad(int idFormaEntrega, string descripcionFormaEntrega, DateTime fecBaja)
 		{
 			this.IdFormaEntrega = idFormaEntrega;
 			this.DescripcionFormaEntrega = descripcionFormaEntrega;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -42,6 +44,11 @@ namespace TFI.DAL
 		/// Gets or sets the DescripcionFormaEntrega value.
 		/// </summary>
 		public string DescripcionFormaEntrega { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

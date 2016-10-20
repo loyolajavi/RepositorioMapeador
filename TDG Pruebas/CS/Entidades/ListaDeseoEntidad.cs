@@ -16,20 +16,22 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ListaDeseoEntidad class.
 		/// </summary>
-		public ListaDeseoEntidad(int cUIT, string nombreUsuario)
+		public ListaDeseoEntidad(int cUIT, string nombreUsuario, DateTime fecBaja)
 		{
 			this.CUIT = cUIT;
 			this.NombreUsuario = nombreUsuario;
+			this.FecBaja = fecBaja;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the ListaDeseoEntidad class.
 		/// </summary>
-		public ListaDeseoEntidad(int idListaDeseos, int cUIT, string nombreUsuario)
+		public ListaDeseoEntidad(int idListaDeseos, int cUIT, string nombreUsuario, DateTime fecBaja)
 		{
 			this.IdListaDeseos = idListaDeseos;
 			this.CUIT = cUIT;
 			this.NombreUsuario = nombreUsuario;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -49,6 +51,11 @@ namespace TFI.DAL
 		/// Gets or sets the NombreUsuario value.
 		/// </summary>
 		public string NombreUsuario { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

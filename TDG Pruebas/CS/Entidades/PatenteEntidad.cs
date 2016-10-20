@@ -16,18 +16,20 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the PatenteEntidad class.
 		/// </summary>
-		public PatenteEntidad(string nombrePatente)
+		public PatenteEntidad(string nombrePatente, DateTime fecBaja)
 		{
 			this.NombrePatente = nombrePatente;
+			this.FecBaja = fecBaja;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the PatenteEntidad class.
 		/// </summary>
-		public PatenteEntidad(int idPatente, string nombrePatente)
+		public PatenteEntidad(int idPatente, string nombrePatente, DateTime fecBaja)
 		{
 			this.IdPatente = idPatente;
 			this.NombrePatente = nombrePatente;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -42,6 +44,11 @@ namespace TFI.DAL
 		/// Gets or sets the NombrePatente value.
 		/// </summary>
 		public string NombrePatente { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

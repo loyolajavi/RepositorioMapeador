@@ -16,18 +16,20 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the CondicionFiscalEntidad class.
 		/// </summary>
-		public CondicionFiscalEntidad(string descripcion)
+		public CondicionFiscalEntidad(string descripcion, DateTime fecBaja)
 		{
 			this.Descripcion = descripcion;
+			this.FecBaja = fecBaja;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the CondicionFiscalEntidad class.
 		/// </summary>
-		public CondicionFiscalEntidad(int idCondicionFiscal, string descripcion)
+		public CondicionFiscalEntidad(int idCondicionFiscal, string descripcion, DateTime fecBaja)
 		{
 			this.IdCondicionFiscal = idCondicionFiscal;
 			this.Descripcion = descripcion;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -42,6 +44,11 @@ namespace TFI.DAL
 		/// Gets or sets the Descripcion value.
 		/// </summary>
 		public string Descripcion { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

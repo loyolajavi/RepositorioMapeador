@@ -16,17 +16,25 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the SucursalEntidad class.
 		/// </summary>
-		public SucursalEntidad(string descripSucursal, int direccionSucursal, int cUIT)
+		public SucursalEntidad(string descripSucursal, int direccionSucursal, int cUIT, DateTime fecBaja)
 		{
 			this.DescripSucursal = descripSucursal;
 			this.DireccionSucursal = direccionSucursal;
 			this.CUIT = cUIT;
+			this.FecBaja = fecBaja;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the SucursalEntidad class.
 		/// </summary>
-		
+		public SucursalEntidad(int idSucursal, string descripSucursal, int direccionSucursal, int cUIT, DateTime fecBaja)
+		{
+			this.IdSucursal = idSucursal;
+			this.DescripSucursal = descripSucursal;
+			this.DireccionSucursal = direccionSucursal;
+			this.CUIT = cUIT;
+			this.FecBaja = fecBaja;
+		}
 
 		#endregion
 
@@ -50,6 +58,11 @@ namespace TFI.DAL
 		/// Gets or sets the CUIT value.
 		/// </summary>
 		public int CUIT { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

@@ -16,18 +16,20 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the LenguajeEntidad class.
 		/// </summary>
-		public LenguajeEntidad(string descripcionLenguaje)
+		public LenguajeEntidad(string descripcionLenguaje, DateTime fecBaja)
 		{
 			this.DescripcionLenguaje = descripcionLenguaje;
+			this.FecBaja = fecBaja;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the LenguajeEntidad class.
 		/// </summary>
-		public LenguajeEntidad(int idLenguaje, string descripcionLenguaje)
+		public LenguajeEntidad(int idLenguaje, string descripcionLenguaje, DateTime fecBaja)
 		{
 			this.IdLenguaje = idLenguaje;
 			this.DescripcionLenguaje = descripcionLenguaje;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -42,6 +44,11 @@ namespace TFI.DAL
 		/// Gets or sets the DescripcionLenguaje value.
 		/// </summary>
 		public string DescripcionLenguaje { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

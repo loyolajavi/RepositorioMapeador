@@ -37,6 +37,7 @@ namespace TFI.HelperDAL
             foreach (var row in table.Rows)
             {
                 var item = CreateItemFromRow<T>((DataRow)row, properties);
+                result = item;
             }
 
             return result;

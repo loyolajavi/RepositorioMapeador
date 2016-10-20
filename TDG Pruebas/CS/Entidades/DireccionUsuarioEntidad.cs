@@ -16,11 +16,12 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the DireccionUsuarioEntidad class.
 		/// </summary>
-		public DireccionUsuarioEntidad(int idDireccion, int cUIT, string nombreUsuario)
+		public DireccionUsuarioEntidad(int idDireccion, int cUIT, string nombreUsuario, DateTime fecBaja)
 		{
 			this.IdDireccion = idDireccion;
 			this.CUIT = cUIT;
 			this.NombreUsuario = nombreUsuario;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -40,6 +41,11 @@ namespace TFI.DAL
 		/// Gets or sets the NombreUsuario value.
 		/// </summary>
 		public string NombreUsuario { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime? FecBaja { get; set; }
 
 		#endregion
 	}

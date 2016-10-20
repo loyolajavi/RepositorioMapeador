@@ -16,13 +16,14 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the TelefonoEntidad class.
 		/// </summary>
-		public TelefonoEntidad(int cUIT, string nombreUsuario, string nroTelefono, string codArea, int idTipoTel)
+		public TelefonoEntidad(int cUIT, string nombreUsuario, string nroTelefono, string codArea, int idTipoTel, DateTime fecBaja)
 		{
 			this.CUIT = cUIT;
 			this.NombreUsuario = nombreUsuario;
 			this.NroTelefono = nroTelefono;
 			this.CodArea = codArea;
 			this.IdTipoTel = idTipoTel;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -52,6 +53,11 @@ namespace TFI.DAL
 		/// Gets or sets the IdTipoTel value.
 		/// </summary>
 		public int IdTipoTel { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

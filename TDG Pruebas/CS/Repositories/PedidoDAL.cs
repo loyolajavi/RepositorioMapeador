@@ -25,7 +25,6 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@FechaFinPedido", pedido.FechaFinPedido),
 				new SqlParameter("@NombreUsuario", pedido.NombreUsuario),
 				new SqlParameter("@PlazoEntrega", pedido.PlazoEntrega),
-				new SqlParameter("@IdEstadoPedido", pedido.IdEstadoPedido),
 				new SqlParameter("@IdFormaEntrega", pedido.IdFormaEntrega),
 				new SqlParameter("@CUIT", pedido.CUIT),
 				new SqlParameter("@NumeroTracking", pedido.NumeroTracking),
@@ -49,7 +48,6 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@FechaFinPedido", pedido.FechaFinPedido),
 				new SqlParameter("@NombreUsuario", pedido.NombreUsuario),
 				new SqlParameter("@PlazoEntrega", pedido.PlazoEntrega),
-				new SqlParameter("@IdEstadoPedido", pedido.IdEstadoPedido),
 				new SqlParameter("@IdFormaEntrega", pedido.IdFormaEntrega),
 				new SqlParameter("@CUIT", pedido.CUIT),
 				new SqlParameter("@NumeroTracking", pedido.NumeroTracking),
@@ -98,18 +96,6 @@ namespace TFI.DAL.DAL
             SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoDeleteAllByCUIT", parameters);
 		}
 
-		/// <summary>
-		/// Deletes a record from the Pedido table by a foreign key.
-		/// </summary>
-		public void DeleteAllByIdEstadoPedido(int idEstadoPedido)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdEstadoPedido", idEstadoPedido)
-			};
-
-            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoDeleteAllByIdEstadoPedido", parameters);
-		}
 
 		/// <summary>
 		/// Deletes a record from the Pedido table by a foreign key.
@@ -216,25 +202,7 @@ namespace TFI.DAL.DAL
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the Pedido table by a foreign key.
-		/// </summary>
-		public List<PedidoEntidad> SelectAllByIdEstadoPedido(int idEstadoPedido)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdEstadoPedido", idEstadoPedido)
-			};
-
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PedidoSelectAllByIdEstadoPedido", parameters))
-			{
-				List<PedidoEntidad> pedidoEntidadList = new List<PedidoEntidad>();
-
-                pedidoEntidadList = Mapeador.Mapear<PedidoEntidad>(dt);
-
-				return pedidoEntidadList;
-			}
-		}
+		
 
 		/// <summary>
 		/// Selects all records from the Pedido table by a foreign key.

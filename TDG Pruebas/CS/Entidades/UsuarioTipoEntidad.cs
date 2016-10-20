@@ -13,15 +13,23 @@ namespace TFI.DAL
 		{
 		}
 
-		
+		/// <summary>
+		/// Initializes a new instance of the UsuarioTipoEntidad class.
+		/// </summary>
+		public UsuarioTipoEntidad(string descripcion, DateTime fecBaja)
+		{
+			this.Descripcion = descripcion;
+			this.FecBaja = fecBaja;
+		}
 
 		/// <summary>
 		/// Initializes a new instance of the UsuarioTipoEntidad class.
 		/// </summary>
-		public UsuarioTipoEntidad(int idUsuarioTipo, string descripcion)
+		public UsuarioTipoEntidad(int idUsuarioTipo, string descripcion, DateTime fecBaja)
 		{
-            this.IdUsuarioTipo = idUsuarioTipo;
-            this.Descripcion = descripcion;
+			this.IdUsuarioTipo = idUsuarioTipo;
+			this.Descripcion = descripcion;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -36,6 +44,11 @@ namespace TFI.DAL
 		/// Gets or sets the Descripcion value.
 		/// </summary>
 		public string Descripcion { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

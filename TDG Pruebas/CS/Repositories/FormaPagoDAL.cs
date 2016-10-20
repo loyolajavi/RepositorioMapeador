@@ -34,7 +34,7 @@ namespace TFI.DAL.DAL
             };
 
             formaPago.IdFormaPago = (int)SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FormaPagoInsert", parameters);
-            SqlClientUtility.ExecuteDataTable("asdf", CommandType.StoredProcedure, "FormaPagoInsert", parameters);
+            
 
         }
 
@@ -56,7 +56,7 @@ namespace TFI.DAL.DAL
             SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "FormaPagoUpdate", parameters);
         }
 
-		/// <summary>
+		/// <summary> MODIFICARLA |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 		/// Deletes a record from the FormaPago table by its primary key.
 		/// </summary>
         public void Delete(int idFormaPago)

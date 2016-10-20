@@ -28,7 +28,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", producto.CUIT),
 				new SqlParameter("@IdIvaProducto", producto.IdIvaProducto),
 				new SqlParameter("@DescripProducto", producto.DescripProducto),
-				new SqlParameter("@IdEstadoProducto", producto.IdEstadoProducto)
+				new SqlParameter("@URL", producto.URL)
 			};
 
             producto.IdProducto = (int)SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoInsert", parameters);
@@ -50,7 +50,7 @@ namespace TFI.DAL.DAL
 				new SqlParameter("@CUIT", producto.CUIT),
 				new SqlParameter("@IdIvaProducto", producto.IdIvaProducto),
 				new SqlParameter("@DescripProducto", producto.DescripProducto),
-				new SqlParameter("@IdEstadoProducto", producto.IdEstadoProducto)
+				new SqlParameter("@URL", producto.URL)
 			};
 
             SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoUpdate", parameters);
@@ -82,19 +82,7 @@ namespace TFI.DAL.DAL
             SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoDeleteAllByCUIT", parameters);
         }
 
-        /// <summary>
-        /// Deletes a record from the Producto table by a foreign key.
-        /// </summary>
-        public void DeleteAllByIdEstadoProducto(int idEstadoProducto)
-        {
-            SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdEstadoProducto", idEstadoProducto)
-			};
-
-            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoDeleteAllByIdEstadoProducto", parameters);
-        }
-
+       
         /// <summary>
         /// Deletes a record from the Producto table by a foreign key.
         /// </summary>
@@ -183,24 +171,7 @@ namespace TFI.DAL.DAL
             }
         }
 
-        /// <summary>
-        /// Selects all records from the Producto table by a foreign key.
-        /// </summary>
-        public List<ProductoEntidad> SelectAllByIdEstadoProducto(int idEstadoProducto)
-        {
-            SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdEstadoProducto", idEstadoProducto)
-			};
-
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "ProductoSelectAllByIdEstadoProducto", parameters))
-            {
-                List<ProductoEntidad> productoEntidadList = new List<ProductoEntidad>();
-
-                productoEntidadList = Mapeador.Mapear<ProductoEntidad>(dt);
-                return productoEntidadList;
-            }
-        }
+      
 
         /// <summary>
         /// Selects all records from the Producto table by a foreign key.

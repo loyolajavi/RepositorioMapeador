@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the DireccionEntidad class.
 		/// </summary>
-		public DireccionEntidad(string calle, int numero, int piso, string departamento, string localidad, int idProvincia, int idTipoDireccion)
+		public DireccionEntidad(string calle, int numero, int piso, string departamento, string localidad, int idProvincia, int idTipoDireccion, DateTime fecBaja)
 		{
 			this.Calle = calle;
 			this.Numero = numero;
@@ -25,12 +25,13 @@ namespace TFI.DAL
 			this.Localidad = localidad;
 			this.IdProvincia = idProvincia;
 			this.IdTipoDireccion = idTipoDireccion;
+			this.FecBaja = fecBaja;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the DireccionEntidad class.
 		/// </summary>
-		public DireccionEntidad(int idDireccion, string calle, int numero, int piso, string departamento, string localidad, int idProvincia, int idTipoDireccion)
+		public DireccionEntidad(int idDireccion, string calle, int numero, int piso, string departamento, string localidad, int idProvincia, int idTipoDireccion, DateTime fecBaja)
 		{
 			this.IdDireccion = idDireccion;
 			this.Calle = calle;
@@ -40,6 +41,7 @@ namespace TFI.DAL
 			this.Localidad = localidad;
 			this.IdProvincia = idProvincia;
 			this.IdTipoDireccion = idTipoDireccion;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -84,6 +86,11 @@ namespace TFI.DAL
 		/// Gets or sets the IdTipoDireccion value.
 		/// </summary>
 		public int IdTipoDireccion { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

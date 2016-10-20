@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ComprobanteDetalleEntidad class.
 		/// </summary>
-		public ComprobanteDetalleEntidad(int idComprobanteDetalle, int nroComprobante, int idSucursal, int idTipoComprobante, int cUIT, int idProducto, int cantidadProducto, decimal precioUnitarioFact)
+		public ComprobanteDetalleEntidad(int idComprobanteDetalle, int nroComprobante, int idSucursal, int idTipoComprobante, int cUIT, int idProducto, int cantidadProducto, decimal precioUnitarioFact, DateTime fecBaja)
 		{
 			this.IdComprobanteDetalle = idComprobanteDetalle;
 			this.NroComprobante = nroComprobante;
@@ -26,6 +26,7 @@ namespace TFI.DAL
 			this.IdProducto = idProducto;
 			this.CantidadProducto = cantidadProducto;
 			this.PrecioUnitarioFact = precioUnitarioFact;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -70,6 +71,11 @@ namespace TFI.DAL
 		/// Gets or sets the PrecioUnitarioFact value.
 		/// </summary>
 		public decimal PrecioUnitarioFact { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

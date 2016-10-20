@@ -16,18 +16,20 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the IvaProductoEntidad class.
 		/// </summary>
-		public IvaProductoEntidad(int porcentajeIvaProd)
+		public IvaProductoEntidad(int porcentajeIvaProd, DateTime fecBaja)
 		{
 			this.PorcentajeIvaProd = porcentajeIvaProd;
+			this.FecBaja = fecBaja;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the IvaProductoEntidad class.
 		/// </summary>
-		public IvaProductoEntidad(int idIvaProducto, int porcentajeIvaProd)
+		public IvaProductoEntidad(int idIvaProducto, int porcentajeIvaProd, DateTime fecBaja)
 		{
 			this.IdIvaProducto = idIvaProducto;
 			this.PorcentajeIvaProd = porcentajeIvaProd;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -42,6 +44,11 @@ namespace TFI.DAL
 		/// Gets or sets the PorcentajeIvaProd value.
 		/// </summary>
 		public int PorcentajeIvaProd { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

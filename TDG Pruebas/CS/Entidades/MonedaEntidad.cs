@@ -16,11 +16,22 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the MonedaEntidad class.
 		/// </summary>
-		public MonedaEntidad(int idMoneda, string nombre, decimal cotizacion)
+		public MonedaEntidad(string nombre, decimal cotizacion, DateTime fecBaja)
+		{
+			this.Nombre = nombre;
+			this.Cotizacion = cotizacion;
+			this.FecBaja = fecBaja;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the MonedaEntidad class.
+		/// </summary>
+		public MonedaEntidad(int idMoneda, string nombre, decimal cotizacion, DateTime fecBaja)
 		{
 			this.IdMoneda = idMoneda;
 			this.Nombre = nombre;
 			this.Cotizacion = cotizacion;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -40,6 +51,11 @@ namespace TFI.DAL
 		/// Gets or sets the Cotizacion value.
 		/// </summary>
 		public decimal Cotizacion { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

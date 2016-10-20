@@ -16,10 +16,11 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the EmpresaEntidad class.
 		/// </summary>
-		public EmpresaEntidad(int cUIT, string nombreEmpresa)
+		public EmpresaEntidad(int cUIT, string nombreEmpresa, DateTime fecBaja)
 		{
 			this.CUIT = cUIT;
 			this.NombreEmpresa = nombreEmpresa;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -34,6 +35,11 @@ namespace TFI.DAL
 		/// Gets or sets the NombreEmpresa value.
 		/// </summary>
 		public string NombreEmpresa { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

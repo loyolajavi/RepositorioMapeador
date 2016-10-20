@@ -21,15 +21,14 @@ namespace TFI.DAL.DAL
 
 			SqlParameter[] parameters = new SqlParameter[]
 			{
-				new SqlParameter("@IdPedido", pago.IdPedido),
 				new SqlParameter("@FechaPago", pago.FechaPago),
-				new SqlParameter("@IdEstadoPago", pago.IdEstadoPago),
 				new SqlParameter("@IdFormaPago", pago.IdFormaPago),
 				new SqlParameter("@MontoPago", pago.MontoPago),
 				new SqlParameter("@NroComprobante", pago.NroComprobante),
 				new SqlParameter("@IdSucursal", pago.IdSucursal),
 				new SqlParameter("@IdTipoComprobante", pago.IdTipoComprobante),
-				new SqlParameter("@CUIT", pago.CUIT)
+				new SqlParameter("@CUIT", pago.CUIT),
+				new SqlParameter("@IdTarjeta", pago.IdTarjeta)
 			};
 
             pago.IdPago = (int)SqlClientUtility.ExecuteScalar(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PagoInsert", parameters);
@@ -44,16 +43,15 @@ namespace TFI.DAL.DAL
 
 			SqlParameter[] parameters = new SqlParameter[]
 			{
-				new SqlParameter("@IdPago", pago.IdPago),
 				new SqlParameter("@IdPedido", pago.IdPedido),
 				new SqlParameter("@FechaPago", pago.FechaPago),
-				new SqlParameter("@IdEstadoPago", pago.IdEstadoPago),
 				new SqlParameter("@IdFormaPago", pago.IdFormaPago),
 				new SqlParameter("@MontoPago", pago.MontoPago),
 				new SqlParameter("@NroComprobante", pago.NroComprobante),
 				new SqlParameter("@IdSucursal", pago.IdSucursal),
 				new SqlParameter("@IdTipoComprobante", pago.IdTipoComprobante),
-				new SqlParameter("@CUIT", pago.CUIT)
+				new SqlParameter("@CUIT", pago.CUIT),
+				new SqlParameter("@IdTarjeta", pago.IdTarjeta)
 			};
 
             SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PagoUpdate", parameters);

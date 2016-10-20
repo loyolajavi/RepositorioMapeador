@@ -5,155 +5,155 @@ using System.Data.SqlClient;
 
 namespace TFI.HelperDAL
 {
-    internal static class SqlClientUtility
-    {
-        public static string connectionStringName
+        internal static class SqlClientUtility
         {
-            get { return _connectionStringName; }
-            internal set {}
-        }
-
-        private static string _connectionStringName = ConfigurationManager.ConnectionStrings["DataContext"].ConnectionString;
-        private static SqlTransaction tr;
-        private static SqlCommand command;
-        private static SqlConnection connection;
-
-        public static DataTable ExecuteDataTable(string connectionStringName, CommandType commandType, string commandText, params SqlParameter[] parameters)
-        {
-            DataTable result;
-
-            try
+            public static string connectionStringName
             {
-                //si este codigo queda por las dudas.
-                connection = new SqlConnection(connectionStringName);
+                get { return _connectionStringName; }
+                internal set { }
+            }
 
-                if (connection != null && connection.State == ConnectionState.Closed)
+            private static string _connectionStringName = ConfigurationManager.ConnectionStrings["DataContext"].ConnectionString;
+            private static SqlTransaction tr;
+            private static SqlCommand command;
+            private static SqlConnection connection;
+
+            public static DataTable ExecuteDataTable(string connectionStringName, CommandType commandType, string commandText, params SqlParameter[] parameters)
+            {
+                DataTable result;
+
+                try
                 {
+                    //si este codigo queda por las dudas.
+                    connection = new SqlConnection(connectionStringName);
+
+                    if (connection != null && connection.State == ConnectionState.Closed)
+                    {
+                        connection.Open();
+                    }
+
+                    tr = connection.BeginTransaction();
+
+                    using (command = CreateCommand(connection, commandType, commandText, parameters))
+                    {
+                        //TRANSACCIONES
+                        result = CreateDataTable(command);
+                        tr.Commit();
+                        return result;
+                    }
+                }
+                catch (Exception)
+                {
+                    tr.Rollback();
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            private static SqlCommand CreateCommand(SqlConnection connection, CommandType commandType, string commandText, params SqlParameter[] parameters)
+            {
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = commandText;
+                command.CommandType = commandType;
+                command.Transaction = tr;
+
+                if (parameters.Length != 0)
+                {
+                    for (int i = 0; i < parameters.Length; i++)
+                    {
+                        SqlParameter parameter = parameters[i];
+                        parameter.Value = ChequearNulo(parameter.Value);
+                        command.Parameters.Add(parameter);
+                    }
+                }
+                return command;
+            }
+
+            private static DataTable CreateDataTable(SqlCommand command)
+            {
+                DataTable result;
+                using (SqlDataAdapter dataAdapter = new SqlDataAdapter(command))
+                {
+                    DataTable dataTable = new DataTable();
+                    dataAdapter.Fill(dataTable);
+                    result = dataTable;
+                }
+                return result;
+            }
+
+            private static object ChequearNulo(object value)
+            {
+                object result;
+                if (value == null)
+                {
+                    result = DBNull.Value;
+                }
+                else
+                {
+                    result = value;
+                }
+                return result;
+            }
+
+            public static void ExecuteNonQuery(string connectionStringName, CommandType commandType, string commandText, params SqlParameter[] parameters)
+            {
+                try
+                {
+                    connection = new SqlConnection(connectionStringName);
+
                     connection.Open();
+
+                    tr = connection.BeginTransaction();
+
+                    using (command = CreateCommand(connection, commandType, commandText, parameters))
+                    {
+                        command.ExecuteNonQuery();
+                        tr.Commit();
+                    }
                 }
-
-                tr = connection.BeginTransaction();
-
-                using (command = CreateCommand(connection, commandType, commandText, parameters))
+                catch (Exception)
                 {
-                    //TRANSACCIONES
-                    result = CreateDataTable(command);
-                    tr.Commit();
-                    return result;
+                    tr.Rollback();
+                    throw;
                 }
-            }
-            catch (Exception)
-            {
-                tr.Rollback();
-                throw;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        private static SqlCommand CreateCommand(SqlConnection connection, CommandType commandType, string commandText, params SqlParameter[] parameters)
-        {
-            SqlCommand command = new SqlCommand();
-            command.Connection = connection;
-            command.CommandText = commandText;
-            command.CommandType = commandType;
-            command.Transaction = tr;
-
-            if (parameters != null)
-            {
-                for (int i = 0; i < parameters.Length; i++)
+                finally
                 {
-                    SqlParameter parameter = parameters[i];
-                    parameter.Value = ChequearNulo(parameter.Value);
-                    command.Parameters.Add(parameter);
+                    connection.Close();
                 }
             }
-            return command;
-        }
 
-        private static DataTable CreateDataTable(SqlCommand command)
-        {
-            DataTable result;
-            using (SqlDataAdapter dataAdapter = new SqlDataAdapter(command))
+            public static object ExecuteScalar(string connectionStringName, CommandType commandType, string commandText, params SqlParameter[] parameters)
             {
-                DataTable dataTable = new DataTable();
-                dataAdapter.Fill(dataTable);
-                result = dataTable;
-            }
-            return result;
-        }
+                object result;
 
-        private static object ChequearNulo(object value)
-        {
-            object result;
-            if (value == null)
-            {
-                result = DBNull.Value;
-            }
-            else
-            {
-                result = value;
-            }
-            return result;
-        }
-
-        public static void ExecuteNonQuery(string connectionStringName, CommandType commandType, string commandText, params SqlParameter[] parameters)
-        {
-            try
-            {
-                connection = new SqlConnection(connectionStringName);
-
-                connection.Open();
-
-                tr = connection.BeginTransaction();
-
-                using (command = CreateCommand(connection, commandType, commandText, parameters))
+                try
                 {
-                    command.ExecuteNonQuery();
-                    tr.Commit();
+                    connection = new SqlConnection(connectionStringName);
+
+                    connection.Open();
+
+                    tr = connection.BeginTransaction();
+
+                    using (command = CreateCommand(connection, commandType, commandText, parameters))
+                    {
+                        result = command.ExecuteScalar();
+                        tr.Commit();
+                        return result;
+                    }
                 }
-            }
-            catch (Exception)
-            {
-                tr.Rollback();
-                throw;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        public static object ExecuteScalar(string connectionStringName, CommandType commandType, string commandText, params SqlParameter[] parameters)
-        {
-            object result;
-
-            try
-            {
-                connection = new SqlConnection(connectionStringName);
-
-                connection.Open();
-
-                tr = connection.BeginTransaction();
-
-                using (command = CreateCommand(connection, commandType, commandText, parameters))
+                catch (Exception)
                 {
-                    result = command.ExecuteScalar();
-                    tr.Commit();
-                    return result;
+                    tr.Rollback();
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
                 }
             }
-            catch (Exception)
-            {
-                tr.Rollback();
-                throw;
-            }
-            finally
-            {
-                connection.Close();
-            }
         }
-    }
 }

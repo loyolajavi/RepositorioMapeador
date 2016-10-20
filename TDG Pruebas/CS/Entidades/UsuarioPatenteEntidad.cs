@@ -16,11 +16,12 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the UsuarioPatenteEntidad class.
 		/// </summary>
-		public UsuarioPatenteEntidad(int cUIT, string nombreUsuario, int idPatente)
+		public UsuarioPatenteEntidad(int cUIT, string nombreUsuario, int idPatente, DateTime fecBaja)
 		{
 			this.CUIT = cUIT;
 			this.NombreUsuario = nombreUsuario;
 			this.IdPatente = idPatente;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -40,6 +41,11 @@ namespace TFI.DAL
 		/// Gets or sets the IdPatente value.
 		/// </summary>
 		public int IdPatente { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

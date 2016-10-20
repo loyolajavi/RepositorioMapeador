@@ -16,10 +16,11 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ProvinciaEntidad class.
 		/// </summary>
-		public ProvinciaEntidad(int idProvincia, string descripcionProvincia)
+		public ProvinciaEntidad(int idProvincia, string descripcionProvincia, DateTime fecBaja)
 		{
 			this.IdProvincia = idProvincia;
 			this.DescripcionProvincia = descripcionProvincia;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -34,6 +35,11 @@ namespace TFI.DAL
 		/// Gets or sets the DescripcionProvincia value.
 		/// </summary>
 		public string DescripcionProvincia { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

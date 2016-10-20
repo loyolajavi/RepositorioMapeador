@@ -16,19 +16,29 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ReservaEntidad class.
 		/// </summary>
-		public ReservaEntidad(int idPedido, int idPedidoDetalle, int idSucursal, bool activo, DateTime fecha)
+		public ReservaEntidad(int idPedido, int idPedidoDetalle, int idSucursal, bool activo, DateTime fecha, DateTime fecBaja)
 		{
 			this.IdPedido = idPedido;
 			this.IdPedidoDetalle = idPedidoDetalle;
 			this.IdSucursal = idSucursal;
 			this.Activo = activo;
 			this.Fecha = fecha;
+			this.FecBaja = fecBaja;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the ReservaEntidad class.
 		/// </summary>
-	
+		public ReservaEntidad(int idReserva, int idPedido, int idPedidoDetalle, int idSucursal, bool activo, DateTime fecha, DateTime fecBaja)
+		{
+			this.IdReserva = idReserva;
+			this.IdPedido = idPedido;
+			this.IdPedidoDetalle = idPedidoDetalle;
+			this.IdSucursal = idSucursal;
+			this.Activo = activo;
+			this.Fecha = fecha;
+			this.FecBaja = fecBaja;
+		}
 
 		#endregion
 
@@ -62,6 +72,11 @@ namespace TFI.DAL
 		/// Gets or sets the Fecha value.
 		/// </summary>
 		public DateTime Fecha { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

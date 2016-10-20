@@ -16,11 +16,12 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the UsuarioFamiliaEntidad class.
 		/// </summary>
-		public UsuarioFamiliaEntidad(int cUIT, string nombreUsuario, int idFamilia)
+		public UsuarioFamiliaEntidad(int cUIT, string nombreUsuario, int idFamilia, DateTime fecBaja)
 		{
 			this.CUIT = cUIT;
 			this.NombreUsuario = nombreUsuario;
 			this.IdFamilia = idFamilia;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -40,6 +41,11 @@ namespace TFI.DAL
 		/// Gets or sets the IdFamilia value.
 		/// </summary>
 		public int IdFamilia { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

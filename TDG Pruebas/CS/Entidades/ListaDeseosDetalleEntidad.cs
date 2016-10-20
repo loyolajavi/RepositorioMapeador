@@ -16,22 +16,24 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ListaDeseosDetalleEntidad class.
 		/// </summary>
-		public ListaDeseosDetalleEntidad(int idListaDeseos, int idProducto, DateTime fechaDeseoDetalle)
+		public ListaDeseosDetalleEntidad(int idListaDeseos, int idProducto, DateTime fechaDeseoDetalle, DateTime fecBaja)
 		{
 			this.IdListaDeseos = idListaDeseos;
 			this.IdProducto = idProducto;
 			this.FechaDeseoDetalle = fechaDeseoDetalle;
+			this.FecBaja = fecBaja;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the ListaDeseosDetalleEntidad class.
 		/// </summary>
-		public ListaDeseosDetalleEntidad(int idListaDeseos, int idListaDeseosDetalle, int idProducto, DateTime fechaDeseoDetalle)
+		public ListaDeseosDetalleEntidad(int idListaDeseos, int idListaDeseosDetalle, int idProducto, DateTime fechaDeseoDetalle, DateTime fecBaja)
 		{
 			this.IdListaDeseos = idListaDeseos;
 			this.IdListaDeseosDetalle = idListaDeseosDetalle;
 			this.IdProducto = idProducto;
 			this.FechaDeseoDetalle = fechaDeseoDetalle;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -56,6 +58,11 @@ namespace TFI.DAL
 		/// Gets or sets the FechaDeseoDetalle value.
 		/// </summary>
 		public DateTime FechaDeseoDetalle { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

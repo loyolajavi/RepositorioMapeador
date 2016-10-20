@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the UsuarioEntidad class.
 		/// </summary>
-		public UsuarioEntidad(int idCondicionFiscal, int idUsuarioTipo, string nombre, string apellido, string dni, int cUIT, string email, string nombreUsuario, string clave, int cUITEmpresa)
+		public UsuarioEntidad(int idCondicionFiscal, int idUsuarioTipo, string nombre, string apellido, string dni, int cUIT, string email, string nombreUsuario, string clave, int cUITEmpresa, DateTime fecBaja)
 		{
 			this.IdCondicionFiscal = idCondicionFiscal;
 			this.IdUsuarioTipo = idUsuarioTipo;
@@ -28,12 +28,27 @@ namespace TFI.DAL
 			this.NombreUsuario = nombreUsuario;
 			this.Clave = clave;
 			this.CUITEmpresa = cUITEmpresa;
+			this.FecBaja = fecBaja;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the UsuarioEntidad class.
 		/// </summary>
-		
+		public UsuarioEntidad(int idUsuario, int idCondicionFiscal, int idUsuarioTipo, string nombre, string apellido, string dni, int cUIT, string email, string nombreUsuario, string clave, int cUITEmpresa, DateTime fecBaja)
+		{
+			this.IdUsuario = idUsuario;
+			this.IdCondicionFiscal = idCondicionFiscal;
+			this.IdUsuarioTipo = idUsuarioTipo;
+			this.Nombre = nombre;
+			this.Apellido = apellido;
+			this.Dni = dni;
+			this.CUIT = cUIT;
+			this.Email = email;
+			this.NombreUsuario = nombreUsuario;
+			this.Clave = clave;
+			this.CUITEmpresa = cUITEmpresa;
+			this.FecBaja = fecBaja;
+		}
 
 		#endregion
 
@@ -92,6 +107,11 @@ namespace TFI.DAL
 		/// Gets or sets the CUITEmpresa value.
 		/// </summary>
 		public int CUITEmpresa { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

@@ -16,34 +16,34 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the PedidoEntidad class.
 		/// </summary>
-		public PedidoEntidad(DateTime fechaPedido, DateTime fechaFinPedido, string nombreUsuario, int plazoEntrega, int idEstadoPedido, int idFormaEntrega, int cUIT, string numeroTracking, int direccionEntrega)
+		public PedidoEntidad(DateTime fechaPedido, DateTime fechaFinPedido, string nombreUsuario, int plazoEntrega, int idFormaEntrega, int cUIT, string numeroTracking, int direccionEntrega, DateTime fecBaja)
 		{
 			this.FechaPedido = fechaPedido;
 			this.FechaFinPedido = fechaFinPedido;
 			this.NombreUsuario = nombreUsuario;
 			this.PlazoEntrega = plazoEntrega;
-			this.IdEstadoPedido = idEstadoPedido;
 			this.IdFormaEntrega = idFormaEntrega;
 			this.CUIT = cUIT;
 			this.NumeroTracking = numeroTracking;
 			this.DireccionEntrega = direccionEntrega;
+			this.FecBaja = fecBaja;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the PedidoEntidad class.
 		/// </summary>
-		public PedidoEntidad(int idPedido, DateTime fechaPedido, DateTime fechaFinPedido, string nombreUsuario, int plazoEntrega, int idEstadoPedido, int idFormaEntrega, int cUIT, string numeroTracking, int direccionEntrega)
+		public PedidoEntidad(int idPedido, DateTime fechaPedido, DateTime fechaFinPedido, string nombreUsuario, int plazoEntrega, int idFormaEntrega, int cUIT, string numeroTracking, int direccionEntrega, DateTime fecBaja)
 		{
 			this.IdPedido = idPedido;
 			this.FechaPedido = fechaPedido;
 			this.FechaFinPedido = fechaFinPedido;
 			this.NombreUsuario = nombreUsuario;
 			this.PlazoEntrega = plazoEntrega;
-			this.IdEstadoPedido = idEstadoPedido;
 			this.IdFormaEntrega = idFormaEntrega;
 			this.CUIT = cUIT;
 			this.NumeroTracking = numeroTracking;
 			this.DireccionEntrega = direccionEntrega;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -75,11 +75,6 @@ namespace TFI.DAL
 		public int PlazoEntrega { get; set; }
 
 		/// <summary>
-		/// Gets or sets the IdEstadoPedido value.
-		/// </summary>
-		public int IdEstadoPedido { get; set; }
-
-		/// <summary>
 		/// Gets or sets the IdFormaEntrega value.
 		/// </summary>
 		public int IdFormaEntrega { get; set; }
@@ -98,6 +93,11 @@ namespace TFI.DAL
 		/// Gets or sets the DireccionEntrega value.
 		/// </summary>
 		public int DireccionEntrega { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

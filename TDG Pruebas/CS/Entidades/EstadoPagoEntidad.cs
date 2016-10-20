@@ -16,18 +16,20 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the EstadoPagoEntidad class.
 		/// </summary>
-		public EstadoPagoEntidad(string descripEstadoPago)
+		public EstadoPagoEntidad(string descripEstadoPago, DateTime fecBaja)
 		{
 			this.DescripEstadoPago = descripEstadoPago;
+			this.FecBaja = fecBaja;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the EstadoPagoEntidad class.
 		/// </summary>
-		public EstadoPagoEntidad(int idEstadoPago, string descripEstadoPago)
+		public EstadoPagoEntidad(int idEstadoPago, string descripEstadoPago, DateTime fecBaja)
 		{
 			this.IdEstadoPago = idEstadoPago;
 			this.DescripEstadoPago = descripEstadoPago;
+			this.FecBaja = fecBaja;
 		}
 
 		#endregion
@@ -42,6 +44,11 @@ namespace TFI.DAL
 		/// Gets or sets the DescripEstadoPago value.
 		/// </summary>
 		public string DescripEstadoPago { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}

@@ -1,6 +1,6 @@
 using System;
 
-namespace TFI.DAL 
+namespace TFI.DAL
 {
 	public class ProductoEntidad
 	{
@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the ProductoEntidad class.
 		/// </summary>
-		public ProductoEntidad(string codigoProducto, decimal precioUnitario, int idMarca, int cUIT, int idIvaProducto, string descripProducto, int idEstadoProducto)
+		public ProductoEntidad(string codigoProducto, decimal precioUnitario, int idMarca, int cUIT, int idIvaProducto, string descripProducto, string uRL, DateTime fecBaja)
 		{
 			this.CodigoProducto = codigoProducto;
 			this.PrecioUnitario = precioUnitario;
@@ -24,13 +24,25 @@ namespace TFI.DAL
 			this.CUIT = cUIT;
 			this.IdIvaProducto = idIvaProducto;
 			this.DescripProducto = descripProducto;
-			this.IdEstadoProducto = idEstadoProducto;
+			this.URL = uRL;
+			this.FecBaja = fecBaja;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the ProductoEntidad class.
 		/// </summary>
-		
+		public ProductoEntidad(int idProducto, string codigoProducto, decimal precioUnitario, int idMarca, int cUIT, int idIvaProducto, string descripProducto, string uRL, DateTime fecBaja)
+		{
+			this.IdProducto = idProducto;
+			this.CodigoProducto = codigoProducto;
+			this.PrecioUnitario = precioUnitario;
+			this.IdMarca = idMarca;
+			this.CUIT = cUIT;
+			this.IdIvaProducto = idIvaProducto;
+			this.DescripProducto = descripProducto;
+			this.URL = uRL;
+			this.FecBaja = fecBaja;
+		}
 
 		#endregion
 
@@ -71,9 +83,14 @@ namespace TFI.DAL
 		public string DescripProducto { get; set; }
 
 		/// <summary>
-		/// Gets or sets the IdEstadoProducto value.
+		/// Gets or sets the URL value.
 		/// </summary>
-		public int IdEstadoProducto { get; set; }
+		public string URL { get; set; }
+
+		/// <summary>
+		/// Gets or sets the FecBaja value.
+		/// </summary>
+		public DateTime FecBaja { get; set; }
 
 		#endregion
 	}
