@@ -99,18 +99,7 @@ namespace TFI.DAL.DAL
             SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PagoDeleteAllByCUIT", parameters);
 		}
 
-		/// <summary>
-		/// Deletes a record from the Pago table by a foreign key.
-		/// </summary>
-		public void DeleteAllByIdEstadoPago(int idEstadoPago)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdEstadoPago", idEstadoPago)
-			};
-
-            SqlClientUtility.ExecuteNonQuery(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PagoDeleteAllByIdEstadoPago", parameters);
-		}
+	
 
 		/// <summary>
 		/// Deletes a record from the Pago table by a foreign key.
@@ -220,25 +209,7 @@ namespace TFI.DAL.DAL
 			}
 		}
 
-		/// <summary>
-		/// Selects all records from the Pago table by a foreign key.
-		/// </summary>
-		public List<PagoEntidad> SelectAllByIdEstadoPago(int idEstadoPago)
-		{
-			SqlParameter[] parameters = new SqlParameter[]
-			{
-				new SqlParameter("@IdEstadoPago", idEstadoPago)
-			};
-
-            using (DataTable dt = SqlClientUtility.ExecuteDataTable(SqlClientUtility.connectionStringName, CommandType.StoredProcedure, "PagoSelectAllByIdEstadoPago", parameters))
-			{
-				List<PagoEntidad> pagoEntidadList = new List<PagoEntidad>();
-
-                pagoEntidadList = Mapeador.Mapear<PagoEntidad>(dt);
-
-				return pagoEntidadList;
-			}
-		}
+		
 
 		/// <summary>
 		/// Selects all records from the Pago table by a foreign key.

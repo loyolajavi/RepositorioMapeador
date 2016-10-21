@@ -21,7 +21,6 @@ namespace TFI.DAL.DAL
 
 			SqlParameter[] parameters = new SqlParameter[]
 			{
-				new SqlParameter("@IdMoneda", moneda.IdMoneda),
 				new SqlParameter("@Nombre", moneda.Nombre),
 				new SqlParameter("@Cotizacion", moneda.Cotizacion)
 			};
