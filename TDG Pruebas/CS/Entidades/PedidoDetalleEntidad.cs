@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the PedidoDetalleEntidad class.
 		/// </summary>
-		public PedidoDetalleEntidad(int idPedidoDetalle, int idPedido, int cantidad, decimal precioUnitario, int descuento, int idProducto, DateTime? fecBaja)
+		public PedidoDetalleEntidad(int idPedidoDetalle, int idPedido, int cantidad, decimal precioUnitario, int? descuento, int idProducto, DateTime? fecBaja)
 		{
 			this.IdPedidoDetalle = idPedidoDetalle;
 			this.IdPedido = idPedido;
@@ -53,7 +53,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Gets or sets the Descuento value.
 		/// </summary>
-		public int Descuento { get; set; }
+		public int? Descuento { get; set; }
 
 		/// <summary>
 		/// Gets or sets the IdProducto value.

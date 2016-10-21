@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the UsuarioEntidad class.
 		/// </summary>
-		public UsuarioEntidad(int idCondicionFiscal, int idUsuarioTipo, string nombre, string apellido, string dni, int cUIT, string email, string nombreUsuario, string clave, int cUITEmpresa, DateTime? fecBaja)
+		public UsuarioEntidad(int? idCondicionFiscal, int idUsuarioTipo, string nombre, string apellido, string dni, int cUIT, string email, string nombreUsuario, string clave, int cUITEmpresa, DateTime? fecBaja)
 		{
 			this.IdCondicionFiscal = idCondicionFiscal;
 			this.IdUsuarioTipo = idUsuarioTipo;
@@ -34,7 +34,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the UsuarioEntidad class.
 		/// </summary>
-		public UsuarioEntidad(int idUsuario, int idCondicionFiscal, int idUsuarioTipo, string nombre, string apellido, string dni, int cUIT, string email, string nombreUsuario, string clave, int cUITEmpresa, DateTime? fecBaja)
+		public UsuarioEntidad(int idUsuario, int? idCondicionFiscal, int idUsuarioTipo, string nombre, string apellido, string dni, int cUIT, string email, string nombreUsuario, string clave, int cUITEmpresa, DateTime? fecBaja)
 		{
 			this.IdUsuario = idUsuario;
 			this.IdCondicionFiscal = idCondicionFiscal;
@@ -61,7 +61,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Gets or sets the IdCondicionFiscal value.
 		/// </summary>
-		public int IdCondicionFiscal { get; set; }
+		public int? IdCondicionFiscal { get; set; }
 
 		/// <summary>
 		/// Gets or sets the IdUsuarioTipo value.

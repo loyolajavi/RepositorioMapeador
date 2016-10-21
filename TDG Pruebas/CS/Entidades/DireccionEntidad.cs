@@ -16,7 +16,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the DireccionEntidad class.
 		/// </summary>
-		public DireccionEntidad(string calle, int numero, int piso, string departamento, string localidad, int idProvincia, int idTipoDireccion, DateTime? fecBaja)
+		public DireccionEntidad(string calle, int numero, int? piso, string departamento, string localidad, int idProvincia, int idTipoDireccion, DateTime? fecBaja)
 		{
 			this.Calle = calle;
 			this.Numero = numero;
@@ -31,7 +31,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Initializes a new instance of the DireccionEntidad class.
 		/// </summary>
-		public DireccionEntidad(int idDireccion, string calle, int numero, int piso, string departamento, string localidad, int idProvincia, int idTipoDireccion, DateTime? fecBaja)
+		public DireccionEntidad(int idDireccion, string calle, int numero, int? piso, string departamento, string localidad, int idProvincia, int idTipoDireccion, DateTime? fecBaja)
 		{
 			this.IdDireccion = idDireccion;
 			this.Calle = calle;
@@ -65,7 +65,7 @@ namespace TFI.DAL
 		/// <summary>
 		/// Gets or sets the Piso value.
 		/// </summary>
-		public int Piso { get; set; }
+		public int? Piso { get; set; }
 
 		/// <summary>
 		/// Gets or sets the Departamento value.
